@@ -103,6 +103,8 @@ namespace Snokye.Utility
         //<T>
         public static bool In<T>(this T source, params T[] collection) => collection.Contains(source);
 
+        public static T JsonDeserialize<T>(this string source) => JsonConvert.DeserializeObject<T>(source);
+
         //object
         public static bool IsNullOrDbNull(this object source) => source == null || source == DBNull.Value;
 

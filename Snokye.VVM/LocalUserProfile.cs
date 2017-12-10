@@ -17,6 +17,15 @@ namespace Snokye.VVM
 
         public static readonly string UserProfileDirecotry = AppDomain.CurrentDomain.BaseDirectory + "Users\\";
 
+        static LocalUserProfile()
+        {
+            DirectoryInfo dir = new DirectoryInfo(UserProfileDirecotry);
+            if (!dir.Exists)
+            {
+                dir.Create();
+            }
+        }
+
         public static void Save(string userName, string profileName, object profile)
         {
             if (profile == null)
@@ -66,7 +75,7 @@ namespace Snokye.VVM
                 return default(T);
             }
             //cast
-            return (T)content.JsonDeserialize();
+            return content.JsonDeserialize<T>();
         }
         public static string GetProfileContent(string userName, string profileName)
         {

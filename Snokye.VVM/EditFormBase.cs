@@ -62,17 +62,5 @@ namespace Snokye.VVM
                 e.Cancel = true;
             }
         }
-
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            // 
-            // EditFormBase
-            // 
-            this.ClientSize = new System.Drawing.Size(954, 447);
-            this.Name = "EditFormBase";
-            this.ResumeLayout(false);
-
-        }
     }
 }
