@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Snokye.Utility
+namespace Snokye.VVM
 {
-    public class Class1
+    class VMLoginForm : ViewModelBase
     {
+
     }
 }
