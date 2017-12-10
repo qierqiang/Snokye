@@ -33,9 +33,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.bClose = new System.Windows.Forms.ToolStripButton();
             this.tslTitle = new System.Windows.Forms.ToolStripLabel();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -57,7 +55,7 @@
             // 
             // bSave
             // 
-            this.bSave.Image = global::Snokye.Controls.Properties.Resources.icons8_保存_40;
+            this.bSave.Image = global::Snokye.VVM.Properties.Resources.icons8_保存_40;
             this.bSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bSave.Name = "bSave";
             this.bSave.Size = new System.Drawing.Size(51, 56);
@@ -72,7 +70,7 @@
             // 
             // bClose
             // 
-            this.bClose.Image = global::Snokye.Controls.Properties.Resources.icons8_关闭窗口_40;
+            this.bClose.Image = global::Snokye.VVM.Properties.Resources.icons8_关闭窗口_40;
             this.bClose.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bClose.Name = "bClose";
             this.bClose.Size = new System.Drawing.Size(51, 56);
@@ -89,32 +87,12 @@
             this.tslTitle.Size = new System.Drawing.Size(133, 56);
             this.tslTitle.Text = "表单标题";
             // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.DecimalPlaces = 2;
-            this.numericUpDown1.Location = new System.Drawing.Point(330, 154);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            99999999,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 21);
-            this.numericUpDown1.TabIndex = 2;
-            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            231231213,
-            0,
-            0,
-            196608});
-            // 
             // AutoEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1013, 306);
-            this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.toolStrip1);
             this.MinimumSize = new System.Drawing.Size(850, 38);
             this.Name = "AutoEditForm";
@@ -123,7 +101,6 @@
             this.Load += new System.EventHandler(this.AutoEditForm_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,6 +112,5 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripLabel tslTitle;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
     }
 }

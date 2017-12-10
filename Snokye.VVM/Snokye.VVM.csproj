@@ -73,9 +73,20 @@
     </Compile>
     <Compile Include="AutoGenControlAttribute.cs" />
     <Compile Include="ClientInfo.cs" />
+    <Compile Include="DataListForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DataListForm.Designer.cs">
+      <DependentUpon>DataListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormState.cs" />
     <Compile Include="LocalUserProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="ValidateAttribute.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="ViewModelProxy.cs" />
@@ -86,6 +97,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AutoEditGroup.resx">
       <DependentUpon>AutoEditGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataListForm.resx">
+      <DependentUpon>DataListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +123,12 @@
     <None Include="AppConfig.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-保存-40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-关闭窗口-40.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
