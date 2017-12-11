@@ -2,23 +2,42 @@
 using System;
 using System.ComponentModel;
 using System.Linq.Expressions;
+using System.Runtime.Remoting.Proxies;
 
 namespace Snokye.VVM
 {
     public class ViewModelBase : MarshalByRefObject, INotifyPropertyChanged
     {
-        public Action<string, string> ValidateFialedAction;
+        public Action<string, string> ValidateFialed;
 
-        protected virtual bool Validate()
+        public Action Submitted;
+
+        public virtual bool BeforeSubmit()
         {
             if (!ValidateAttribute.ValidateObject(this, out string p, out string r))
             {
-                ValidateFialedAction?.Invoke(p, r);
+                ValidateFialed?.Invoke(p, r);
                 return false;
             }
 
             return true;
         }
+
+        public virtual bool Submit()
+        {
+            if (!BeforeSubmit())
+                return false;
+
+            return true;
+        }
+
+        public virtual void AfterSubmit()
+        {
+            SetUnModified();
+            Submitted?.Invoke();
+        }
+
+        public Type GetRealType() => (object)this is RealProxy rp ? rp.GetProxiedType() : this.GetType();
 
         #region Modified
 

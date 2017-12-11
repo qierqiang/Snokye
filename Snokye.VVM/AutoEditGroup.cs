@@ -23,16 +23,10 @@ namespace Snokye.VVM
         private int _rowCount = 0;
         private bool _expanded = true;
 
-        // * * * 事件 FiltingProperties，在EndInit触发
-        // * * ctor 设计器不支持 或 需要派生新类型
-        // init 设计时不能指定过滤条件
-        // property 设计时不能指定过滤条件
-        // * override 需要派生新类型
-        // load 设计时看不到效果
-        //
-
         //properties
         public string ViewModelTypeFullName { get; set; }
+
+        public string ViewModelAssemblyName { get; set; }
 
         [Browsable(false)]
         public virtual ViewModelBase DataSource
@@ -70,9 +64,7 @@ namespace Snokye.VVM
 
             if (DataSource != null)
             {
-                Type type = (object)DataSource is RealProxy rp ? rp.GetProxiedType() : DataSource.GetType();
-
-                var query = from p in type.GetProperties()
+                var query = from p in DataSource.GetRealType().GetProperties()
                             where FilterProperty(p)
                             from a in p.GetCustomAttributes(typeof(AutoGenControlAttribute), true).OfType<AutoGenControlAttribute>()
                             let c = this.FindFirstChildControl(c => c.Name == a.EditorType.Name.LowerFirstLetter() + "_" + p.Name)
@@ -89,7 +81,7 @@ namespace Snokye.VVM
 
                 foreach (var item in query)
                 {
-                    item.Control.DataBindings.Add(new Binding(item.DefaultPropertyName, DataSource, item.Property, true, DataSourceUpdateMode.OnValidation));
+                    item.Control.DataBindings.Add(new Binding(item.DefaultPropertyName, DataSource, item.Property, true, DataSourceUpdateMode.OnPropertyChanged));
                 }
             }
         }
@@ -247,10 +239,22 @@ namespace Snokye.VVM
         {
             //根据ViewModelTypeFullName，查找Type
             if (ViewModelTypeFullName.IsNullOrWhiteSpace())
-            {
                 return;
+            if (ViewModelAssemblyName.IsNullOrWhiteSpace() && DesignMode)
+                return;
+
+            Type type;
+
+            if (ViewModelAssemblyName.IsNullOrWhiteSpace())
+            {
+                type = Type.GetType(ViewModelTypeFullName, true);
             }
-            Type type = Type.GetType(ViewModelTypeFullName, true);
+            else
+            {
+                Assembly assembly = Assembly.Load(ViewModelAssemblyName);
+                type = assembly.GetType(ViewModelTypeFullName);
+            }
+
             //根据Type过滤属性并创建控件
 
             var query = from p in type.GetProperties()

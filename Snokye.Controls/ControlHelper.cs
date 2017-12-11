@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Snokye.Controls
@@ -31,6 +32,20 @@ namespace Snokye.Controls
             }
 
             return null;
+        }
+
+        public static IEnumerable<Control> FindChildControl(this Control container, Func<Control, bool> filter)
+        {
+            foreach (Control c in container.Controls)
+            {
+                if (filter(c))
+                    yield return c;
+
+                foreach (var item in FindChildControl(c, filter))
+                {
+                    yield return item;
+                }
+            }
         }
     }
 }

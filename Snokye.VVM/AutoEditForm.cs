@@ -31,7 +31,16 @@ namespace Snokye.VVM
             {
                 if (_dataSource != value)
                 {
+                    //移除验证事件 
+                    if (_dataSource != null && _dataSource.ValidateFialed != null)
+                        _dataSource.ValidateFialed -= ValidateFialed;
+
                     _dataSource = value;
+
+                    //附加验证事件 
+                    if (_dataSource != null)
+                        _dataSource.ValidateFialed += ValidateFialed;
+
                     OnDataSourceChanged();
                 }
             }
@@ -47,14 +56,16 @@ namespace Snokye.VVM
         public AutoEditForm(ViewModelBase model, string title)
         {
             InitializeComponent();
-            this.ViewModelTypeFullName = model.GetType().FullName;
+            Type type = model.GetRealType();
+            this.ViewModelTypeFullName = type.FullName;
             Title = title;
 
             //过滤属性并创建控件
-            var query = from p in model.GetType().GetProperties()
+            var query = from p in type.GetProperties()
                         where FilterProperty(p)
                         select p;
             CreateControls(query);
+            DataSource = model;
         }
 
         //protected
@@ -69,6 +80,39 @@ namespace Snokye.VVM
             FilteringProperties?.Invoke(this, e);
         }
 
+        protected virtual void ValidateFialed(string propertyName, string msg)
+        {
+            var query = from p in DataSource.GetRealType().GetProperties()
+                        where p.Name == propertyName
+                        from a in p.GetCustomAttributes(typeof(AutoGenControlAttribute), true).OfType<AutoGenControlAttribute>()
+                        select this.FindFirstChildControl(c => c.Name == a.EditorType.Name.LowerFirstLetter() + "_" + p.Name);
+            Control ctrl = query.FirstOrDefault();
+
+            if (ctrl != null)
+            {
+                errorProvider1.Clear();
+                errorProvider1.SetError(ctrl, msg);
+                ctrl.Focus();
+            }
+        }
+
+        protected virtual void SubmitForm(object sender, EventArgs e)
+        {
+            if (DataSource != null && DataSource.Submit())
+            {
+                DataSource.AfterSubmit();
+                errorProvider1.Clear();
+            }
+        }
+
+        protected virtual void CloseForm(object sender, EventArgs e) => Close();
+
+        protected virtual void ClosingForm(object sender, FormClosingEventArgs e)
+        {
+            if (DataSource != null && DataSource.GetIsModified() && !Msgbox.DontSaveConfirm())
+                e.Cancel = true;
+        }
+
         //public
         public virtual void DataBind()
         {
@@ -76,27 +120,30 @@ namespace Snokye.VVM
 
             if (DataSource != null)
             {
-                Type type = (object)DataSource is RealProxy rp ? rp.GetProxiedType() : DataSource.GetType();
-
-                var query = from p in type.GetProperties()
-                            where FilterProperty(p)
-                            from a in p.GetCustomAttributes(typeof(AutoGenControlAttribute), true).OfType<AutoGenControlAttribute>()
-                            let c = this.FindFirstChildControl(c => c.Name == a.EditorType.Name.LowerFirstLetter() + "_" + p.Name)
-                            where c != null
-                            from ca in c.GetType().GetCustomAttributes(typeof(DefaultPropertyAttribute), true).OfType<DefaultPropertyAttribute>()
-                            where ca != null
-                            select new
-                            {
-                                Property = p.Name,              //数据源要绑定的属性名称
-                                //Attribute =a,                   //AutoGenControlAttribute
-                                Control = c,                    //要绑定的控件
-                                DefaultPropertyName = ca.Name,  //要绑定的控件属性名称
-                            };
-
-                foreach (var item in query)
+                foreach (AutoEditGroup g in this.Controls.OfType<AutoEditGroup>())
                 {
-                    item.Control.DataBindings.Add(new Binding(item.DefaultPropertyName, DataSource, item.Property, true, DataSourceUpdateMode.OnValidation));
+                    g.DataSource = DataSource;
                 }
+
+                //var query = from p in DataSource.GetRealType().GetProperties()
+                //            where FilterProperty(p)
+                //            from a in p.GetCustomAttributes(typeof(AutoGenControlAttribute), true).OfType<AutoGenControlAttribute>()
+                //            let c = this.FindFirstChildControl(c => c.Name == a.EditorType.Name.LowerFirstLetter() + "_" + p.Name)
+                //            where c != null
+                //            from ca in c.GetType().GetCustomAttributes(typeof(DefaultPropertyAttribute), true).OfType<DefaultPropertyAttribute>()
+                //            where ca != null
+                //            select new
+                //            {
+                //                Property = p.Name,              //数据源要绑定的属性名称
+                //                //Attribute =a,                   //AutoGenControlAttribute
+                //                Control = c,                    //要绑定的控件
+                //                DefaultPropertyName = ca.Name,  //要绑定的控件属性名称
+                //            };
+
+                //foreach (var item in query)
+                //{
+                //    item.Control.DataBindings.Add(new Binding(item.DefaultPropertyName, DataSource, item.Property, true, DataSourceUpdateMode.OnValidation));
+                //}
             }
         }
 
@@ -116,7 +163,7 @@ namespace Snokye.VVM
                 group.BeginInit();
                 group.Title = g ?? "";
                 group.ViewModelTypeFullName = ViewModelTypeFullName;
-                group.DataSource = DataSource;
+                group.ViewModelAssemblyName = properties.First().DeclaringType.Assembly.FullName;
                 group.Dock = DockStyle.Top;
                 group.FilteringProperties += (object sender, FilteringPropertiesEventArgs e) =>
                 {
@@ -142,49 +189,5 @@ namespace Snokye.VVM
             OnFilteringProperties(new FilteringPropertiesEventArgs(property));
             return !e.Ignored;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        private void bSave_Click(object sender, EventArgs e)
-        {
-            //Submit();
-        }
-
-        private void bClose_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void AutoEditForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void AutoEditForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-
-        }
-
-        //public virtual void AutoGenerateControls()
     }
 }

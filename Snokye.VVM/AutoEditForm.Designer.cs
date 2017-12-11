@@ -28,12 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.bSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.bClose = new System.Windows.Forms.ToolStripButton();
             this.tslTitle = new System.Windows.Forms.ToolStripLabel();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -61,7 +64,7 @@
             this.bSave.Size = new System.Drawing.Size(51, 56);
             this.bSave.Text = "保存(&S)";
             this.bSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.bSave.Click += new System.EventHandler(this.bSave_Click);
+            this.bSave.Click += new System.EventHandler(this.SubmitForm);
             // 
             // toolStripSeparator1
             // 
@@ -76,7 +79,7 @@
             this.bClose.Size = new System.Drawing.Size(51, 56);
             this.bClose.Text = "关闭(&X)";
             this.bClose.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.bClose.Click += new System.EventHandler(this.bClose_Click);
+            this.bClose.Click += new System.EventHandler(this.CloseForm);
             // 
             // tslTitle
             // 
@@ -86,6 +89,10 @@
             this.tslTitle.Name = "tslTitle";
             this.tslTitle.Size = new System.Drawing.Size(133, 56);
             this.tslTitle.Text = "表单标题";
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
             // 
             // AutoEditForm
             // 
@@ -97,10 +104,10 @@
             this.MinimumSize = new System.Drawing.Size(850, 38);
             this.Name = "AutoEditForm";
             this.Text = "AutoEditForm";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AutoEditForm_FormClosed);
-            this.Load += new System.EventHandler(this.AutoEditForm_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ClosingForm);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -112,5 +119,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripLabel tslTitle;
         private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
