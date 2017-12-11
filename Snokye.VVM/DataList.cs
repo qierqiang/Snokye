@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace Snokye.VVM
 {
-    public partial class DataListForm : UserControl
+    public partial class DataList : UserControl
     {
-        public DataListForm()
+        public DataList()
         {
             InitializeComponent();
         }

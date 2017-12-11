@@ -8,7 +8,7 @@ namespace Snokye.VVM
 {
     public class ViewModelBase : MarshalByRefObject, INotifyPropertyChanged
     {
-        public Action<string, string> ValidateFialed;
+        public Action<string, string> ValidateFailed;
 
         public Action Submitted;
 
@@ -16,7 +16,7 @@ namespace Snokye.VVM
         {
             if (!ValidateAttribute.ValidateObject(this, out string p, out string r))
             {
-                ValidateFialed?.Invoke(p, r);
+                ValidateFailed?.Invoke(p, r);
                 return false;
             }
 

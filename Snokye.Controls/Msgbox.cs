@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using Snokye.Utility;
 using System.Windows.Forms;
 
 namespace Snokye.Controls
@@ -9,6 +11,12 @@ namespace Snokye.Controls
     public static class Msgbox
     {
         public static string AppName { get; set; }
+
+        static Msgbox()
+        {
+            var attribute = Assembly.GetEntryAssembly().GetAttributes<AssemblyTitleAttribute>().FirstOrDefault();
+            AppName = attribute == null ? "" : attribute.Title;
+        }
 
         public static void Information(string msg) =>
             MessageBox.Show(msg, AppName, MessageBoxButtons.OK, MessageBoxIcon.Information);

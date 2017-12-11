@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -104,6 +106,10 @@ namespace Snokye.Utility
         public static bool In<T>(this T source, params T[] collection) => collection.Contains(source);
 
         public static T JsonDeserialize<T>(this string source) => JsonConvert.DeserializeObject<T>(source);
+
+        public static IEnumerable<T> GetAttributes<T>(this MemberInfo member, bool inherit = true) => member.GetCustomAttributes(typeof(T), inherit).OfType<T>();
+        
+        public static IEnumerable<T> GetAttributes<T>(this Assembly assembly, bool inherit = true) => assembly.GetCustomAttributes(typeof(T), inherit).OfType<T>();
 
         //object
         public static bool IsNullOrDbNull(this object source) => source == null || source == DBNull.Value;

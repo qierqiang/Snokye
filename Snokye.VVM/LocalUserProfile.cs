@@ -110,7 +110,7 @@ namespace Snokye.VVM
                 throw new ArgumentException("", nameof(profileName));
             }
 
-            string fileName = UserProfileDirecotry + userName + "\\" + profileName;
+            string fileName = UserProfileDirecotry + userName + "\\" + profileName.GetMD5();
             File.Delete(fileName);
         }
     }

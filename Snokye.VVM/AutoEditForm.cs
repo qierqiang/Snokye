@@ -32,14 +32,14 @@ namespace Snokye.VVM
                 if (_dataSource != value)
                 {
                     //移除验证事件 
-                    if (_dataSource != null && _dataSource.ValidateFialed != null)
-                        _dataSource.ValidateFialed -= ValidateFialed;
+                    if (_dataSource != null && _dataSource.ValidateFailed != null)
+                        _dataSource.ValidateFailed -= ValidateFialed;
 
                     _dataSource = value;
 
                     //附加验证事件 
                     if (_dataSource != null)
-                        _dataSource.ValidateFialed += ValidateFialed;
+                        _dataSource.ValidateFailed += ValidateFialed;
 
                     OnDataSourceChanged();
                 }

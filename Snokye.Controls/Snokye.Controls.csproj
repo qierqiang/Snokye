@@ -70,11 +70,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutBox.cs">
-      <SubType>Form</SubType>
+    <Compile Include="CombinedGridView.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AboutBox.Designer.cs">
-      <DependentUpon>AboutBox.cs</DependentUpon>
+    <Compile Include="CombinedGridView.Designer.cs">
+      <DependentUpon>CombinedGridView.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlHelper.cs" />
     <Compile Include="HorizontalLine.cs">
@@ -99,8 +99,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AboutBox.resx">
-      <DependentUpon>AboutBox.cs</DependentUpon>
+    <EmbeddedResource Include="CombinedGridView.resx">
+      <DependentUpon>CombinedGridView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
