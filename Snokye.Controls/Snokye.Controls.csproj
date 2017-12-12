@@ -8,8 +8,8 @@
     <ProjectGuid>{169C9845-900E-4327-A37D-48C00BAFD050}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SalesmenSettlement.Forms</RootNamespace>
-    <AssemblyName>Snokye.Control</AssemblyName>
+    <RootNamespace>Snokye.Controls</RootNamespace>
+    <AssemblyName>Snokye.Controls</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
@@ -85,6 +85,12 @@
     </Compile>
     <Compile Include="LongTextBox.cs" />
     <Compile Include="Msgbox.cs" />
+    <Compile Include="PagingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PagingControl.Designer.cs">
+      <DependentUpon>PagingControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="PasswordBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -104,6 +110,9 @@
   <ItemGroup>
     <EmbeddedResource Include="CombinedGridView.resx">
       <DependentUpon>CombinedGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PagingControl.resx">
+      <DependentUpon>PagingControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

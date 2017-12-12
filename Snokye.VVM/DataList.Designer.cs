@@ -28,23 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pCheckFilter = new System.Windows.Forms.FlowLayoutPanel();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.pTextFilter = new System.Windows.Forms.Panel();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.bAdvFilter = new System.Windows.Forms.Button();
+            this.bFilter = new System.Windows.Forms.Button();
+            this.tabMain = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.panelSelect = new System.Windows.Forms.Panel();
+            this.bSelect = new System.Windows.Forms.Button();
+            this.gridViewer1 = new SalesmenSettlement.Forms.GridViewer();
+            this.pagingControl1 = new Snokye.Controls.PagingControl();
+            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pCheckFilter.SuspendLayout();
             this.pTextFilter.SuspendLayout();
-            this.tabControl1.SuspendLayout();
+            this.tabMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.panelSelect.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewer1)).BeginInit();
             this.SuspendLayout();
             // 
             // pCheckFilter
@@ -55,40 +61,77 @@
             this.pCheckFilter.Location = new System.Drawing.Point(0, 0);
             this.pCheckFilter.Name = "pCheckFilter";
             this.pCheckFilter.Padding = new System.Windows.Forms.Padding(5);
-            this.pCheckFilter.Size = new System.Drawing.Size(841, 46);
+            this.pCheckFilter.Size = new System.Drawing.Size(841, 31);
             this.pCheckFilter.TabIndex = 0;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(739, 8);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(89, 16);
+            this.radioButton1.TabIndex = 0;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "radioStatus";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // pTextFilter
             // 
-            this.pTextFilter.Controls.Add(this.button3);
-            this.pTextFilter.Controls.Add(this.button2);
+            this.pTextFilter.Controls.Add(this.bAdvFilter);
+            this.pTextFilter.Controls.Add(this.bFilter);
             this.pTextFilter.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pTextFilter.Location = new System.Drawing.Point(0, 46);
+            this.pTextFilter.Location = new System.Drawing.Point(0, 31);
             this.pTextFilter.Name = "pTextFilter";
-            this.pTextFilter.Size = new System.Drawing.Size(841, 52);
+            this.pTextFilter.Size = new System.Drawing.Size(841, 40);
             this.pTextFilter.TabIndex = 1;
             // 
-            // tabControl1
+            // bAdvFilter
             // 
-            this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 98);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.RightToLeftLayout = true;
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(841, 318);
-            this.tabControl1.TabIndex = 2;
-            this.tabControl1.TabStop = false;
+            this.bAdvFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bAdvFilter.Font = new System.Drawing.Font("Webdings", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.bAdvFilter.Location = new System.Drawing.Point(813, 6);
+            this.bAdvFilter.Name = "bAdvFilter";
+            this.bAdvFilter.Size = new System.Drawing.Size(21, 28);
+            this.bAdvFilter.TabIndex = 1;
+            this.bAdvFilter.Text = "6";
+            this.bAdvFilter.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.bAdvFilter.UseVisualStyleBackColor = true;
+            // 
+            // bFilter
+            // 
+            this.bFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bFilter.Location = new System.Drawing.Point(740, 6);
+            this.bFilter.Name = "bFilter";
+            this.bFilter.Size = new System.Drawing.Size(81, 28);
+            this.bFilter.TabIndex = 0;
+            this.bFilter.Text = "button2";
+            this.bFilter.UseVisualStyleBackColor = true;
+            // 
+            // tabMain
+            // 
+            this.tabMain.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
+            this.tabMain.Controls.Add(this.tabPage1);
+            this.tabMain.Controls.Add(this.tabPage2);
+            this.tabMain.Controls.Add(this.tabPage3);
+            this.tabMain.Controls.Add(this.tabPage4);
+            this.tabMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabMain.Location = new System.Drawing.Point(0, 71);
+            this.tabMain.Name = "tabMain";
+            this.tabMain.RightToLeftLayout = true;
+            this.tabMain.SelectedIndex = 0;
+            this.tabMain.Size = new System.Drawing.Size(841, 352);
+            this.tabMain.TabIndex = 2;
+            this.tabMain.TabStop = false;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.dataGridView1);
+            this.tabPage1.Controls.Add(this.gridViewer1);
+            this.tabPage1.Controls.Add(this.pagingControl1);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(833, 289);
+            this.tabPage1.Size = new System.Drawing.Size(833, 323);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -98,75 +141,110 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(833, 289);
+            this.tabPage2.Size = new System.Drawing.Size(833, 323);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // panel1
+            // tabPage3
             // 
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 416);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(841, 49);
-            this.panel1.TabIndex = 3;
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(833, 323);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "tabPage3";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // tabPage4
             // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Location = new System.Drawing.Point(357, 6);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(833, 323);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "tabPage4";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // panelSelect
             // 
-            this.button2.Location = new System.Drawing.Point(761, 7);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.panelSelect.Controls.Add(this.bSelect);
+            this.panelSelect.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelSelect.Location = new System.Drawing.Point(0, 423);
+            this.panelSelect.Name = "panelSelect";
+            this.panelSelect.Size = new System.Drawing.Size(841, 42);
+            this.panelSelect.TabIndex = 3;
+            this.panelSelect.Visible = false;
             // 
-            // button3
+            // bSelect
             // 
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button3.Location = new System.Drawing.Point(759, 37);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            this.bSelect.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.bSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bSelect.Location = new System.Drawing.Point(383, 5);
+            this.bSelect.Name = "bSelect";
+            this.bSelect.Size = new System.Drawing.Size(75, 33);
+            this.bSelect.TabIndex = 0;
+            this.bSelect.Text = "button1";
+            this.bSelect.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // gridViewer1
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(733, 8);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(95, 16);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "radioButton1";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.gridViewer1.AllowUserToAddRows = false;
+            this.gridViewer1.AllowUserToDeleteRows = false;
+            this.gridViewer1.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridViewer1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.gridViewer1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridViewer1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewCheckBoxColumn1,
+            this.dataGridViewTextBoxColumn1});
+            this.gridViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridViewer1.Location = new System.Drawing.Point(3, 3);
+            this.gridViewer1.MultiSelect = false;
+            this.gridViewer1.Name = "gridViewer1";
+            this.gridViewer1.ReadOnly = true;
+            this.gridViewer1.RowTemplate.Height = 23;
+            this.gridViewer1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gridViewer1.Size = new System.Drawing.Size(827, 288);
+            this.gridViewer1.TabIndex = 0;
             // 
-            // dataGridView1
+            // pagingControl1
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(116, 37);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
-            this.dataGridView1.TabIndex = 0;
+            this.pagingControl1.AutoSize = true;
+            this.pagingControl1.CurrentPage = 1;
+            this.pagingControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pagingControl1.Location = new System.Drawing.Point(3, 291);
+            this.pagingControl1.MinimumSize = new System.Drawing.Size(600, 29);
+            this.pagingControl1.Name = "pagingControl1";
+            this.pagingControl1.Size = new System.Drawing.Size(827, 29);
+            this.pagingControl1.TabIndex = 1;
+            // 
+            // dataGridViewCheckBoxColumn1
+            // 
+            this.dataGridViewCheckBoxColumn1.HeaderText = "dataGridViewCheckBoxColumn1";
+            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
+            this.dataGridViewCheckBoxColumn1.ReadOnly = true;
+            this.dataGridViewCheckBoxColumn1.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Visible = false;
             // 
             // DataList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.tabMain);
+            this.Controls.Add(this.panelSelect);
             this.Controls.Add(this.pTextFilter);
             this.Controls.Add(this.pCheckFilter);
             this.Name = "DataList";
@@ -174,10 +252,11 @@
             this.pCheckFilter.ResumeLayout(false);
             this.pCheckFilter.PerformLayout();
             this.pTextFilter.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
+            this.tabMain.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.tabPage1.PerformLayout();
+            this.panelSelect.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewer1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -187,13 +266,18 @@
         private System.Windows.Forms.FlowLayoutPanel pCheckFilter;
         private System.Windows.Forms.Panel pTextFilter;
         private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.Button bAdvFilter;
+        private System.Windows.Forms.Button bFilter;
+        private System.Windows.Forms.TabControl tabMain;
         private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Panel panelSelect;
+        private System.Windows.Forms.Button bSelect;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPage4;
+        private SalesmenSettlement.Forms.GridViewer gridViewer1;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private Controls.PagingControl pagingControl1;
     }
 }

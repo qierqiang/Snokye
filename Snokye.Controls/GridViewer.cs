@@ -20,6 +20,14 @@ namespace SalesmenSettlement.Forms
             ReadOnly = true;
             SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle(ColumnHeadersDefaultCellStyle) { Alignment = DataGridViewContentAlignment.MiddleCenter };
+
+            //选择列
+            DataGridViewCheckBoxColumn cbc = new DataGridViewCheckBoxColumn { Visible = false };
+            Columns.Add(cbc);
+
+            //标识列
+            DataGridViewTextBoxColumn idc = new DataGridViewTextBoxColumn { Visible = false };
+            Columns.Add(idc);
         }
     }
 }
