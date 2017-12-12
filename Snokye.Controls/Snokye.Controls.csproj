@@ -77,6 +77,9 @@
       <DependentUpon>CombinedGridView.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlHelper.cs" />
+    <Compile Include="GridViewer.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="HorizontalLine.cs">
       <SubType>Component</SubType>
     </Compile>

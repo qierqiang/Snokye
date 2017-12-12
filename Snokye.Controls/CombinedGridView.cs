@@ -43,6 +43,8 @@ namespace SalesmenSettlement.Forms
             LeftVScrollBar.VisibleChanged += (object sender, EventArgs e) => PerformLayoutPrivate();
         }
 
+        ~CombinedGridView() => MessageBox.Show("Test");
+
         private void PerformLayoutPrivate()
         {
             LeftDataGridView.Dock = DockStyle.None;
@@ -50,11 +52,6 @@ namespace SalesmenSettlement.Forms
             LeftDataGridView.Location = Point.Empty;
             LeftDataGridView.Width = LeftDataGridView.Parent.ClientSize.Width + (LeftVScrollBar.Visible ? LeftVScrollBar.Width : 0);
             LeftDataGridView.Height = LeftDataGridView.Parent.ClientSize.Height - (LeftHScrollBar.Visible ? LeftHScrollBar.Height : 0);
-        }
-
-        private void LeftDataGridView_Scroll(object sender, ScrollEventArgs e)
-        {
-            //if (LeftDataGridView.PerformLayout)
         }
 
         private static void SyncVerticalScroll(DataGridView gridView1, DataGridView gridView2)

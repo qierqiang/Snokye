@@ -125,6 +125,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="DataList.md" />
     <None Include="Resources\icons8-保存-40.png" />
   </ItemGroup>
   <ItemGroup>
