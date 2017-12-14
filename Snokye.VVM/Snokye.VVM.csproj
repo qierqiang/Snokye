@@ -17,9 +17,10 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;debug</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -74,10 +75,16 @@
     <Compile Include="AutoGenControlAttribute.cs" />
     <Compile Include="ClientInfo.cs" />
     <Compile Include="DataList.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="DataList.Designer.cs">
       <DependentUpon>DataList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FilterBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FilterBar.Designer.cs">
+      <DependentUpon>FilterBar.cs</DependentUpon>
     </Compile>
     <Compile Include="FormState.cs" />
     <Compile Include="LocalUserProfile.cs" />
@@ -100,6 +107,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DataList.resx">
       <DependentUpon>DataList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FilterBar.resx">
+      <DependentUpon>FilterBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

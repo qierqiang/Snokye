@@ -9,8 +9,10 @@ using System.Windows.Forms;
 
 namespace Snokye.Controls
 {
-    public partial class PagingControl : UserControl
+    public partial class PagingControl : UserControl, ISupportInitialize
     {
+        public event Action<int> CurrentPageChanged;
+
         //fields
         private int _totalCount;
         private int _pageCount;
@@ -18,7 +20,7 @@ namespace Snokye.Controls
         private int _currentPageLast;
         private bool _canMovePrev;
         private bool _canMoveNext;
-        
+
         public int CurrentPage
         {
             get => Convert.ToInt32(nCurPage.Value);
@@ -29,6 +31,9 @@ namespace Snokye.Controls
                     nCurPage.Value = value;
                     lCurPage.Text = value.ToString();
                     Calculate();
+
+                    if (CurrentPage <= PageCount)
+                        OnCurrentPageChanged();
                 }
             }
         }
@@ -46,8 +51,13 @@ namespace Snokye.Controls
         public void Init(int totalCount)
         {
             TotalCount = totalCount;
-            PageCount = Convert.ToInt32(Math.Ceiling((double)TotalCount / (double)CountPerPage));
+            PageCount = Convert.ToInt32(Math.Ceiling((double)TotalCount / (double)PageSize));
             CurrentPage = 1;
+        }
+
+        protected virtual void OnCurrentPageChanged()
+        {
+            CurrentPageChanged?.Invoke(CurrentPage);
         }
 
         //private
@@ -69,6 +79,7 @@ namespace Snokye.Controls
                 _pageCount = value;
                 lPageCount.Text = value.ToString();
                 nCurPage.Maximum = value;
+                nCurPage.Minimum = 1;
             }
         }
 
@@ -116,26 +127,34 @@ namespace Snokye.Controls
 
         private void Calculate()
         {
-            PageCount = Convert.ToInt32(Math.Ceiling((double)TotalCount / (double)CountPerPage));
-            CurrentPageFirst = (CurrentPage - 1) * CountPerPage + 1;
-            CurrentPageLast = Math.Min((CurrentPage) * CountPerPage, TotalCount);
+            PageCount = Convert.ToInt32(Math.Ceiling((double)TotalCount / (double)PageSize));
+            CurrentPageFirst = Math.Max(1, (CurrentPage - 1) * PageSize + 1);
+            CurrentPageLast = Math.Min((CurrentPage) * PageSize, TotalCount);
             CanMovePrev = CurrentPage > 1;
-            CanMoveNext = PageCount + 1 > CurrentPage;
+            CanMoveNext = PageCount > CurrentPage + 1;
         }
 
-        //static
-        private static int _countPerPage;
+        #region ISupportInitialize
 
-        public static int CountPerPage
+        public void BeginInit() { }
+
+        public void EndInit() => Init(0);
+
+        #endregion
+
+        //static
+        private static int _pageSize;
+
+        public static int PageSize
         {
-            get => _countPerPage;
+            get => _pageSize;
             set
             {
                 if (value != 0)
-                    _countPerPage = value;
+                    _pageSize = value;
             }
         }
 
-        static PagingControl() => CountPerPage = 100;
+        static PagingControl() => PageSize = 100;
     }
 }
