@@ -26,3 +26,9 @@
 3. id(s) = select id into #tmp from `from` where `where` order by `orderby`
 4. paging = getPaign()
 5. sql = `select` `from` where id in (`id(s)`) order by `orderby`
+
+
+# TODO:
+
+* 查询操作与生成语句操作分离
+* 自主选择列、排序、过滤条件

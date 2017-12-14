@@ -52,7 +52,10 @@ namespace Snokye.Controls
         {
             TotalCount = totalCount;
             PageCount = Convert.ToInt32(Math.Ceiling((double)TotalCount / (double)PageSize));
-            CurrentPage = 1;
+
+            nCurPage.Value = 1;
+            lCurPage.Text = "1";
+            Calculate();
         }
 
         protected virtual void OnCurrentPageChanged()
@@ -78,8 +81,9 @@ namespace Snokye.Controls
             {
                 _pageCount = value;
                 lPageCount.Text = value.ToString();
-                nCurPage.Maximum = value;
-                nCurPage.Minimum = 1;
+                if (value > 1)
+                    nCurPage.Maximum = value;
+                //nCurPage.Minimum = 1;
             }
         }
 
@@ -128,7 +132,7 @@ namespace Snokye.Controls
         private void Calculate()
         {
             PageCount = Convert.ToInt32(Math.Ceiling((double)TotalCount / (double)PageSize));
-            CurrentPageFirst = Math.Max(1, (CurrentPage - 1) * PageSize + 1);
+            CurrentPageFirst = Math.Max(0, (CurrentPage - 1) * PageSize + 1);
             CurrentPageLast = Math.Min((CurrentPage) * PageSize, TotalCount);
             CanMovePrev = CurrentPage > 1;
             CanMoveNext = PageCount > CurrentPage + 1;

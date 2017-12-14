@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -9,10 +10,30 @@ namespace Snokye.Utility
 {
     public class SqlDatabase : IDisposable
     {
+        public SqlDatabase()
+        {
+            string cnn = ConfigurationManager.AppSettings[CodeHelper.GetApplicationTitle()];
+            ConnectionString = cnn ?? throw new Exception("未能找到数据库连接字符串");
+            Connection = new SqlConnection(cnn);
+        }
+
         public SqlDatabase(string cnnString)
         {
-            ConnectionString = cnnString;
-            Connection = new SqlConnection(ConnectionString);
+            if (cnnString.IsNullOrWhiteSpace())
+                throw new ArgumentNullException(nameof(cnnString));
+
+            //从appConfig中读取
+            if (cnnString.StartsWith("name=", StringComparison.CurrentCultureIgnoreCase))
+            {
+                string cnn = ConfigurationManager.AppSettings[cnnString.Substring(5)];
+                ConnectionString = cnn ?? throw new Exception("未能找到数据库连接字符串");
+                Connection = new SqlConnection(cnn);
+            }
+            else
+            {
+                ConnectionString = cnnString;
+                Connection = new SqlConnection(ConnectionString);
+            }
         }
 
         public string ConnectionString { get; set; }

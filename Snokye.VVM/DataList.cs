@@ -35,6 +35,8 @@ namespace Snokye.VVM
             InitializeComponent();
 #if DEBUG
             database = new SqlDatabase("data source=.;initial catalog=SalesmenSettlementDev;persist security info=True;user id=sa;password=123456;MultipleActiveResultSets=True;");
+#else
+            database = new SqlDatabase();
 #endif
         }
 
@@ -75,8 +77,8 @@ FROM {2}                    --setence_from
             Console.WriteLine(sql);
 #endif
             DataTable dt = database.GetDataTable(sql, filter.HasValue ? filter.Value.Value : null);
-            _allGridView.ForEach(d => d.DataSource = dt);
             pagingControl1.Init(dt.Rows.Count);
+            _allGridView.ForEach(d => d.DataSource = dt);
         }
 
         private void Dgv_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -202,7 +204,6 @@ FROM {2}                    --setence_from
 
             pagingControl1.CurrentPageChanged += Query;
 
-            _allGridView.ForEach(d => d.SortCompare += D_SortCompare);
             _allGridView.ForEach(d => d.Sorted += D_Sorted);
         }
 
@@ -212,16 +213,20 @@ FROM {2}                    --setence_from
             {
                 if (d.SortedColumn.SortMode != DataGridViewColumnSortMode.NotSortable)
                 {
-                    Sentence_OrderBy = "[{0}]".FormatWith(d.SortedColumn.DataPropertyName.Replace(".", "].["));
+                    DataGridViewColumn col = d.SortedColumn;
+                    var order = d.SortOrder;
+                    Sentence_OrderBy = "[{0}]{1}".FormatWith(col.DataPropertyName.Replace(".", "].["), (order == System.Windows.Forms.SortOrder.Ascending ? "" : " DESC"));
                     Query();
+                    col.HeaderCell.SortGlyphDirection = order;
+
+                    throw new NotImplementedException();//TODO:
                 }
             }
         }
 
-        private void D_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        private void bFilter_Click(object sender, EventArgs e)
         {
-
-            throw new NotImplementedException();
+            Query();
         }
     }
 }

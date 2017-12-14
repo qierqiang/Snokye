@@ -11,6 +11,21 @@ namespace Snokye.Utility
 {
     public static class CodeHelper
     {
+        //application
+        public static string GetApplicationTitle()
+        {
+            object[] attributes = Assembly.GetEntryAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+            if (attributes.Length > 0)
+            {
+                AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
+                if (titleAttribute.Title != "")
+                {
+                    return titleAttribute.Title;
+                }
+            }
+            return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+        }
+
         //string
         public static string FormatWith(this string source, params object[] args) => string.Format(source, args);
 
@@ -108,7 +123,7 @@ namespace Snokye.Utility
         public static T JsonDeserialize<T>(this string source) => JsonConvert.DeserializeObject<T>(source);
 
         public static IEnumerable<T> GetAttributes<T>(this MemberInfo member, bool inherit = true) => member.GetCustomAttributes(typeof(T), inherit).OfType<T>();
-        
+
         public static IEnumerable<T> GetAttributes<T>(this Assembly assembly, bool inherit = true) => assembly.GetCustomAttributes(typeof(T), inherit).OfType<T>();
 
         //object

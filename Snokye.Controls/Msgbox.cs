@@ -14,8 +14,7 @@ namespace Snokye.Controls
 
         static Msgbox()
         {
-            var attribute = Assembly.GetEntryAssembly().GetAttributes<AssemblyTitleAttribute>().FirstOrDefault();
-            AppName = attribute == null ? "" : attribute.Title;
+            AppName = CodeHelper.GetApplicationTitle();
         }
 
         public static void Information(string msg) =>
