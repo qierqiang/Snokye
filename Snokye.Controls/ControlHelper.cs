@@ -1,24 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace Snokye.Controls
 {
     public static class ControlHelper
     {
-        public static void ShowError(this ErrorProvider provider, Control ctrl, string error)
-        {
-            provider.SetError(ctrl, error);
-            ctrl.Focus();
-            EventHandler action = null;
-            action = (object sender, EventArgs e) =>
-            {
-                provider.Clear();
-                ctrl.TextChanged -= action;
-            };
-            ctrl.TextChanged += action;
-        }
-
+        //control
         public static Control FindFirstChildControl(this Control container, Func<Control, bool> filter)
         {
             foreach (Control c in container.Controls)
@@ -48,6 +37,41 @@ namespace Snokye.Controls
             }
         }
 
+        //errorProvider
+        public static void ShowError(this ErrorProvider provider, Control ctrl, string error)
+        {
+            provider.SetError(ctrl, error);
+            ctrl.Focus();
+            EventHandler action = null;
+            action = (object sender, EventArgs e) =>
+            {
+                provider.Clear();
+                ctrl.TextChanged -= action;
+            };
+            ctrl.TextChanged += action;
+        }
+
+        //backGroudWorker
+        public static void BackWork(this Form source, Func<object> backWork, Action<object> done)
+        {
+            BackgroundWorker bw = new BackgroundWorker();
+            bw.DoWork += (object sender, DoWorkEventArgs e) => e.Result = backWork();
+            bw.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
+            {
+                if (!e.Cancelled)
+                {
+                    if (e.Error != null)
+                    {
+                        Msgbox.Error(e.Error.Message);
+                        return;
+                    }
+                    done(e.Result);
+                }
+            };
+            bw.RunWorkerAsync();
+        }
+
+        //dataGridView
         public static void SyncVerticalScroll(this DataGridView gridView1, DataGridView gridView2)
         {
             void gridView1Scroll(object sender, ScrollEventArgs e)
@@ -137,6 +161,31 @@ namespace Snokye.Controls
 
             gridView1.RowHeightChanged += GridView1RowHeightChanged;
             gridView2.RowHeightChanged += GridView2RowHeightChanged;
+        }
+
+        public static DataGridViewColumn CreateColumn(this DataGridView gridView, Type columnType, string title, string dataPropertyName = null, string name = null, int width = 100, DataGridViewColumnSortMode sortMode = DataGridViewColumnSortMode.Programmatic, SortOrder sortOrder = SortOrder.None, bool visible = true, int colIndex = -1, bool frozen = false)
+        {
+            //if (!columnType.IsSubclassOf(typeof(DataGridViewColumn)))
+            //    throw new ArgumentException(columnType.ToString() + "不是DataGridViewColumn类型", nameof(columnType));
+
+            DataGridViewColumn col = (DataGridViewColumn)Activator.CreateInstance(columnType, true);
+            col.HeaderText = title ?? throw new ArgumentNullException(nameof(title));
+            col.DataPropertyName = dataPropertyName;
+            col.Name = name;
+            col.Width = width;
+            col.SortMode = sortMode;
+            col.Visible = visible;
+            col.Frozen = frozen;
+            if (colIndex > -1)
+            {
+                gridView.Columns.Insert(colIndex, col);
+            }
+            else
+            {
+                gridView.Columns.Add(col);
+            }
+            col.HeaderCell.SortGlyphDirection = sortOrder;
+            return col;
         }
     }
 }

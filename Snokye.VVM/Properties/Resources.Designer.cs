@@ -83,6 +83,16 @@ namespace Snokye.VVM.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_出口_40 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-出口-40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_垃圾_40 {
             get {
                 object obj = ResourceManager.GetObject("icons8-垃圾-40", resourceCulture);
@@ -136,6 +146,16 @@ namespace Snokye.VVM.Properties {
         internal static System.Drawing.Bitmap icons8_编辑文件_40 {
             get {
                 object obj = ResourceManager.GetObject("icons8-编辑文件-40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_计算器_40 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-计算器-40", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
