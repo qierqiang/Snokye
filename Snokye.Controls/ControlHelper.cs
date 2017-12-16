@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Snokye.Utility;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -173,7 +174,7 @@ namespace Snokye.Controls
             col.DataPropertyName = dataPropertyName;
             col.Name = name;
             col.Width = width;
-            col.SortMode = sortMode;
+            col.FillWeight = width;
             col.Visible = visible;
             col.Frozen = frozen;
             if (colIndex > -1)
@@ -184,7 +185,11 @@ namespace Snokye.Controls
             {
                 gridView.Columns.Add(col);
             }
-            col.HeaderCell.SortGlyphDirection = sortOrder;
+            if (!col.DataPropertyName.IsNullOrWhiteSpace())
+            {
+                col.SortMode = sortMode;
+                col.HeaderCell.SortGlyphDirection = sortOrder;
+            }
             return col;
         }
     }

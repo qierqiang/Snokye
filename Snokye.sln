@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snokye.Controls", "Snokye.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp1", "WindowsFormsApp1\WindowsFormsApp1.csproj", "{F74D7D9A-2D8D-4BC9-8951-00C12815642C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Settlement.Client", "..\Settlement\Settlement.Client\Settlement.Client.csproj", "{16CEEAC1-3E82-4301-A6D3-96DEEFF7002B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,14 @@ Global
 		{F74D7D9A-2D8D-4BC9-8951-00C12815642C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F74D7D9A-2D8D-4BC9-8951-00C12815642C}.Release|x86.ActiveCfg = Release|x86
 		{F74D7D9A-2D8D-4BC9-8951-00C12815642C}.Release|x86.Build.0 = Release|x86
+		{16CEEAC1-3E82-4301-A6D3-96DEEFF7002B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16CEEAC1-3E82-4301-A6D3-96DEEFF7002B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16CEEAC1-3E82-4301-A6D3-96DEEFF7002B}.Debug|x86.ActiveCfg = Debug|x86
+		{16CEEAC1-3E82-4301-A6D3-96DEEFF7002B}.Debug|x86.Build.0 = Debug|x86
+		{16CEEAC1-3E82-4301-A6D3-96DEEFF7002B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16CEEAC1-3E82-4301-A6D3-96DEEFF7002B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16CEEAC1-3E82-4301-A6D3-96DEEFF7002B}.Release|x86.ActiveCfg = Release|x86
+		{16CEEAC1-3E82-4301-A6D3-96DEEFF7002B}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

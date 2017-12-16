@@ -1,6 +1,4 @@
-﻿//#define debug
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -11,26 +9,34 @@ using System.Windows.Forms;
 using Snokye.Controls;
 using Snokye.Utility;
 using System.Data.SqlClient;
-using cd = Snokye.VVM.ColumnDefinition;
-using SalesmenSettlement.Forms;
+using CD = Snokye.VVM.ColumnDefinition;
 
 namespace Snokye.VVM
 {
     public partial class DataList : Form, ISupportInitialize
     {
-        private SqlDatabase database
-        #region
-#if DEBUG
-             = new SqlDatabase("data source=.;initial catalog=SalesmenSettlementDev;persist security info=True;user id=sa;password=123456;MultipleActiveResultSets=True;");
-#else
-            = new SqlDatabase();
-#endif
-        #endregion
-
         #region 布局相关
-        protected List<DataGridView> _allGridView;
 
+        /// <summary>
+        /// 所有运行时创建出来的GridViewer
+        /// </summary>
+        [Browsable(false)]
+        public List<DataGridView> AllGridView { get; set; }
+
+        [Browsable(false)]
+        public List<FilterControlBase> AllFilters { get; set; }
+
+        /// <summary>
+        /// 所有的列定义
+        /// </summary>
+        [Browsable(false)]
         public List<ColumnDefinition> ColumnDefinitions { get; set; }
+
+        /// <summary>
+        /// 所有在窗口上显示的过滤条件定义
+        /// </summary>
+        [Browsable(false)]
+        public List<FilterDefinition> FilterDefinitions { get; set; }
 
         /// <summary>
         /// 页面标题
@@ -42,21 +48,38 @@ namespace Snokye.VVM
         {
             InitializeComponent();
             Text = Title;
+            _database = new SqlDatabase();
         }
 
         /// <summary>
-        /// 初始化时应当要先设置Sentence_From、Out_Where、SortColumn、SortDirection、ColumnDefinition
+        /// 初始化时应当要先设置Sentence_From、Out_Where、SortColumn、SortDirection、ColumnDefinition、FilterDefinition
         /// </summary>
         public virtual void BeginInit()
         {
-            ColumnDefinitions = new List<ColumnDefinition>
+            ColumnDefinitions = new List<CD>
             {
-                new cd(typeof(DataGridViewTextBoxColumn), "ID", null, "ID", "ID", visible:false)
+                //new CD(typeof(DataGridViewCheckBoxColumn), "选择", null, null, "STATICCOL_SELECT", 35, DataGridViewColumnSortMode.NotSortable),
+                new CD(typeof(DataGridViewTextBoxColumn), "ID",   null, "ID", "STATICCOL_ID", visible:false),
             };
+            FilterDefinitions = new List<FilterDefinition>();
         }
 
         public virtual void EndInit()
         {
+            //==============================================
+            //              创建过滤条件
+            //==============================================
+            AllFilters = new List<FilterControlBase>();
+
+            foreach (FilterDefinition fd in FilterDefinitions)
+            {
+                FilterControlBase fc = (FilterControlBase)Activator.CreateInstance(fd.FilterControlType, true);
+                fc.DataPropertyName = fd.DataPropertyName;
+                fc.Title = fd.Title;
+                if (!fd.FilterOperator.IsNullOrWhiteSpace()) fc.FilterOperator = fd.FilterOperator;
+                fc.Parent = pFilters;
+                AllFilters.Add(fc);
+            }
             //==============================================
             //                  创建表格
             //==============================================
@@ -96,7 +119,7 @@ namespace Snokye.VVM
             }
 
             //所有表格
-            _allGridView = this.FindChildControl(c => c is DataGridView).OfType<DataGridView>().ToList();
+            AllGridView = this.FindChildControl(c => c is DataGridView).OfType<DataGridView>().ToList();
 
 
             //==============================================
@@ -106,7 +129,7 @@ namespace Snokye.VVM
             {
                 int i = 1;
                 panelSelect.Visible = true;
-                foreach (DataGridView dgv in _allGridView)
+                foreach (DataGridView dgv in AllGridView)
                 {
                     DataGridViewCheckBoxColumn c = new DataGridViewCheckBoxColumn
                     {
@@ -128,7 +151,7 @@ namespace Snokye.VVM
             //==============================================
             //               生成Select语句
             //==============================================
-            var query = from dgv in _allGridView
+            var query = from dgv in AllGridView
                         from col in dgv.Columns.OfType<DataGridViewColumn>()
                         where !col.DataPropertyName.IsNullOrWhiteSpace()
                         select col.DataPropertyName;
@@ -145,13 +168,13 @@ namespace Snokye.VVM
             //==============================================
             //          关联表格的选择及滚动
             //==============================================
-            if (_allGridView.Count > 1)
+            if (AllGridView.Count > 1)
             {
-                DataGridView dgv = _allGridView[0];
+                DataGridView dgv = AllGridView[0];
 
-                for (int i = 1; i < _allGridView.Count; i++)
+                for (int i = 1; i < AllGridView.Count; i++)
                 {
-                    DataGridView tmp = _allGridView[i];
+                    DataGridView tmp = AllGridView[i];
                     dgv.SyncSelectedRowIndex(tmp);
                     dgv.SyncRowHeight(tmp);
                     dgv.SyncVerticalScroll(tmp);
@@ -162,31 +185,50 @@ namespace Snokye.VVM
             //                  注册表格事件
             //==============================================
             //注册事件
-            if (!DesignMode)
+            AllGridView.ForEach(d =>
             {
-                _allGridView.ForEach(d => d.Sorted += D_Sorted);
-            }
+                d.ColumnHeaderMouseClick += ColumnHeaderMouseClick;
+                d.SelectionChanged += SelectionChanged;
+            });
         }
-
 
         #endregion
 
+        #region 加载数据相关
+
+        private SqlDatabase _database;
+
+        [Browsable(false)]
+        public SqlDatabase Database { get => _database; }
+
+        [Browsable(false)]
         public string Sentence_Select { get; set; } //EndInit后有值
         public string Sentence_From { get; set; } //EndInit后有值
+        [Browsable(false)]
         public KeyValuePair<string, SqlParameter[]>? Out_Where { get; set; } //EndInit后有值
 
+        [Browsable(false)]
         public KeyValuePair<string, SqlParameter[]>? Sentence_Where { get; set; }
+        [Browsable(false)]
         public string Sentence_OrderBy { get; set; }
+        [Browsable(false)]
         public string Sentence_SortOrder { get; set; }
+        [Browsable(false)]
         public int PageIndex { get; set; }
 
-        /// <summary>
-        /// 必须在派生类中实现
-        /// </summary>
-        [Obsolete]
         protected virtual KeyValuePair<string, SqlParameter[]>? GetFilter()
         {
-            throw new NotImplementedException();
+            var query = from fc in AllFilters
+                        let f = fc.GetFilter()
+                        where f.HasValue && !f.Value.Key.IsNullOrWhiteSpace()
+                        select f.Value;
+
+            if (!query.Any())
+                return null;
+
+            string filter = "(" + string.Join(") AND (", query.Select(f => f.Key).ToArray()) + ")";
+            SqlParameter[] parms = (from f in query from ff in f.Value select ff).ToArray();
+            return new KeyValuePair<string, SqlParameter[]>(filter, parms);
         }
 
         //从数据库查询数据
@@ -196,8 +238,8 @@ namespace Snokye.VVM
             string where1 = Out_Where.HasValue ? (Out_Where.Value.Key.IsNullOrWhiteSpace() ? "" : Out_Where.Value.Key) : "";
             string where2 = Sentence_Where.HasValue ? (Sentence_Where.Value.Key.IsNullOrWhiteSpace() ? "" : Sentence_Where.Value.Key) : "";
             string where = null;
-            if (where1 == "" && where2 != "") where = where1;
-            if (where1 != "" && where2 == "") where = where2;
+            if (where1 == "" && where2 != "") where = where2;
+            if (where1 != "" && where2 == "") where = where1;
             if (where1 != "" && where2 != "") where = string.Format("({0}) AND ({1})", where1, where2);
             string orderBy = Sentence_OrderBy.IsNullOrWhiteSpace() ? "" : ("ORDER BY " + Sentence_OrderBy);
             if (orderBy != "" && !Sentence_SortOrder.IsNullOrWhiteSpace()) orderBy = orderBy + " " + Sentence_SortOrder;
@@ -215,7 +257,7 @@ namespace Snokye.VVM
             //查出总记录数
             if (PageIndex < 2)
             {
-                int totalCount = (int)database.ExecuteScalar(sql, parameters);
+                int totalCount = (int)_database.ExecuteScalar(sql, parameters);
                 pagingControl1.Init(totalCount);
             }
             sql = @"
@@ -234,16 +276,64 @@ FROM {2}                    --setence_from
 {5}";
             sql = sql.FormatWith(PagingControl.PageSize, Sentence_Select, Sentence_From, (PageIndex - 1) * PagingControl.PageSize, where, orderBy, and);
 
-            this.BackWork(() => database.GetDataTable(sql, parameters), dt => _allGridView.ForEach(d => d.DataSource = dt));
+            this.BackWork(
+                () =>
+                {
+                    return _database.GetDataTable(sql, parameters);
+                },
+                dt =>
+                {
+                    foreach (DataGridView d in AllGridView)
+                    {
+                        d.DataSource = dt;
+                        //显示排序状态
+                        if (!Sentence_OrderBy.IsNullOrWhiteSpace())
+                        {
+                            foreach (DataGridViewColumn c in d.Columns.OfType<DataGridViewColumn>().Where(c => "[" + c.DataPropertyName.Replace(".", "].[") + "]" == Sentence_OrderBy))
+                            {
+                                c.HeaderCell.SortGlyphDirection = Sentence_SortOrder == "DESC" ? System.Windows.Forms.SortOrder.Descending : System.Windows.Forms.SortOrder.Ascending;
+                            }
+                        }
+                    }
+                }
+            );
         }
+
+        private void bFilter_Click(object sender, EventArgs e)
+        {
+            //pageindex, orderby, sortorder, where
+            PageIndex = 1;
+            Sentence_OrderBy = null;
+            Sentence_SortOrder = null;
+            Sentence_Where = GetFilter();
+            Query();
+        }
+
+        private void bAdvFilter_Click(object sender, EventArgs e)
+        {
+            var form = new AdvFilterForm(this);
+
+            if (form.ShowDialog(this) == DialogResult.OK)
+            {
+                PageIndex = 1;
+                Sentence_OrderBy = null;
+                Sentence_SortOrder = null;
+                Sentence_Where = form.Result;
+                Query();
+            }
+        }
+
+        #endregion
+
+        #region 表格事件
 
         private void Dgv_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             //仅选中时才发生
-            if (_allGridView.Count > 1 && sender is DataGridView dgv && dgv.Columns[e.ColumnIndex] is DataGridViewCheckBoxColumn col && col.Name.StartsWith("AutoCheckBoxColumn") && (bool)dgv[e.ColumnIndex, e.RowIndex].Value)
+            if (AllGridView.Count > 1 && sender is DataGridView dgv && dgv.Columns[e.ColumnIndex] is DataGridViewCheckBoxColumn col && col.Name.StartsWith("AutoCheckBoxColumn") && (bool)dgv[e.ColumnIndex, e.RowIndex].Value)
             {
                 //其它行设置为不选择
-                var query = from d in _allGridView
+                var query = from d in AllGridView
                             from c in d.Columns.OfType<DataGridViewCheckBoxColumn>()
                             where c.Name.StartsWith("AutoCheckBoxColumn")
                             from r in d.Rows.OfType<DataGridViewRow>()
@@ -254,7 +344,7 @@ FROM {2}                    --setence_from
                     item.Value = false;
 
                 //选中其它表格行
-                query = from d in _allGridView
+                query = from d in AllGridView
                         where d != dgv
                         from c in d.Columns.OfType<DataGridViewCheckBoxColumn>()
                         where c.Name.StartsWith("AutoCheckBoxColumn")
@@ -268,46 +358,43 @@ FROM {2}                    --setence_from
             }
         }
 
-        private void D_Sorted(object sender, EventArgs e)
+        private void ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (sender is DataGridView d)
+            if (sender is DataGridView d && d.DataSource != null)
             {
-                if (d.SortedColumn.SortMode != DataGridViewColumnSortMode.NotSortable)
-                {
-                    DataGridViewColumn col = d.SortedColumn;
-                    var order = d.SortOrder;
-                    Sentence_OrderBy = "[{0}]{1}".FormatWith(col.DataPropertyName.Replace(".", "].["), (order == System.Windows.Forms.SortOrder.Ascending ? "" : " DESC"));
-                    Query();
-                    col.HeaderCell.SortGlyphDirection = order;
+                DataGridViewColumn c = d.Columns[e.ColumnIndex];
 
-                    throw new NotImplementedException();//TODO:
+                if (c.SortMode != DataGridViewColumnSortMode.NotSortable && !c.DataPropertyName.IsNullOrWhiteSpace())
+                {
+                    Sentence_OrderBy = "[" + c.DataPropertyName.Replace(".", "].[") + "]";
+
+                    if (string.Equals(Sentence_SortOrder, "DESC", StringComparison.CurrentCultureIgnoreCase))
+                        Sentence_SortOrder = "";
+                    else
+                        Sentence_SortOrder = "DESC";
+
+                    //pageindex, orderby, sortorder   !do NOT change 'sentence_where'!
+                    PageIndex = 1;
+                    Query();
                 }
             }
         }
 
-        private void bFilter_Click(object sender, EventArgs e)
+        private void SelectionChanged(object sender, EventArgs e)
         {
-            /*
-             * prepare query
-             *  pageIndex
-             *  orderby
-             *  sortOrder
-             *  where
-             */
-            PageIndex = 1;
-            Sentence_OrderBy = null;
-            Sentence_SortOrder = null;
-            Sentence_Where = GetFilter();
-            Query();
+            //throw new NotImplementedException();
         }
+
+        #endregion
 
         #region 返回值相关
 
+        [Browsable(false)]
         public long SelectedID { get; protected set; }
 
         private void bSelect_Click(object sender, EventArgs e)
         {
-            var query = from d in _allGridView
+            var query = from d in AllGridView
                         from c in d.Columns.OfType<DataGridViewCheckBoxColumn>()
                         where c.Name.StartsWith("AutoCheckBoxColumn")
                         from r in d.Rows.OfType<DataGridViewRow>()
@@ -334,5 +421,34 @@ FROM {2}                    --setence_from
         }
 
         #endregion
+
+        protected virtual void Command_New(object sender, EventArgs e) { }
+        protected virtual void Command_Edit(object sender, EventArgs e) { }
+        protected virtual void Command_View(object sender, EventArgs e) { }
+        protected virtual void Command_Delete(object sender, EventArgs e) { }
+        protected virtual void Command_Export(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual void Command_Calculator(object sender, EventArgs e)
+        {
+            new CalculateForm(this).ShowDialog(this);
+        }
+
+        protected virtual void Command_Close(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void DataList_Load(object sender, EventArgs e)
+        {
+            if (!DesignMode)
+            {
+                PageIndex = 1;
+                Sentence_Where = new KeyValuePair<string, SqlParameter[]>("1>1", null);
+                Query();
+            }
+        }
     }
 }

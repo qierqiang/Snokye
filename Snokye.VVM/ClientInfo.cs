@@ -1,10 +1,5 @@
-﻿using System;
+﻿using Snokye.VVM.Model;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Snokye.Utility;
-using Snokye.Controls;
 
 namespace Snokye.VVM
 {
@@ -15,19 +10,12 @@ namespace Snokye.VVM
             Directory = new Hashtable();
         }
 
-        public static long UserID { get; set; }
+        public static UserInfo CurrentUser { get; set; }
 
-        public static string UserLoginName { get; set; }
+        public static ServerUserProfile UserProfile { get; set; }
 
-        public static string UserName { get; set; }
+        public static ClientForm ClientForm { get; set; }
 
         public static Hashtable Directory { get; private set; }
-
-        //public static DateTime GetServerTime()
-        //{
-        //    Database db = new Database(AppConfig.Instance.DatabaseConnectionString);
-        //    string sql = "SELECT GETDATE()";
-        //    return Convert.ToDateTime(db.ExecuteScalar(sql));
-        //}
     }
 }

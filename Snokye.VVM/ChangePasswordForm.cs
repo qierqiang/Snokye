@@ -1,45 +1,24 @@
-﻿using System.Windows.Forms;
-using Snokye.Utility;
-using Snokye.Controls;
+﻿using Snokye.Controls;
+using Snokye.VVM;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
 
 namespace Snokye.VVM
 {
-    public partial class ChangePasswordForm : EditFormBase
+    public partial class ChangePasswordForm : AutoEditForm
     {
-        public ChangePasswordForm(int userID)
+        public ChangePasswordForm(VMChangePwd viewModel, string title) : base(viewModel, "修改密码")
         {
-            InitializeComponent();
+            viewModel.Submitted += OnSubmitted;
         }
 
-        public override void DataBind()
+        private void OnSubmitted()
         {
-            base.DataBind();
-        }
-
-        public override bool ValidateForm()
-        {
-            return base.ValidateForm();
-        }
-
-        public override bool Submit()
-        {
-            return base.Submit();
-        }
-
-        public ///////TODO:
-
-        class ViewModel : ViewModelBase
-        {
-            public long ID { get; set; }
-
-            [AutoGenControl(typeof(TextBox), "原密码", beginNewRow: true)]
-            public string OldPassword { get; set; }
-
-            [AutoGenControl(typeof(TextBox), "新密码", beginNewRow: true)]
-            public string NewPassword { get; set; }
-
-            [AutoGenControl(typeof(TextBox), "重复", beginNewRow: true)]
-            public string RepPassword { get; set; }
+            Msgbox.Information("密码已经修改成功，请牢记新密码。");
+            Close();
         }
     }
 }

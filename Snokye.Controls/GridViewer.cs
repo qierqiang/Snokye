@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
-namespace SalesmenSettlement.Forms
+namespace Snokye.Controls
 {
     public class GridViewer : DataGridView
     {
@@ -16,6 +11,9 @@ namespace SalesmenSettlement.Forms
             AllowUserToResizeRows = false;
             AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+            ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            RowHeadersWidth = 22;
+            RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             MultiSelect = false;
             ReadOnly = true;
             SelectionMode = DataGridViewSelectionMode.FullRowSelect;

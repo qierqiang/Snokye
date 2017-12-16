@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -117,6 +118,8 @@ namespace Snokye.Utility
 
         public static string ToJson(this object source) => JsonConvert.SerializeObject(source);
 
+        public static string TryToString(this object source, string valueWhenNull) => source.IsNullOrDbNull() ? valueWhenNull : source.ToString();
+
         //<T>
         public static bool In<T>(this T source, params T[] collection) => collection.Contains(source);
 
@@ -132,5 +135,27 @@ namespace Snokye.Utility
         public static object JsonDeserialize(this string source) => JsonConvert.DeserializeObject(source);
 
         public static bool In(this object source, params object[] collection) => collection.Contains(source);
+
+        //type
+        public static bool IsNumericType(this Type source)
+        {
+            switch (Type.GetTypeCode(source))
+            {
+                case TypeCode.SByte:
+                case TypeCode.Byte:
+                case TypeCode.Int16:
+                case TypeCode.UInt16:
+                case TypeCode.Int32:
+                case TypeCode.UInt32:
+                case TypeCode.Int64:
+                case TypeCode.UInt64:
+                case TypeCode.Single:
+                case TypeCode.Double:
+                case TypeCode.Decimal:
+                    return true;
+                default:
+                    return false;
+            }
+        }
     }
 }

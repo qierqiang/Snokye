@@ -51,7 +51,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -59,6 +62,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvFilterBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AdvFilterBar.Designer.cs">
+      <DependentUpon>AdvFilterBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdvFilterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdvFilterForm.Designer.cs">
+      <DependentUpon>AdvFilterForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AppConfig.cs" />
     <Compile Include="AutoEditForm.cs">
       <SubType>Form</SubType>
@@ -73,7 +88,59 @@
       <DependentUpon>AutoEditGroup.cs</DependentUpon>
     </Compile>
     <Compile Include="AutoGenControlAttribute.cs" />
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CalculateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CalculateForm.Designer.cs">
+      <DependentUpon>CalculateForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChangePasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangePasswordForm.Designer.cs">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClientForm.Designer.cs">
+      <DependentUpon>ClientForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ClientInfo.cs" />
+    <Compile Include="Dashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dashboard.Designer.cs">
+      <DependentUpon>Dashboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormState.cs" />
+    <Compile Include="LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EntityBasedViewModel.cs" />
+    <Compile Include="Model\MappedViewModelBase.cs" />
+    <Compile Include="Model\Snokye.Designer.cs">
+      <DependentUpon>Snokye.edmx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="UserManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserManage.Designer.cs">
+      <DependentUpon>UserManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VMChangePwd.cs" />
+    <Compile Include="VMLoginForm.cs" />
     <Compile Include="ColumnDefinition.cs" />
     <Compile Include="DataList.cs">
       <SubType>Form</SubType>
@@ -81,13 +148,31 @@
     <Compile Include="DataList.Designer.cs">
       <DependentUpon>DataList.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataListColumnSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataListColumnSelector.Designer.cs">
+      <DependentUpon>DataListColumnSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DateRangeFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DateRangeFilter.Designer.cs">
+      <DependentUpon>DateRangeFilter.cs</DependentUpon>
+    </Compile>
     <Compile Include="FilterBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="FilterBar.Designer.cs">
       <DependentUpon>FilterBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormState.cs" />
+    <Compile Include="FilterControlBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FilterControlBase.Designer.cs">
+      <DependentUpon>FilterControlBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FilterDefinition.cs" />
     <Compile Include="LocalUserProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -95,26 +180,72 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ServerUserProfile.cs" />
+    <Compile Include="TextFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TextFilter.Designer.cs">
+      <DependentUpon>TextFilter.cs</DependentUpon>
+    </Compile>
     <Compile Include="ValidateAttribute.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="ViewModelProxy.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AdvFilterBar.resx">
+      <DependentUpon>AdvFilterBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdvFilterForm.resx">
+      <DependentUpon>AdvFilterForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AutoEditForm.resx">
       <DependentUpon>AutoEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AutoEditGroup.resx">
       <DependentUpon>AutoEditGroup.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CalculateForm.resx">
+      <DependentUpon>CalculateForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChangePasswordForm.resx">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClientForm.resx">
+      <DependentUpon>ClientForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dashboard.resx">
+      <DependentUpon>Dashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserManage.resx">
+      <DependentUpon>UserManage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DataList.resx">
       <DependentUpon>DataList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataListColumnSelector.resx">
+      <DependentUpon>DataListColumnSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DateRangeFilter.resx">
+      <DependentUpon>DateRangeFilter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FilterBar.resx">
       <DependentUpon>FilterBar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FilterControlBase.resx">
+      <DependentUpon>FilterControlBase.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TextFilter.resx">
+      <DependentUpon>TextFilter.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -136,7 +267,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <None Include="DataList.md" />
+    <EntityDeploy Include="Model\Snokye.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Snokye.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\Snokye.edmx.diagram">
+      <DependentUpon>Snokye.edmx</DependentUpon>
+    </None>
+    <None Include="Properties\DataSources\AdvFilterBar.datasource" />
     <None Include="Resources\icons8-保存-40.png" />
   </ItemGroup>
   <ItemGroup>
@@ -147,6 +287,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons8-出口-40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-ms-excel中-40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-列-40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\Snokye.edmx.sql" />
+    <None Include="Resources\icons8-适马-40.png" />
+    <None Include="Resources\icons8-删除-40.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

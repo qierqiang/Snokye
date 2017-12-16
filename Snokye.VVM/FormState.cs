@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using Snokye.Utility;
 using Snokye.Controls;
+using Snokye.VVM;
 
 namespace Snokye.VVM
 {
@@ -16,7 +17,7 @@ namespace Snokye.VVM
         public static void LoadFormState(Form frm, string title, ViewModelBase vm = null)
         {
             string profileName = (frm.GetType().FullName + "_" + title + (vm == null ? "" : vm.GetType().FullName));
-            FormState profile = LocalUserProfile.GetProfile<FormState>(ClientInfo.UserLoginName, profileName);
+            FormState profile = LocalUserProfile.GetProfile<FormState>(ClientInfo.CurrentUser.UserName, profileName);
 
             if (profile != null)
             {
@@ -34,7 +35,7 @@ namespace Snokye.VVM
         {
             string profileName = (frm.GetType().FullName + "_" + title + (vm == null ? "" : vm.GetType().FullName));
             FormState profile = new FormState { WindowState = frm.WindowState, Location = frm.Location, Size = frm.Size };
-            LocalUserProfile.Save(ClientInfo.UserLoginName, profileName, profile);
+            LocalUserProfile.Save(ClientInfo.CurrentUser.UserName, profileName, profile);
         }
     }
 }

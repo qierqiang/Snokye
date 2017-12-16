@@ -1,4 +1,4 @@
-﻿namespace SalesmenSettlement.Forms
+﻿namespace Snokye.Controls
 {
     partial class CombinedGridView
     {

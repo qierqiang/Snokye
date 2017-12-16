@@ -31,24 +31,28 @@
             this.panelSelect = new System.Windows.Forms.Panel();
             this.bSelect = new System.Windows.Forms.Button();
             this.bFilter = new System.Windows.Forms.Button();
-            this.pagingControl1 = new Snokye.Controls.PagingControl();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.bNew = new System.Windows.Forms.ToolStripButton();
             this.tslTitle = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.bAdvFilter = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.pFilters = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.tabContainer = new System.Windows.Forms.TabControl();
+            this.pagingControl1 = new Snokye.Controls.PagingControl();
+            this.bNew = new System.Windows.Forms.ToolStripButton();
             this.bEdit = new System.Windows.Forms.ToolStripButton();
             this.bView = new System.Windows.Forms.ToolStripButton();
             this.bDel = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.bExport = new System.Windows.Forms.ToolStripButton();
+            this.bCalculate = new System.Windows.Forms.ToolStripButton();
             this.bClose = new System.Windows.Forms.ToolStripButton();
-            this.bAdvFilter = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.tabContainer = new System.Windows.Forms.TabControl();
             this.panelSelect.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pagingControl1)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pagingControl1)).BeginInit();
             this.SuspendLayout();
             // 
             // panelSelect
@@ -58,7 +62,7 @@
             this.panelSelect.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelSelect.Location = new System.Drawing.Point(0, 450);
             this.panelSelect.Name = "panelSelect";
-            this.panelSelect.Size = new System.Drawing.Size(825, 42);
+            this.panelSelect.Size = new System.Drawing.Size(856, 42);
             this.panelSelect.TabIndex = 3;
             this.panelSelect.Visible = false;
             // 
@@ -66,7 +70,7 @@
             // 
             this.bSelect.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.bSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bSelect.Location = new System.Drawing.Point(368, 5);
+            this.bSelect.Location = new System.Drawing.Point(384, 5);
             this.bSelect.Name = "bSelect";
             this.bSelect.Size = new System.Drawing.Size(85, 33);
             this.bSelect.TabIndex = 0;
@@ -76,26 +80,16 @@
             // 
             // bFilter
             // 
-            this.bFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bFilter.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.bFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bFilter.Location = new System.Drawing.Point(713, 3);
+            this.bFilter.Location = new System.Drawing.Point(5, 6);
+            this.bFilter.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.bFilter.Name = "bFilter";
-            this.bFilter.Size = new System.Drawing.Size(81, 28);
+            this.bFilter.Size = new System.Drawing.Size(80, 28);
             this.bFilter.TabIndex = 5;
-            this.bFilter.Text = "过滤（&F)";
+            this.bFilter.Text = "查询（&F)";
             this.bFilter.UseVisualStyleBackColor = true;
             this.bFilter.Click += new System.EventHandler(this.bFilter_Click);
-            // 
-            // pagingControl1
-            // 
-            this.pagingControl1.AutoSize = true;
-            this.pagingControl1.CurrentPage = 1;
-            this.pagingControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pagingControl1.Location = new System.Drawing.Point(0, 421);
-            this.pagingControl1.MinimumSize = new System.Drawing.Size(600, 29);
-            this.pagingControl1.Name = "pagingControl1";
-            this.pagingControl1.Size = new System.Drawing.Size(825, 29);
-            this.pagingControl1.TabIndex = 1;
             // 
             // toolStrip1
             // 
@@ -108,16 +102,99 @@
             this.bView,
             this.bDel,
             this.toolStripSeparator1,
-            this.toolStripButton1,
+            this.bExport,
+            this.bCalculate,
             this.toolStripSeparator2,
             this.bClose});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(825, 59);
+            this.toolStrip1.Size = new System.Drawing.Size(856, 59);
             this.toolStrip1.Stretch = true;
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // tslTitle
+            // 
+            this.tslTitle.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tslTitle.Font = new System.Drawing.Font("宋体", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tslTitle.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.tslTitle.Name = "tslTitle";
+            this.tslTitle.Size = new System.Drawing.Size(129, 56);
+            this.tslTitle.Text = "表单标题";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 59);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 59);
+            // 
+            // bAdvFilter
+            // 
+            this.bAdvFilter.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.bAdvFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bAdvFilter.Font = new System.Drawing.Font("Webdings", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.bAdvFilter.Location = new System.Drawing.Point(84, 6);
+            this.bAdvFilter.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
+            this.bAdvFilter.Name = "bAdvFilter";
+            this.bAdvFilter.Size = new System.Drawing.Size(21, 28);
+            this.bAdvFilter.TabIndex = 7;
+            this.bAdvFilter.Text = "6";
+            this.bAdvFilter.UseVisualStyleBackColor = true;
+            this.bAdvFilter.Click += new System.EventHandler(this.bAdvFilter_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.pFilters);
+            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 59);
+            this.panel1.Margin = new System.Windows.Forms.Padding(0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(856, 40);
+            this.panel1.TabIndex = 8;
+            // 
+            // pFilters
+            // 
+            this.pFilters.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pFilters.Location = new System.Drawing.Point(0, 0);
+            this.pFilters.Name = "pFilters";
+            this.pFilters.Size = new System.Drawing.Size(748, 40);
+            this.pFilters.TabIndex = 9;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.bFilter);
+            this.panel2.Controls.Add(this.bAdvFilter);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel2.Location = new System.Drawing.Point(748, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(108, 40);
+            this.panel2.TabIndex = 8;
+            // 
+            // tabContainer
+            // 
+            this.tabContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabContainer.Location = new System.Drawing.Point(0, 99);
+            this.tabContainer.Name = "tabContainer";
+            this.tabContainer.SelectedIndex = 0;
+            this.tabContainer.Size = new System.Drawing.Size(856, 322);
+            this.tabContainer.TabIndex = 9;
+            // 
+            // pagingControl1
+            // 
+            this.pagingControl1.AutoSize = true;
+            this.pagingControl1.CurrentPage = 1;
+            this.pagingControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pagingControl1.Location = new System.Drawing.Point(0, 421);
+            this.pagingControl1.MinimumSize = new System.Drawing.Size(600, 29);
+            this.pagingControl1.Name = "pagingControl1";
+            this.pagingControl1.Size = new System.Drawing.Size(856, 29);
+            this.pagingControl1.TabIndex = 1;
             // 
             // bNew
             // 
@@ -127,15 +204,7 @@
             this.bNew.Size = new System.Drawing.Size(51, 56);
             this.bNew.Text = "新建(&N)";
             this.bNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            // 
-            // tslTitle
-            // 
-            this.tslTitle.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tslTitle.Font = new System.Drawing.Font("黑体", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tslTitle.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.tslTitle.Name = "tslTitle";
-            this.tslTitle.Size = new System.Drawing.Size(133, 56);
-            this.tslTitle.Text = "表单标题";
+            this.bNew.Click += new System.EventHandler(this.Command_New);
             // 
             // bEdit
             // 
@@ -143,8 +212,9 @@
             this.bEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bEdit.Name = "bEdit";
             this.bEdit.Size = new System.Drawing.Size(51, 56);
-            this.bEdit.Text = "修改(&E)";
+            this.bEdit.Text = "修改(&M)";
             this.bEdit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.bEdit.Click += new System.EventHandler(this.Command_Edit);
             // 
             // bView
             // 
@@ -154,6 +224,7 @@
             this.bView.Size = new System.Drawing.Size(51, 56);
             this.bView.Text = "查看(&V)";
             this.bView.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.bView.Click += new System.EventHandler(this.Command_View);
             // 
             // bDel
             // 
@@ -163,25 +234,27 @@
             this.bDel.Size = new System.Drawing.Size(51, 56);
             this.bDel.Text = "删除(&D)";
             this.bDel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.bDel.Click += new System.EventHandler(this.Command_Delete);
             // 
-            // toolStripSeparator1
+            // bExport
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 59);
+            this.bExport.Image = global::Snokye.VVM.Properties.Resources.icons8_ms_excel中_40;
+            this.bExport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bExport.Name = "bExport";
+            this.bExport.Size = new System.Drawing.Size(51, 56);
+            this.bExport.Text = "导出(&E)";
+            this.bExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.bExport.Click += new System.EventHandler(this.Command_Export);
             // 
-            // toolStripButton1
+            // bCalculate
             // 
-            this.toolStripButton1.Image = global::Snokye.VVM.Properties.Resources.icons8_计算器_40;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(51, 56);
-            this.toolStripButton1.Text = "计算(&C)";
-            this.toolStripButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 59);
+            this.bCalculate.Image = global::Snokye.VVM.Properties.Resources.icons8_适马_40;
+            this.bCalculate.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bCalculate.Name = "bCalculate";
+            this.bCalculate.Size = new System.Drawing.Size(51, 56);
+            this.bCalculate.Text = "合计(&S)";
+            this.bCalculate.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.bCalculate.Click += new System.EventHandler(this.Command_Calculator);
             // 
             // bClose
             // 
@@ -191,55 +264,26 @@
             this.bClose.Size = new System.Drawing.Size(51, 56);
             this.bClose.Text = "退出(&X)";
             this.bClose.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            // 
-            // bAdvFilter
-            // 
-            this.bAdvFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bAdvFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bAdvFilter.Font = new System.Drawing.Font("Webdings", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.bAdvFilter.Location = new System.Drawing.Point(791, 3);
-            this.bAdvFilter.Name = "bAdvFilter";
-            this.bAdvFilter.Size = new System.Drawing.Size(30, 28);
-            this.bAdvFilter.TabIndex = 7;
-            this.bAdvFilter.Text = "6";
-            this.bAdvFilter.UseVisualStyleBackColor = true;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.bFilter);
-            this.panel1.Controls.Add(this.bAdvFilter);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 59);
-            this.panel1.Margin = new System.Windows.Forms.Padding(0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(825, 35);
-            this.panel1.TabIndex = 8;
-            // 
-            // tabContainer
-            // 
-            this.tabContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabContainer.Location = new System.Drawing.Point(0, 94);
-            this.tabContainer.Name = "tabContainer";
-            this.tabContainer.SelectedIndex = 0;
-            this.tabContainer.Size = new System.Drawing.Size(825, 327);
-            this.tabContainer.TabIndex = 9;
+            this.bClose.Click += new System.EventHandler(this.Command_Close);
             // 
             // DataList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(825, 492);
+            this.ClientSize = new System.Drawing.Size(856, 492);
             this.Controls.Add(this.tabContainer);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.pagingControl1);
             this.Controls.Add(this.panelSelect);
             this.Name = "DataList";
+            this.Load += new System.EventHandler(this.DataList_Load);
             this.panelSelect.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pagingControl1)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pagingControl1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -261,7 +305,10 @@
         private System.Windows.Forms.Button bAdvFilter;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TabControl tabContainer;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton bCalculate;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.FlowLayoutPanel pFilters;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ToolStripButton bExport;
     }
 }

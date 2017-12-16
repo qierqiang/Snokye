@@ -3,6 +3,8 @@ using System.Drawing;
 using System.Windows.Forms;
 using Snokye.Utility;
 using Snokye.Controls;
+using Snokye.VVM;
+using System.Reflection;
 
 namespace Snokye.VVM
 {
@@ -16,11 +18,20 @@ namespace Snokye.VVM
             {
                 System.Diagnostics.Process.GetCurrentProcess().Kill();
             }
-            LastInstance = this;
+            ClientInfo.ClientForm = this;
             InitializeComponent();
             Text = AppConfig.Instance.AppName;
             LoadIcon();
+#if DEBUG
+            WindowState = FormWindowState.Normal;
+            StartPosition = FormStartPosition.CenterScreen;
+            Size = new Size(1024, 700);
+            MaximizeBox = false;
+            MaximumSize = Size;
+
+#else
             FormState.LoadFormState(this, "ClientForm", null);
+#endif
         }
 
         private void LoadIcon()
@@ -46,13 +57,9 @@ namespace Snokye.VVM
 
         private void OpenFile(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            openFileDialog.Filter = "文本文件(*.txt)|*.txt|所有文件(*.*)|*.*";
-            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                string FileName = openFileDialog.FileName;
-            }
+            UserManage f = new UserManage();
+            f.MdiParent = this;
+            f.Show();
         }
 
         private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -150,10 +157,11 @@ namespace Snokye.VVM
 
         private void changePwdToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ChangePasswordForm.ViewModel model = new ChangePasswordForm.ViewModel();
-            model.ID = ClientInfo.UserID;
+            VMChangePwd model = new VMChangePwd();
+            model.ID = ClientInfo.CurrentUser.Id;
             model = ViewModelProxy.Proxy(model);
-            OpenDialogForm(typeof(AutoEditForm), "修改密码", model);
+
+            OpenDialogForm(typeof(ChangePasswordForm), "修改密码", model);
         }
 
         public Form OpenMDIForm(Type formType)
@@ -196,7 +204,5 @@ namespace Snokye.VVM
 
             return DialogResult.None;
         }
-
-        public static ClientForm LastInstance { get; set; }
     }
 }

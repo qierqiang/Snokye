@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace Snokye.Utility
 {
@@ -12,7 +12,23 @@ namespace Snokye.Utility
     {
         public SqlDatabase()
         {
-            string cnn = ConfigurationManager.AppSettings[CodeHelper.GetApplicationTitle()];
+#if DEBUG
+            string cnn = "Data Source=.;Initial Catalog=SnokyeDev;Persist Security Info=True;User ID=sa;Password=123456";
+            ConnectionString = cnn;
+            Connection = new SqlConnection(cnn);
+#else
+            string cnn = ConfigurationManager.ConnectionStrings[CodeHelper.GetApplicationTitle()].ConnectionString;
+            if (cnn != null)
+            {
+                ConnectionString = cnn ?? throw new Exception("未能找到数据库连接字符串");
+                Connection = new SqlConnection(cnn);
+            }
+#endif
+        }
+
+        public SqlDatabase(FileInfo exeFile, string name)
+        {
+            string cnn = ConfigurationManager.OpenExeConfiguration(exeFile.FullName).ConnectionStrings.ConnectionStrings[name].ConnectionString;
             ConnectionString = cnn ?? throw new Exception("未能找到数据库连接字符串");
             Connection = new SqlConnection(cnn);
         }
@@ -25,7 +41,7 @@ namespace Snokye.Utility
             //从appConfig中读取
             if (cnnString.StartsWith("name=", StringComparison.CurrentCultureIgnoreCase))
             {
-                string cnn = ConfigurationManager.AppSettings[cnnString.Substring(5)];
+                string cnn = ConfigurationManager.ConnectionStrings[cnnString.Substring(5)].ConnectionString;
                 ConnectionString = cnn ?? throw new Exception("未能找到数据库连接字符串");
                 Connection = new SqlConnection(cnn);
             }
@@ -137,7 +153,7 @@ namespace Snokye.Utility
             return ExecuteNonQuery(cmd, null);
         }
         /// <summary>执行 SQL 语句并返回受影响的行数</summary>
-        public virtual int ExecuteNonQuery(IDbCommand cmd, params SqlParameter[] parms)
+        public virtual int ExecuteNonQuery(SqlCommand cmd, params SqlParameter[] parms)
         {
             lock (this)
             {
@@ -158,6 +174,7 @@ namespace Snokye.Utility
                 }
                 finally
                 {
+                    cmd.Parameters.Clear();
                     CloseConnection();
                 }
             }
@@ -214,6 +231,7 @@ namespace Snokye.Utility
                 }
                 finally
                 {
+                    cmd.Parameters.Clear();
                     CloseConnection();
                 }
             }
@@ -324,6 +342,7 @@ namespace Snokye.Utility
                 }
                 finally
                 {
+                    cmd.Parameters.Clear();
                     CloseConnection();
                 }
             }
@@ -385,6 +404,7 @@ namespace Snokye.Utility
                 }
                 finally
                 {
+                    cmd.Parameters.Clear();
                     CloseConnection();
                 }
             }
@@ -510,5 +530,27 @@ namespace Snokye.Utility
         }
 
         #endregion
+
+        public static SqlParameter[] ToParameters(params object[] keyValue)
+        {
+            if (keyValue == null)
+            {
+                throw new ArgumentNullException(nameof(keyValue));
+            }
+            if (Convert.ToBoolean(keyValue.Length % 2))
+            {
+                throw new ArgumentException("数组长度不是偶数！");
+            }
+            SqlParameter[] result = new SqlParameter[keyValue.Length / 2];
+
+            for (int i = 0; i < keyValue.Length; i += 2)
+            {
+                string key = keyValue[i].ToString();
+                object val = keyValue[i + 1];
+                result[i / 2] = new SqlParameter(key, val);
+            }
+
+            return result;
+        }
     }
 }

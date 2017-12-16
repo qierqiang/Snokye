@@ -63,6 +63,16 @@ namespace Snokye.VVM.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_ms_excel中_40 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-ms-excel中-40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_保存_40 {
             get {
                 object obj = ResourceManager.GetObject("icons8-保存-40", resourceCulture);
@@ -86,6 +96,26 @@ namespace Snokye.VVM.Properties {
         internal static System.Drawing.Bitmap icons8_出口_40 {
             get {
                 object obj = ResourceManager.GetObject("icons8-出口-40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_列_40 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-列-40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_删除_40 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-删除-40", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -156,6 +186,16 @@ namespace Snokye.VVM.Properties {
         internal static System.Drawing.Bitmap icons8_计算器_40 {
             get {
                 object obj = ResourceManager.GetObject("icons8-计算器-40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_适马_40 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-适马-40", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
