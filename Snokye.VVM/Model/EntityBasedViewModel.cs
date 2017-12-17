@@ -8,6 +8,7 @@ using System.Text;
 
 namespace Snokye.VVM.Model
 {
+    [Obsolete("", true)]
     public abstract class EntityBasedViewModel : ViewModelBase
     {
         Dictionary<string, EntityObject> _dictionary;

@@ -1,15 +1,19 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using CD = Snokye.VVM.ColumnDefinition;
 using FD = Snokye.VVM.FilterDefinition;
 
 namespace Snokye.VVM
 {
-    public partial class UserManage : DataList
+    public partial class UserManage : DataListBase
     {
         public UserManage()
         {
             InitializeComponent();
-            Title = "用户管理";
+            Title = "用户";
+            ViewModelType = typeof(VMEditUser);
+            EditFormType = typeof(AutoEditForm);
+            ViewFormType = typeof(AutoEditForm);
         }
 
         public override void BeginInit()

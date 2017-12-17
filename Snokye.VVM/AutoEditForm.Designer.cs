@@ -84,10 +84,10 @@
             // tslTitle
             // 
             this.tslTitle.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tslTitle.Font = new System.Drawing.Font("黑体", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tslTitle.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.tslTitle.Font = new System.Drawing.Font("宋体", 21.75F);
+            this.tslTitle.ForeColor = System.Drawing.SystemColors.WindowText;
             this.tslTitle.Name = "tslTitle";
-            this.tslTitle.Size = new System.Drawing.Size(133, 56);
+            this.tslTitle.Size = new System.Drawing.Size(129, 56);
             this.tslTitle.Text = "表单标题";
             // 
             // errorProvider1
@@ -118,7 +118,7 @@
         private System.Windows.Forms.ToolStripButton bClose;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripLabel tslTitle;
-        private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        protected internal System.Windows.Forms.ToolStrip toolStrip1;
     }
 }

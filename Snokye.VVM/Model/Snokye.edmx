@@ -8,6 +8,16 @@
   <EntityContainer Name="SnokyeVVMModelStoreContainer">
     <EntitySet Name="UserInfoSet" EntityType="Snokye.VVM.Model.Store.UserInfoSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ProfileSet" EntityType="Snokye.VVM.Model.Store.ProfileSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BillBaseSet" EntityType="Snokye.VVM.Model.Store.BillBaseSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BillBaseSet_ExampleBill" EntityType="Snokye.VVM.Model.Store.BillBaseSet_ExampleBill" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UserInfoBillBase" Association="Snokye.VVM.Model.Store.UserInfoBillBase">
+      <End Role="UserInfo" EntitySet="UserInfoSet" />
+      <End Role="BillBase" EntitySet="BillBaseSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ExampleBill_inherits_BillBase" Association="Snokye.VVM.Model.Store.FK_ExampleBill_inherits_BillBase">
+      <End Role="BillBase" EntitySet="BillBaseSet" />
+      <End Role="ExampleBill" EntitySet="BillBaseSet_ExampleBill" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="UserInfoSet">
     <Key>
@@ -19,7 +29,6 @@
     <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="32" />
     <Property Name="Disabled" Type="bit" Nullable="false" DefaultValue="false" />
     <Property Name="UserGuid" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Salary" Type="decimal" Nullable="true" Precision="18" Scale="2" />
   </EntityType>
   <EntityType Name="ProfileSet">
     <Key>
@@ -31,6 +40,48 @@
     <Property Name="Value" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="UserGuid" Type="uniqueidentifier" Nullable="true" />
   </EntityType>
+  <EntityType Name="BillBaseSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BillerID" Type="bigint" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserInfo_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BillBaseSet_ExampleBill">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <Association Name="UserInfoBillBase">
+    <End Role="UserInfo" Type="Snokye.VVM.Model.Store.UserInfoSet" Multiplicity="1" />
+    <End Role="BillBase" Type="Snokye.VVM.Model.Store.BillBaseSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BillBase">
+        <PropertyRef Name="UserInfo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ExampleBill_inherits_BillBase">
+    <End Role="BillBase" Type="Snokye.VVM.Model.Store.BillBaseSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ExampleBill" Type="Snokye.VVM.Model.Store.BillBaseSet_ExampleBill" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="BillBase">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ExampleBill">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -38,6 +89,11 @@
         <EntityContainer Name="SnokyeContainer" >
           <EntitySet Name="UserInfoSet" EntityType="Snokye.VVM.Model.UserInfo" />
           <EntitySet Name="ProfileSet" EntityType="Snokye.VVM.Model.Profile" />
+          <EntitySet Name="BillBaseSet" EntityType="Snokye.VVM.Model.BillBase" />
+          <AssociationSet Name="UserInfoBillBase" Association="Snokye.VVM.Model.UserInfoBillBase">
+            <End Role="UserInfo" EntitySet="UserInfoSet" />
+            <End Role="BillBase" EntitySet="BillBaseSet" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="UserInfo">
           <Documentation>
@@ -68,6 +124,7 @@
             </Documentation>
           </Property>
           <Property Name="UserGuid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="BillBase" Relationship="Snokye.VVM.Model.UserInfoBillBase" FromRole="UserInfo" ToRole="BillBase" />
         </EntityType>
         <EntityType Name="Profile">
           <Key>
@@ -78,6 +135,22 @@
           <Property Name="Key" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Value" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="UserGuid" Type="Guid" Nullable="true" />
+        </EntityType>
+        <EntityType Name="BillBase" Abstract="true">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="BillerID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="UserInfo" Relationship="Snokye.VVM.Model.UserInfoBillBase" FromRole="BillBase" ToRole="UserInfo" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" />
+          <Property Name="Status" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="UserInfoBillBase">
+          <End Type="Snokye.VVM.Model.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="Snokye.VVM.Model.BillBase" Role="BillBase" Multiplicity="*" />
+        </Association>
+        <EntityType Name="ExampleBill" BaseType="Snokye.VVM.Model.BillBase" >
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -108,6 +181,29 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="BillBaseSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Snokye.VVM.Model.BillBase)">
+        <MappingFragment StoreEntitySet="BillBaseSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BillerID" ColumnName="BillerID" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Snokye.VVM.Model.ExampleBill)">
+        <MappingFragment StoreEntitySet="BillBaseSet_ExampleBill">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="UserInfoBillBase" TypeName="Snokye.VVM.Model.UserInfoBillBase" StoreEntitySet="BillBaseSet">
+      <EndProperty Name="UserInfo">
+        <ScalarProperty Name="Id" ColumnName="UserInfo_Id" />
+      </EndProperty>
+      <EndProperty Name="BillBase">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

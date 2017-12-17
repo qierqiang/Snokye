@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using Snokye.Utility;
 
 namespace Snokye.Controls
 {
@@ -18,14 +19,19 @@ namespace Snokye.Controls
             ReadOnly = true;
             SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle(ColumnHeadersDefaultCellStyle) { Alignment = DataGridViewContentAlignment.MiddleCenter };
+        }
 
-            ////选择列
-            //DataGridViewCheckBoxColumn cbc = new DataGridViewCheckBoxColumn { Visible = false };
-            //Columns.Add(cbc);
+        protected override void OnDataBindingComplete(DataGridViewBindingCompleteEventArgs e)
+        {
+            base.OnDataBindingComplete(e);
 
-            ////标识列
-            //DataGridViewTextBoxColumn idc = new DataGridViewTextBoxColumn { Visible = false };
-            //Columns.Add(idc);
+            foreach (DataGridViewColumn c in Columns)
+            {
+                if (c.ValueType.IsNumericType())
+                {
+                    c.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                }
+            }
         }
     }
 }

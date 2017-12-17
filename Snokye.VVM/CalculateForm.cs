@@ -13,10 +13,10 @@ namespace Snokye.VVM
 {
     public partial class CalculateForm : Form
     {
-        private DataList _listForm;
+        private DataListBase _listForm;
         private DataTable _fieldsTable;
 
-        public CalculateForm(DataList listForm)
+        public CalculateForm(DataListBase listForm)
         {
             _listForm = listForm;
 

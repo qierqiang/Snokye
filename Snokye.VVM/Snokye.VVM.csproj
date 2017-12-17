@@ -75,6 +75,12 @@
       <DependentUpon>AdvFilterForm.cs</DependentUpon>
     </Compile>
     <Compile Include="AppConfig.cs" />
+    <Compile Include="AutoEditBillForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AutoEditBillForm.Designer.cs">
+      <DependentUpon>AutoEditBillForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AutoEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +99,18 @@
     </Compile>
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BillDetailEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BillDetailEditForm.Designer.cs">
+      <DependentUpon>BillDetailEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BillDetailList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BillDetailList.Designer.cs">
+      <DependentUpon>BillDetailList.cs</DependentUpon>
     </Compile>
     <Compile Include="CalculateForm.cs">
       <SubType>Form</SubType>
@@ -119,6 +137,7 @@
     <Compile Include="Dashboard.Designer.cs">
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormOperation.cs" />
     <Compile Include="FormState.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
@@ -133,6 +152,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Model\Snokye.Partial.cs" />
     <Compile Include="UserManage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,13 +160,15 @@
       <DependentUpon>UserManage.cs</DependentUpon>
     </Compile>
     <Compile Include="VMChangePwd.cs" />
+    <Compile Include="VMDataList.cs" />
+    <Compile Include="VMEditUser.cs" />
     <Compile Include="VMLoginForm.cs" />
     <Compile Include="ColumnDefinition.cs" />
-    <Compile Include="DataList.cs">
+    <Compile Include="DataListBase.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DataList.Designer.cs">
-      <DependentUpon>DataList.cs</DependentUpon>
+    <Compile Include="DataListBase.Designer.cs">
+      <DependentUpon>DataListBase.cs</DependentUpon>
     </Compile>
     <Compile Include="DataListColumnSelector.cs">
       <SubType>Form</SubType>
@@ -198,6 +220,9 @@
     <EmbeddedResource Include="AdvFilterForm.resx">
       <DependentUpon>AdvFilterForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AutoEditBillForm.resx">
+      <DependentUpon>AutoEditBillForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AutoEditForm.resx">
       <DependentUpon>AutoEditForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -206,6 +231,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BillDetailList.resx">
+      <DependentUpon>BillDetailList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CalculateForm.resx">
       <DependentUpon>CalculateForm.cs</DependentUpon>
@@ -225,8 +253,8 @@
     <EmbeddedResource Include="UserManage.resx">
       <DependentUpon>UserManage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataList.resx">
-      <DependentUpon>DataList.cs</DependentUpon>
+    <EmbeddedResource Include="DataListBase.resx">
+      <DependentUpon>DataListBase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataListColumnSelector.resx">
       <DependentUpon>DataListColumnSelector.cs</DependentUpon>
@@ -268,7 +296,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <None Include="DataList.md" />
+    <None Include="DataListBase.md" />
     <EntityDeploy Include="Model\Snokye.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Snokye.Designer.cs</LastGenOutput>
@@ -296,6 +324,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Model\Snokye.edmx.sql" />
+    <None Include="Resources\icons8-同步-40.png" />
+    <None Include="Resources\icons8-减去-40.png" />
+    <None Include="Resources\icons8-加-40.png" />
     <None Include="Resources\icons8-适马-40.png" />
     <None Include="Resources\icons8-删除-40.png" />
   </ItemGroup>

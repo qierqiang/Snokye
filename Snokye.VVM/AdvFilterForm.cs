@@ -13,13 +13,13 @@ namespace Snokye.VVM
 {
     public partial class AdvFilterForm : Form
     {
-        private DataList _listForm;
+        private DataListBase _listForm;
         private DataTable _dataSource;
         int _filterCount = 1;
 
         public KeyValuePair<string, SqlParameter[]>? Result { get; set; }
 
-        public AdvFilterForm(DataList listForm)
+        public AdvFilterForm(DataListBase listForm)
         {
             //GetFiledsTable
             _listForm = listForm;

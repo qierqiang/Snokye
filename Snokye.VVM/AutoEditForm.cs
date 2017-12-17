@@ -45,7 +45,15 @@ namespace Snokye.VVM
                 }
             }
         }
-        public string Title { get => tslTitle.Text; set => tslTitle.Text = value; }
+        public string Title
+        {
+            get => tslTitle.Text;
+            set
+            {
+                tslTitle.Text = value;
+                Text = value;
+            }
+        }
 
         //ctor
         public AutoEditForm()
@@ -96,17 +104,6 @@ namespace Snokye.VVM
             }
         }
 
-        protected virtual void SubmitForm(object sender, EventArgs e)
-        {
-            if (DataSource != null && DataSource.Submit())
-            {
-                DataSource.AfterSubmit();
-                errorProvider1.Clear();
-            }
-        }
-
-        protected virtual void CloseForm(object sender, EventArgs e) => Close();
-
         protected virtual void ClosingForm(object sender, FormClosingEventArgs e)
         {
             if (DataSource != null && DataSource.GetIsModified() && !Msgbox.DontSaveConfirm())
@@ -124,26 +121,6 @@ namespace Snokye.VVM
                 {
                     g.DataSource = DataSource;
                 }
-
-                //var query = from p in DataSource.GetRealType().GetProperties()
-                //            where FilterProperty(p)
-                //            from a in p.GetCustomAttributes(typeof(AutoGenControlAttribute), true).OfType<AutoGenControlAttribute>()
-                //            let c = this.FindFirstChildControl(c => c.Name == a.EditorType.Name.LowerFirstLetter() + "_" + p.Name)
-                //            where c != null
-                //            from ca in c.GetType().GetCustomAttributes(typeof(DefaultPropertyAttribute), true).OfType<DefaultPropertyAttribute>()
-                //            where ca != null
-                //            select new
-                //            {
-                //                Property = p.Name,              //数据源要绑定的属性名称
-                //                //Attribute =a,                   //AutoGenControlAttribute
-                //                Control = c,                    //要绑定的控件
-                //                DefaultPropertyName = ca.Name,  //要绑定的控件属性名称
-                //            };
-
-                //foreach (var item in query)
-                //{
-                //    item.Control.DataBindings.Add(new Binding(item.DefaultPropertyName, DataSource, item.Property, true, DataSourceUpdateMode.OnValidation));
-                //}
             }
         }
 
@@ -188,6 +165,24 @@ namespace Snokye.VVM
             FilteringPropertiesEventArgs e = new FilteringPropertiesEventArgs(property);
             OnFilteringProperties(new FilteringPropertiesEventArgs(property));
             return !e.Ignored;
+        }
+
+        private void SubmitForm(object sender, EventArgs e) => ExecuteCommand(FormOperation.Submit);
+
+        private void CloseForm(object sender, EventArgs e) => ExecuteCommand(FormOperation.CloseForm);
+
+        public virtual void ExecuteCommand(FormOperation operation)
+        {
+            GetType().GetMethod(operation.ToString(), BindingFlags.Instance | BindingFlags.NonPublic)?.Invoke(this, null);
+        }
+        internal void CloseForm() { Close(); }
+        internal void Submit()
+        {
+            if (DataSource != null && DataSource.Submit())
+            {
+                DataSource.AfterSubmit();
+                errorProvider1.Clear();
+            }
         }
     }
 }

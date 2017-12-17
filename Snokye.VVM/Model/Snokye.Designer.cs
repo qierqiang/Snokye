@@ -9,9 +9,10 @@
 //------------------------------------------------------------------------------
 
 [assembly: global::System.Data.Objects.DataClasses.EdmSchemaAttribute()]
+[assembly: global::System.Data.Objects.DataClasses.EdmRelationshipAttribute("Snokye.VVM.Model", "UserInfoBillBase", "UserInfo", global::System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Snokye.VVM.Model.UserInfo), "BillBase", global::System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Snokye.VVM.Model.BillBase))]
 
 // 原始文件名:
-// 生成日期: 2017/12/17 3:12:52
+// 生成日期: 2017/12/17 18:47:38
 namespace Snokye.VVM.Model
 {
     
@@ -80,6 +81,23 @@ namespace Snokye.VVM.Model
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         private global::System.Data.Objects.ObjectQuery<Profile> _ProfileSet;
         /// <summary>
+        /// 架构中不存在 BillBaseSet 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public global::System.Data.Objects.ObjectQuery<BillBase> BillBaseSet
+        {
+            get
+            {
+                if ((this._BillBaseSet == null))
+                {
+                    this._BillBaseSet = base.CreateQuery<BillBase>("[BillBaseSet]");
+                }
+                return this._BillBaseSet;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        private global::System.Data.Objects.ObjectQuery<BillBase> _BillBaseSet;
+        /// <summary>
         /// 架构中不存在 UserInfoSet 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
@@ -94,6 +112,14 @@ namespace Snokye.VVM.Model
         public void AddToProfileSet(Profile profile)
         {
             base.AddObject("ProfileSet", profile);
+        }
+        /// <summary>
+        /// 架构中不存在 BillBaseSet 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public void AddToBillBaseSet(BillBase billBase)
+        {
+            base.AddObject("BillBaseSet", billBase);
         }
     }
     /// <summary>
@@ -288,6 +314,28 @@ namespace Snokye.VVM.Model
         partial void OnUserGuidChanging(global::System.Guid value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnUserGuidChanged();
+        /// <summary>
+        /// 架构中不存在 BillBase 的注释。
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("Snokye.VVM.Model", "UserInfoBillBase", "BillBase")]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
+        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        public global::System.Data.Objects.DataClasses.EntityCollection<BillBase> BillBase
+        {
+            get
+            {
+                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedCollection<BillBase>("Snokye.VVM.Model.UserInfoBillBase", "BillBase");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedCollection<BillBase>("Snokye.VVM.Model.UserInfoBillBase", "BillBase", value);
+                }
+            }
+        }
     }
     /// <summary>
     /// 架构中不存在 Snokye.VVM.Model.Profile 的注释。
@@ -452,5 +500,194 @@ namespace Snokye.VVM.Model
         partial void OnUserGuidChanging(global::System.Nullable<global::System.Guid> value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnUserGuidChanged();
+    }
+    /// <summary>
+    /// 架构中不存在 Snokye.VVM.Model.BillBase 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::System.Data.Objects.DataClasses.EdmEntityTypeAttribute(NamespaceName="Snokye.VVM.Model", Name="BillBase")]
+    [global::System.Runtime.Serialization.DataContractAttribute(IsReference=true)]
+    [global::System.Serializable()]
+    [global::System.Runtime.Serialization.KnownTypeAttribute(typeof(global::Snokye.VVM.Model.ExampleBill))]
+    public abstract partial class BillBase : global::System.Data.Objects.DataClasses.EntityObject
+    {
+        /// <summary>
+        /// 架构中不存在属性 Id 的任何注释。
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public long Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this.ReportPropertyChanging("Id");
+                this._Id = global::System.Data.Objects.DataClasses.StructuralObject.SetValidValue(value);
+                this.ReportPropertyChanged("Id");
+                this.OnIdChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        private long _Id;
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnIdChanging(long value);
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 BillerID 的任何注释。
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute(IsNullable=false)]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public long BillerID
+        {
+            get
+            {
+                return this._BillerID;
+            }
+            set
+            {
+                this.OnBillerIDChanging(value);
+                this.ReportPropertyChanging("BillerID");
+                this._BillerID = global::System.Data.Objects.DataClasses.StructuralObject.SetValidValue(value);
+                this.ReportPropertyChanged("BillerID");
+                this.OnBillerIDChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        private long _BillerID;
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnBillerIDChanging(long value);
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnBillerIDChanged();
+        /// <summary>
+        /// 架构中不存在属性 CreateDate 的任何注释。
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute(IsNullable=false)]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public global::System.DateTime CreateDate
+        {
+            get
+            {
+                return this._CreateDate;
+            }
+            set
+            {
+                this.OnCreateDateChanging(value);
+                this.ReportPropertyChanging("CreateDate");
+                this._CreateDate = global::System.Data.Objects.DataClasses.StructuralObject.SetValidValue(value);
+                this.ReportPropertyChanged("CreateDate");
+                this.OnCreateDateChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        private global::System.DateTime _CreateDate;
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnCreateDateChanging(global::System.DateTime value);
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnCreateDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 Status 的任何注释。
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute(IsNullable=false)]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public string Status
+        {
+            get
+            {
+                return this._Status;
+            }
+            set
+            {
+                this.OnStatusChanging(value);
+                this.ReportPropertyChanging("Status");
+                this._Status = global::System.Data.Objects.DataClasses.StructuralObject.SetValidValue(value, false);
+                this.ReportPropertyChanged("Status");
+                this.OnStatusChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        private string _Status;
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnStatusChanging(string value);
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnStatusChanged();
+        /// <summary>
+        /// 架构中不存在 UserInfo 的注释。
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("Snokye.VVM.Model", "UserInfoBillBase", "UserInfo")]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
+        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        public UserInfo UserInfo
+        {
+            get
+            {
+                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<UserInfo>("Snokye.VVM.Model.UserInfoBillBase", "UserInfo").Value;
+            }
+            set
+            {
+                ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<UserInfo>("Snokye.VVM.Model.UserInfoBillBase", "UserInfo").Value = value;
+            }
+        }
+        /// <summary>
+        /// 架构中不存在 UserInfo 的注释。
+        /// </summary>
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        public global::System.Data.Objects.DataClasses.EntityReference<UserInfo> UserInfoReference
+        {
+            get
+            {
+                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<UserInfo>("Snokye.VVM.Model.UserInfoBillBase", "UserInfo");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedReference<UserInfo>("Snokye.VVM.Model.UserInfoBillBase", "UserInfo", value);
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 Snokye.VVM.Model.ExampleBill 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::System.Data.Objects.DataClasses.EdmEntityTypeAttribute(NamespaceName="Snokye.VVM.Model", Name="ExampleBill")]
+    [global::System.Runtime.Serialization.DataContractAttribute(IsReference=true)]
+    [global::System.Serializable()]
+    public partial class ExampleBill : BillBase
+    {
+        /// <summary>
+        /// 创建新的 ExampleBill 对象。
+        /// </summary>
+        /// <param name="id">Id 的初始值。</param>
+        /// <param name="billerID">BillerID 的初始值。</param>
+        /// <param name="createDate">CreateDate 的初始值。</param>
+        /// <param name="status">Status 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public static ExampleBill CreateExampleBill(long id, long billerID, global::System.DateTime createDate, string status)
+        {
+            ExampleBill exampleBill = new ExampleBill();
+            exampleBill.Id = id;
+            exampleBill.BillerID = billerID;
+            exampleBill.CreateDate = createDate;
+            exampleBill.Status = status;
+            return exampleBill;
+        }
     }
 }

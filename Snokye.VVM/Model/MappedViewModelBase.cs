@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Snokye.VVM.Model
 {
-    public class MappedViewModelBase : ViewModelBase
+    public abstract class MappedViewModelBase : ViewModelBase
     {
         protected HashSet<string> PropertyNames;
 
@@ -19,8 +19,11 @@ namespace Snokye.VVM.Model
         {
             PropertyNames = new HashSet<string>(this.GetType().GetProperties().Select(p => p.Name));
             PropertyMappedEntity = new Dictionary<string, EntityObject>();
+            PropertyMappedProperty = new Dictionary<string, string>();
         }
 
+        public abstract void LoadByID(long id);
+        
         public void Map<T>(string thisProperty, EntityObject entity, Expression<Func<T>> entityPropertySelector)
         {
             string entityProperty = ((MemberExpression)entityPropertySelector.Body).Member.Name;
@@ -50,7 +53,7 @@ namespace Snokye.VVM.Model
                             Value = o.entity.GetType().GetProperty(o.ep).GetValue(o.entity, null)
                         };
 
-            foreach (var item in query)
+            foreach (var item in query.Distinct())
             {
                 item.Key.SetValue(this, item.Value, null);
             }
