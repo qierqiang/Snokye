@@ -10,15 +10,15 @@ namespace Snokye.VVM
         public long ID { get; set; }
 
         [Validate]
-        [AutoGenControl(typeof(PasswordBox), "原密码")]
+        [AutoGenControl(EditorType = typeof(PasswordBox), DisplayName = "原密码")]
         public string OldPassword { get; set; }
 
         [Validate]
-        [AutoGenControl(typeof(PasswordBox), "新密码", beginNewRow: true)]
+        [AutoGenControl(EditorType = typeof(PasswordBox), DisplayName = "新密码", BeginNewRow = true)]
         public string NewPasswrod { get; set; }
 
         [Validate]
-        [AutoGenControl(typeof(PasswordBox), "确认密码", beginNewRow: true)]
+        [AutoGenControl(EditorType = typeof(PasswordBox), DisplayName = "确认密码", BeginNewRow = true)]
         public string RepPassword { get; set; }
 
         public override bool BeforeSubmit()

@@ -111,7 +111,7 @@ namespace Snokye.VVM
             }
 
             string fileName = UserProfileDirecotry + userName + "\\" + profileName.GetMD5();
-            File.Delete(fileName);
+            if (File.Exists(fileName)) File.Delete(fileName);
         }
     }
 }

@@ -12,11 +12,11 @@ namespace Snokye.VVM
     public class VMEditUser : MappedViewModelBase
     {
         [Validate]
-        [AutoGenControl(typeof(TextBox), "用户名")]
+        [AutoGenControl(EditorType = typeof(TextBox), DisplayName = "用户名", ReadOnlyWhenModify = true)]
         public string UserName { get; set; }
 
         [Validate]
-        [AutoGenControl(typeof(TextBox), "姓名")]
+        [AutoGenControl(EditorType = typeof(TextBox), DisplayName = "姓名")]
         public string DisplayName { get; set; }
 
         UserInfo _eneity;
@@ -28,6 +28,7 @@ namespace Snokye.VVM
             {
                 //_eneity = UserInfo.CreateUserInfo(0, "", "", "123456".GetMD5(), Guid.NewGuid());
                 _eneity = new UserInfo();
+                _container.AddToUserInfoSet(_eneity);
             }
             else
             {
@@ -44,6 +45,7 @@ namespace Snokye.VVM
             if (!base.Submit())
                 return false;
 
+            WriteMappedPropertyValues();
             _container.SaveChanges();
             return true;
         }

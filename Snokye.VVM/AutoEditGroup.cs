@@ -22,6 +22,7 @@ namespace Snokye.VVM
         private ViewModelBase _dataSource;
         private int _rowCount = 0;
         private bool _expanded = true;
+        private EditFormPurpose _formPurpose = EditFormPurpose.Create;
 
         //properties
         public string ViewModelTypeFullName { get; set; }
@@ -50,6 +51,9 @@ namespace Snokye.VVM
             }
             set { lTitle.Text = value; }
         }
+
+        [Browsable(false)]
+        public EditFormPurpose FormPurpose { get => _formPurpose; set => _formPurpose = value; }
 
         //ctor
         public AutoEditGroup()
@@ -146,10 +150,23 @@ namespace Snokye.VVM
                 editor.Margin = new Padding(10, 12, 80, 10);
                 editor.Enabled = info.Value.Enabled;
                 //read only
-                var query = (from p in info.Value.EditorType.GetProperties() where p.Name == "ReadOnly" && p.CanWrite select p).FirstOrDefault();
-                if (query != null)
+                var readOnlyProperty = (from p in info.Value.EditorType.GetProperties() where p.Name == "ReadOnly" && p.CanWrite select p).FirstOrDefault();
+                if (readOnlyProperty != null)
                 {
-                    query.SetValue(editor, info.Value.ReadOnly, null);
+                    switch (FormPurpose)
+                    {
+                        case EditFormPurpose.Create:
+                            readOnlyProperty.SetValue(editor, info.Value.ReadOnlyWhenCreate, null);
+                            break;
+                        case EditFormPurpose.Modify:
+                            readOnlyProperty.SetValue(editor, info.Value.ReadOnlyWhenModify, null);
+                            break;
+                        case EditFormPurpose.View:
+                            readOnlyProperty.SetValue(editor, true, null);
+                            break;
+                        default:
+                            break;
+                    }
                 }
 
                 editor.Parent = layoutPanel;

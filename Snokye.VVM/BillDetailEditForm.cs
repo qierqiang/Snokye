@@ -23,9 +23,9 @@ namespace Snokye.VVM
             InitializeComponent();
         }
 
-        protected override void SubmitForm(object sender, EventArgs e)
-        {
-            base.SubmitForm(sender, e);
-        }
+        //protected override void SubmitForm(object sender, EventArgs e)
+        //{
+        //    base.SubmitForm(sender, e);
+        //}
     }
 }

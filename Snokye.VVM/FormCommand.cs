@@ -3,7 +3,7 @@
 namespace Snokye.VVM
 {
     //[Flags]
-    public enum FormOperation
+    public enum FormCommand
     {
         New = 1,
         Edit,

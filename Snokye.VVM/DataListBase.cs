@@ -423,7 +423,7 @@ FROM {2}                    --setence_from
 
         public Type ViewFormType { get; set; }
 
-        public virtual void ExecuteCommand(FormOperation operation)
+        public virtual void ExecuteCommand(FormCommand operation)
         {
             GetType().GetMethod(operation.ToString(), BindingFlags.Instance | BindingFlags.NonPublic)?.Invoke(this, null);
         }
@@ -432,11 +432,12 @@ FROM {2}                    --setence_from
         {
             CheckViewModelAndFormType();
             var vm = CreateViewModel();
-            Form form = (Form)Activator.CreateInstance(EditFormType, vm, "新增 - " + Title);
+            AutoEditForm form = (AutoEditForm)Activator.CreateInstance(EditFormType, vm, "新增 - " + Title);
+            form.FormPurpose = EditFormPurpose.Create;
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteCommand(FormOperation.RefreshData);
+                ExecuteCommand(FormCommand.RefreshData);
             }
         }
         internal void Edit()
@@ -446,12 +447,13 @@ FROM {2}                    --setence_from
 
             if (id > 0)
             {
-                var vm = CreateViewModel();
-                Form form = (Form)Activator.CreateInstance(EditFormType, vm, "新增 - " + Title);
+                var vm = CreateViewModel(id);
+                AutoEditForm form = (AutoEditForm)Activator.CreateInstance(EditFormType, vm, "修改 - " + Title);
+                form.FormPurpose = EditFormPurpose.Modify;
 
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    ExecuteCommand(FormOperation.RefreshData);
+                    ExecuteCommand(FormCommand.RefreshData);
                 }
             }
         }
@@ -463,11 +465,13 @@ FROM {2}                    --setence_from
             if (id > 0)
             {
                 var vm = CreateViewModel();
-                Form form = (Form)Activator.CreateInstance(EditFormType, vm, "查看 - " + Title);
+                AutoEditForm form = (AutoEditForm)Activator.CreateInstance(EditFormType, vm, "查看 - " + Title);
+                form.FormPurpose = EditFormPurpose.View;
+                
 
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    ExecuteCommand(FormOperation.RefreshData);
+                    ExecuteCommand(FormCommand.RefreshData);
                 }
             }
         }
@@ -538,17 +542,17 @@ FROM {2}                    --setence_from
         }
         #endregion
 
-        private void New_Click(object sender, EventArgs e) => ExecuteCommand(FormOperation.New);
-        private void Edit_Click(object sender, EventArgs e) => ExecuteCommand(FormOperation.Edit);
-        private void View_Click(object sender, EventArgs e) => ExecuteCommand(FormOperation.View);
-        private void Disable_Click(object sender, EventArgs e) => ExecuteCommand(FormOperation.Disable);
-        private void Delete_Click(object sender, EventArgs e) => ExecuteCommand(FormOperation.Delete);
-        private void Export_Click(object sender, EventArgs e) => ExecuteCommand(FormOperation.Export);
-        private void Calculator_Click(object sender, EventArgs e) => ExecuteCommand(FormOperation.Sum);
-        private void Close_Click(object sender, EventArgs e) => ExecuteCommand(FormOperation.CloseForm);
-        private void Filter_Click(object sender, EventArgs e) => ExecuteCommand(FormOperation.Filter);
-        private void AdvFilter_Click(object sender, EventArgs e) => ExecuteCommand(FormOperation.AdvFilter);
-        private void RefreshData_Click(object sender, EventArgs e) => ExecuteCommand(FormOperation.RefreshData);
+        private void New_Click(object sender, EventArgs e) => ExecuteCommand(FormCommand.New);
+        private void Edit_Click(object sender, EventArgs e) => ExecuteCommand(FormCommand.Edit);
+        private void View_Click(object sender, EventArgs e) => ExecuteCommand(FormCommand.View);
+        private void Disable_Click(object sender, EventArgs e) => ExecuteCommand(FormCommand.Disable);
+        private void Delete_Click(object sender, EventArgs e) => ExecuteCommand(FormCommand.Delete);
+        private void Export_Click(object sender, EventArgs e) => ExecuteCommand(FormCommand.Export);
+        private void Calculator_Click(object sender, EventArgs e) => ExecuteCommand(FormCommand.Sum);
+        private void Close_Click(object sender, EventArgs e) => ExecuteCommand(FormCommand.CloseForm);
+        private void Filter_Click(object sender, EventArgs e) => ExecuteCommand(FormCommand.Filter);
+        private void AdvFilter_Click(object sender, EventArgs e) => ExecuteCommand(FormCommand.AdvFilter);
+        private void RefreshData_Click(object sender, EventArgs e) => ExecuteCommand(FormCommand.RefreshData);
         private void DataList_Load(object sender, EventArgs e)
         {
             if (!DesignMode)

@@ -36,17 +36,17 @@ namespace Snokye.VVM
         public string[] UserHistory { get; private set; }
 
         [Validate]
-        [AutoGenControl(typeof(ComboBox))]
+        [AutoGenControl(EditorType = typeof(ComboBox))]
         public string UserName { get; set; }
 
         [Validate]
-        [AutoGenControl(typeof(TextBox))]
+        [AutoGenControl(EditorType = typeof(TextBox))]
         public string Password { get; set; }
 
-        [AutoGenControl(typeof(CheckBox))]
+        [AutoGenControl(EditorType = typeof(CheckBox))]
         public bool ClearLogin { get; set; }
 
-        [AutoGenControl(typeof(CheckBox))]
+        [AutoGenControl(EditorType = typeof(CheckBox))]
         public bool RememberPwd { get; set; }
 
         public override bool Submit()

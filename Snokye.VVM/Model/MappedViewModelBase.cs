@@ -67,13 +67,14 @@ namespace Snokye.VVM.Model
                         let o = new { thisp = keyValueProper.Key, entity = keyValueEntity.Value, ep = keyValueProper.Value }
                         select new
                         {
-                            Key = o.entity.GetType().GetProperty(o.ep),
+                            Entity = o.entity,
+                            Property = o.entity.GetType().GetProperty(o.ep),
                             Value = this.GetType().GetProperty(o.thisp).GetValue(this, null)
                         };
 
-            foreach (var item in query)
+            foreach (var item in query.Distinct())
             {
-                item.Key.SetValue(this, item.Value, null);
+                item.Property.SetValue(item.Entity, item.Value, null);
             }
         }
     }

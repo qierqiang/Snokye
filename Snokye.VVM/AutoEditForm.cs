@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Snokye.VVM
 {
-    public partial class AutoEditForm : Form
+    public partial class AutoEditForm : Form, ISupportInitialize
     {
         //events
         public event EventHandler DataSourceChanged;
@@ -45,6 +45,7 @@ namespace Snokye.VVM
                 }
             }
         }
+
         public string Title
         {
             get => tslTitle.Text;
@@ -54,6 +55,9 @@ namespace Snokye.VVM
                 Text = value;
             }
         }
+
+        [Browsable(false)]
+        public EditFormPurpose FormPurpose { get; set; }
 
         //ctor
         public AutoEditForm()
@@ -67,13 +71,6 @@ namespace Snokye.VVM
             Type type = model.GetRealType();
             this.ViewModelTypeFullName = type.FullName;
             Title = title;
-
-            //过滤属性并创建控件
-            var query = from p in type.GetProperties()
-                        where FilterProperty(p)
-                        select p;
-            CreateControls(query);
-            DataSource = model;
         }
 
         //protected
@@ -142,6 +139,7 @@ namespace Snokye.VVM
                 group.ViewModelTypeFullName = ViewModelTypeFullName;
                 group.ViewModelAssemblyName = properties.First().DeclaringType.Assembly.FullName;
                 group.Dock = DockStyle.Top;
+                group.FormPurpose = FormPurpose;
                 group.FilteringProperties += (object sender, FilteringPropertiesEventArgs e) =>
                 {
                     //用组名过滤属性
@@ -167,11 +165,11 @@ namespace Snokye.VVM
             return !e.Ignored;
         }
 
-        private void SubmitForm(object sender, EventArgs e) => ExecuteCommand(FormOperation.Submit);
+        private void SubmitForm(object sender, EventArgs e) => ExecuteCommand(FormCommand.Submit);
 
-        private void CloseForm(object sender, EventArgs e) => ExecuteCommand(FormOperation.CloseForm);
+        private void Close_Click(object sender, EventArgs e) => ExecuteCommand(FormCommand.CloseForm);
 
-        public virtual void ExecuteCommand(FormOperation operation)
+        public virtual void ExecuteCommand(FormCommand operation)
         {
             GetType().GetMethod(operation.ToString(), BindingFlags.Instance | BindingFlags.NonPublic)?.Invoke(this, null);
         }
@@ -182,7 +180,24 @@ namespace Snokye.VVM
             {
                 DataSource.AfterSubmit();
                 errorProvider1.Clear();
+                DialogResult = DialogResult.OK;
+                Close();
             }
+        }
+
+        public void BeginInit()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EndInit()
+        {
+            //过滤属性并创建控件
+            var query = from p in DataSource.GetRealType().GetProperties()
+                        where FilterProperty(p)
+                        select p;
+            CreateControls(query);
+            DataSource = model;
         }
     }
 }

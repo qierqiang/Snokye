@@ -6,26 +6,23 @@ namespace Snokye.VVM
     [AttributeUsage(AttributeTargets.Property, Inherited = true, AllowMultiple = false)]
     public class AutoGenControlAttribute : Attribute
     {
-        public Type EditorType { get; private set; }
+        public Type EditorType { get; set; }
 
-        public string DisplayName { get; private set; }
+        public string DisplayName { get; set; }
 
-        public bool ReadOnly { get; private set; }
+        public bool ReadOnlyWhenCreate { get; set; }
 
-        public bool Enabled { get; private set; }
+        public bool ReadOnlyWhenModify { get; set; }
 
-        public bool BeginNewRow { get; private set; }
+        public bool Enabled { get; set; }
+
+        public bool BeginNewRow { get; set; }
 
         public string GroupName { get; set; }
 
-        public AutoGenControlAttribute(Type editorType, string displayName = null, bool readOnly = false, bool enabled = true, bool beginNewRow = false, string groupName = null)
+        public AutoGenControlAttribute()
         {
-            EditorType = editorType;
-            DisplayName = displayName;
-            ReadOnly = readOnly;
-            Enabled = enabled;
-            BeginNewRow = beginNewRow;
-            GroupName = groupName;
+            Enabled = true;
         }
     }
 }

@@ -79,7 +79,7 @@
             this.bClose.Size = new System.Drawing.Size(51, 56);
             this.bClose.Text = "关闭(&X)";
             this.bClose.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.bClose.Click += new System.EventHandler(this.CloseForm);
+            this.bClose.Click += new System.EventHandler(this.Close_Click);
             // 
             // tslTitle
             // 
@@ -103,6 +103,7 @@
             this.Controls.Add(this.toolStrip1);
             this.MinimumSize = new System.Drawing.Size(850, 38);
             this.Name = "AutoEditForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AutoEditForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ClosingForm);
             this.toolStrip1.ResumeLayout(false);
