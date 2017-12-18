@@ -10,7 +10,7 @@ namespace Snokye.VVM
 {
     public partial class ChangePasswordForm : AutoEditForm
     {
-        public ChangePasswordForm(VMChangePwd viewModel, string title) : base(viewModel, "修改密码")
+        public ChangePasswordForm(VMChangePwd viewModel, string title, EditFormPurpose formPurpose) : base(viewModel, title, formPurpose)
         {
             viewModel.Submitted += OnSubmitted;
         }

@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Snokye.VVM.AboutBox" Collapsed="true">
+    <Position X="12.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kIAAAAgAACAgCAUAAAiAAAADAAAAEIAAACAAAAAAAAA=</HashCode>
+      <FileName>AboutBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.AdvFilterBar" Collapsed="true">
+    <Position X="14" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAgCgAggAAADiAAAACAACAIwAAhAACCAAAAIA=</HashCode>
+      <FileName>AdvFilterBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.AdvFilterForm" Collapsed="true">
+    <Position X="15.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIgQAACAEAggAAECAAAQCAIAAAAAABIAAgAAAAAA=</HashCode>
+      <FileName>AdvFilterForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.AppConfig" Collapsed="true">
+    <Position X="17.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ICAEAAAAAAAAAAAAEAAAAAAgBAAAAAwAQAAABAAAAgI=</HashCode>
+      <FileName>AppConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.AutoEditBillForm" Collapsed="true">
+    <Position X="3" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAACgAAACAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>AutoEditBillForm.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Snokye.VVM.AutoEditForm" Collapsed="true">
+    <Position X="3" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AoEAAAGAASAABkAAQMCgAQACECAAAABARAGAAQAQQQA=</HashCode>
+      <FileName>AutoEditForm.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Snokye.VVM.AutoEditGroup" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="19.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAIEAAACAABkAAQMCKMAACACAEAgBAQAEAEUBAwQA=</HashCode>
+      <FileName>AutoEditGroup.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Snokye.VVM.FilteringPropertiesEventArgs" Collapsed="true">
+    <Position X="17.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AutoEditGroup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.AutoGenControlAttribute" Collapsed="true">
+    <Position X="12.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAIBAAAAAAAAAAAAAACAAAAQAAQAAAAE=</HashCode>
+      <FileName>AutoGenControlAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.BillDetailEditForm" Collapsed="true">
+    <Position X="0.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAQCAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BillDetailEditForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.BillDetailList" Collapsed="true">
+    <Position X="14" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAACAAAgAAABGAgAADIAAAIAAAAAAAAIAAgBA=</HashCode>
+      <FileName>BillDetailList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.CalculateForm" Collapsed="true">
+    <Position X="15.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAACgAAAAAAACAAAACAAAAAAAQAIACAAAAAAA=</HashCode>
+      <FileName>CalculateForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.ChangePasswordForm" Collapsed="true">
+    <Position X="5.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAACAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ChangePasswordForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.ClientForm" Collapsed="true">
+    <Position X="17.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BJCgTv0ghGEAEAEICiC2wIZSrABBAMghCkwARzQAYEc=</HashCode>
+      <FileName>ClientForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.ClientInfo" Collapsed="true">
+    <Position X="19.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAIAAAAAAAAAAAAAAAQQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ClientInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.Dashboard" Collapsed="true">
+    <Position X="12.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Dashboard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.DataListBase" Collapsed="true">
+    <Position X="8.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>hI4AzH2AE2yCAGIIJFKhFJgCBBEBKA2CEkBkRUAUUWQ=</HashCode>
+      <FileName>DataListBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Snokye.VVM.DataListColumnSelector" Collapsed="true">
+    <Position X="14" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAABBCAAAACAAAYAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataListColumnSelector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.DateRangeFilter" Collapsed="true">
+    <Position X="2.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAABAAABCAAAAKAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>DateRangeFilter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.FilterBar" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAACAAAAAAAACAIAADBADAARIAAIAAAAIAcCg=</HashCode>
+      <FileName>FilterBar.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Snokye.VVM.FilterControlBase" Collapsed="true">
+    <Position X="1.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgCAACEAAABCAAAACAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>FilterControlBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.FormState" Collapsed="true">
+    <Position X="19.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAgAAAAAIAAAAAAAAAAAAAAAgAAAAABAA=</HashCode>
+      <FileName>FormState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.LocalUserProfile" Collapsed="true">
+    <Position X="12.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIQEAAAAAAAAAAAAAAACAAEAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>LocalUserProfile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.LoginForm" Collapsed="true">
+    <Position X="14" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgEAAgAAACAAABAAAACAAAAGCAABAAAAhAAAEQAAABA=</HashCode>
+      <FileName>LoginForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.ServerUserProfile" Collapsed="true">
+    <Position X="19.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIIAAAgAACAAAIAAAAAAAAAQAAAAAgABAAAA=</HashCode>
+      <FileName>ServerUserProfile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.TextFilter" Collapsed="true">
+    <Position X="0.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAACAAAAAAABCAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TextFilter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.UserManage" Collapsed="true">
+    <Position X="8.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>UserManage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.ValidateAttribute" Collapsed="true">
+    <Position X="15.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAABEAAAAAEAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ValidateAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.ViewModelBase" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAQAAAAIAAAACEAgAAQAAAACAAgAQAAAQA=</HashCode>
+      <FileName>ViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Snokye.VVM.ViewModelProxy" Collapsed="true">
+    <Position X="17.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAIAAAAAAEAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModelProxy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.VMChangePwd" Collapsed="true">
+    <Position X="0.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAQgAAAAAAAgAAAAEAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>VMChangePwd.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.VMDataList" Collapsed="true">
+    <Position X="3" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VMDataList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.VMEditUser" Collapsed="true">
+    <Position X="9.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ASAAEAAAAAAAAAAAAAAAACAAAAAAAAAAAQAAAQAAAAA=</HashCode>
+      <FileName>VMEditUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.VMLoginForm" Collapsed="true">
+    <Position X="5.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAJAAAAgAAAAEAAAACAUAAAQAAAAA=</HashCode>
+      <FileName>VMLoginForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.Model.EntityBasedViewModel" Collapsed="true">
+    <Position X="7.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQBAAAAABAAAAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\EntityBasedViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.Model.MappedViewModelBase" Collapsed="true">
+    <Position X="9.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAgBAAACAEAAAAgCAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\MappedViewModelBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.Model.SnokyeContainer" Collapsed="true">
+    <Position X="12.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAgAAAAACAAAAAEgCEABAAAIIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.Model.UserInfo" Collapsed="true">
+    <Position X="14" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAASEAAAAIAAAEABAAqEAAAQDAAABAACAUAAAAUUEEA=</HashCode>
+      <FileName>Model\Snokye.Partial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.Model.Profile" Collapsed="true">
+    <Position X="15.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAACAIAAABQBAAAEAAAQBBBABAEAAAAwAABUiAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.Model.BillBase" Collapsed="true">
+    <Position X="5.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAEAIAAABQAAEAAAAAABCAAABBAAAEhAAAUAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.Model.ExampleBill" Collapsed="true">
+    <Position X="5.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snokye.VVM.Properties.Resources" Collapsed="true">
+    <Position X="17.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAABABIBAAACCBABEAAABQAAEABAgAAAIhIAgIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Snokye.VVM.ColumnDefinition" Collapsed="true">
+    <Position X="12.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAACEAAAAEBAEQAAAAAAAAIAAEAAAAgAAE=</HashCode>
+      <FileName>ColumnDefinition.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Snokye.VVM.FilterDefinition" Collapsed="true">
+    <Position X="14" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIgAAACEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FilterDefinition.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="Snokye.VVM.EditFormPurpose" Collapsed="true">
+    <Position X="12.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAABAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>EditFormPurpose.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Snokye.VVM.FormCommand" Collapsed="true">
+    <Position X="14" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAgAAQAAACAAIAIABAAAABEBAAACAAAgAQAEAAQ=</HashCode>
+      <FileName>FormCommand.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="Snokye.VVM.FilteringPropertiesEventHandler" Collapsed="true">
+    <Position X="12.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>AutoEditGroup.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="微软雅黑" Size="9" />
+</ClassDiagram>

@@ -297,6 +297,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <None Include="ClassDiagram.cd" />
     <None Include="DataListBase.md" />
     <EntityDeploy Include="Model\Snokye.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

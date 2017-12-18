@@ -9,15 +9,11 @@ using System.Windows.Forms;
 
 namespace Snokye.VVM
 {
-    public partial class AutoEditBillForm : AutoEditForm, ISupportInitialize
+    public partial class AutoEditBillForm : AutoEditForm
     {
         public AutoEditBillForm()
         {
             InitializeComponent();
         }
-
-        public void BeginInit() { }
-
-        public void EndInit() { }
     }
 }

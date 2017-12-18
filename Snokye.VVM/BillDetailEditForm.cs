@@ -18,14 +18,9 @@ namespace Snokye.VVM
             InitializeComponent();
         }
 
-        public BillDetailEditForm(ViewModelBase viewModel) : base(viewModel, "编辑明细")
+        public BillDetailEditForm(ViewModelBase viewModel, string title, EditFormPurpose formPurpose) : base(viewModel, title, formPurpose)
         {
             InitializeComponent();
         }
-
-        //protected override void SubmitForm(object sender, EventArgs e)
-        //{
-        //    base.SubmitForm(sender, e);
-        //}
     }
 }

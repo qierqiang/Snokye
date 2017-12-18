@@ -130,8 +130,6 @@ namespace Snokye.VVM
 
         private void ClientForm_Load(object sender, EventArgs e)
         {
-
-
             //LoadWindowState();
             Dashboard childForm = new Dashboard();
             childForm.MdiParent = this;
@@ -188,7 +186,7 @@ namespace Snokye.VVM
             }
             else
             {
-                frm = Activator.CreateInstance(formType, viewModel, title) as Form;
+                frm = Activator.CreateInstance(formType, viewModel, title, EditFormPurpose.Create) as Form;
             }
             if (frm != null)
             {

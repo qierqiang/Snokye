@@ -13,81 +13,108 @@ namespace Snokye.VVM
 {
     public partial class AutoEditForm : Form, ISupportInitialize
     {
-        //events
-        public event EventHandler DataSourceChanged;
-        public event FilteringPropertiesEventHandler FilteringProperties;
+        /*实现步骤
+         * 1. ctor
+         * 2. beginInit
+         * 3. set property values
+         * 4. endInit
+         * 4.1   create editGroup
+         */
 
-        //fields
-        ViewModelBase _dataSource;
+        #region 1. ctor
 
-        //properties
-        public string ViewModelTypeFullName { get; set; }
-
-        [Browsable(false)]
-        public virtual ViewModelBase DataSource
+        public AutoEditForm()
         {
-            get => _dataSource;
-            set
-            {
-                if (_dataSource != value)
-                {
-                    //移除验证事件 
-                    if (_dataSource != null && _dataSource.ValidateFailed != null)
-                        _dataSource.ValidateFailed -= ValidateFialed;
+            InitializeComponent();
+            Text = tslTitle.Text;
+            FormPurpose = EditFormPurpose.Create;
+        }
 
-                    _dataSource = value;
-
-                    //附加验证事件 
-                    if (_dataSource != null)
-                        _dataSource.ValidateFailed += ValidateFialed;
-
-                    OnDataSourceChanged();
-                }
-            }
+        public AutoEditForm(ViewModelBase model, string title, EditFormPurpose purpose) : this()
+        {
+            ViewModel = model;
+            Title = title;
+            FormPurpose = purpose;
         }
 
         public string Title
         {
             get => tslTitle.Text;
-            set
+            private set
             {
                 tslTitle.Text = value;
                 Text = value;
             }
         }
 
+        public ViewModelBase ViewModel { get; private set; }
+
         [Browsable(false)]
-        public EditFormPurpose FormPurpose { get; set; }
+        public EditFormPurpose FormPurpose { get; private set; }
 
-        //ctor
-        public AutoEditForm()
+        #endregion
+
+        #region 2. biginInit
+
+        public void BeginInit() { }
+
+        #endregion
+
+        #region 4. endInit
+
+        public event Func<PropertyInfo, bool> FilterProperty;
+
+        private void CreateAutoEditGrup()
         {
-            InitializeComponent();
+            if (ViewModel == null)
+                return;
+
+            //查找组
+            PropertyInfo[] properties = ViewModel.GetRealType().GetProperties().OfType<PropertyInfo>().Where(p => FilterProperty == null ? true : FilterProperty(p)).ToArray();
+            Dictionary<string, List<PropertyInfo>> groupDictionary = new Dictionary<string, List<PropertyInfo>>();
+
+            foreach (PropertyInfo p in properties)
+            {
+                AutoGenControlAttribute a = p.GetAttribute<AutoGenControlAttribute>();
+
+                if (a != null)
+                {
+                    string groupName = a.GroupName ?? "";
+
+                    if (groupDictionary.ContainsKey(groupName))
+                    {
+                        List<PropertyInfo> list = groupDictionary[groupName];
+                        list.Add(p);
+                    }
+                    else
+                    {
+                        groupDictionary.Add(groupName, new List<PropertyInfo> { p });
+                    }
+                }
+            }
+
+            foreach (var item in groupDictionary)
+            {
+                //创建组控件！！！需要Init
+                AutoEditGroup group = new AutoEditGroup(ViewModel, item.Key, FormPurpose, item.Value);
+                group.BeginInit();
+                group.Dock = DockStyle.Top;
+                group.EndInit();
+                group.Parent = this;
+                group.BringToFront();
+            }
         }
 
-        public AutoEditForm(ViewModelBase model, string title)
+        public void EndInit()
         {
-            InitializeComponent();
-            Type type = model.GetRealType();
-            this.ViewModelTypeFullName = type.FullName;
-            Title = title;
+            CreateAutoEditGrup();
         }
 
-        //protected
-        protected virtual void OnDataSourceChanged()
-        {
-            DataBind();
-            DataSourceChanged?.Invoke(this, EventArgs.Empty);
-        }
-
-        protected virtual void OnFilteringProperties(FilteringPropertiesEventArgs e)
-        {
-            FilteringProperties?.Invoke(this, e);
-        }
+        #endregion
 
         protected virtual void ValidateFialed(string propertyName, string msg)
         {
-            var query = from p in DataSource.GetRealType().GetProperties()
+            var query = from p in ViewModel.GetRealType().GetProperties()
                         where p.Name == propertyName
                         from a in p.GetCustomAttributes(typeof(AutoGenControlAttribute), true).OfType<AutoGenControlAttribute>()
                         select this.FindFirstChildControl(c => c.Name == a.EditorType.Name.LowerFirstLetter() + "_" + p.Name);
@@ -103,66 +130,8 @@ namespace Snokye.VVM
 
         protected virtual void ClosingForm(object sender, FormClosingEventArgs e)
         {
-            if (DataSource != null && DataSource.GetIsModified() && !Msgbox.DontSaveConfirm())
+            if (ViewModel != null && ViewModel.GetIsModified() && !Msgbox.DontSaveConfirm())
                 e.Cancel = true;
-        }
-
-        //public
-        public virtual void DataBind()
-        {
-            //此时控件应该已经创建好了，根据名称查找并绑定
-
-            if (DataSource != null)
-            {
-                foreach (AutoEditGroup g in this.Controls.OfType<AutoEditGroup>())
-                {
-                    g.DataSource = DataSource;
-                }
-            }
-        }
-
-        public virtual void CreateControls(IEnumerable<PropertyInfo> properties)
-        {
-            //过滤掉不要的属性//错误，已经过滤掉了！
-            //properties = properties.Where(p => FilterProperty(p));
-            //查找组
-            var query = from p in properties
-                        from a in p.GetCustomAttributes(typeof(AutoGenControlAttribute), true).OfType<AutoGenControlAttribute>()
-                        select a.GroupName;
-
-            foreach (string g in query.Distinct())
-            {
-                //创建组控件！！！需要Init
-                AutoEditGroup group = new AutoEditGroup();
-                group.BeginInit();
-                group.Title = g ?? "";
-                group.ViewModelTypeFullName = ViewModelTypeFullName;
-                group.ViewModelAssemblyName = properties.First().DeclaringType.Assembly.FullName;
-                group.Dock = DockStyle.Top;
-                group.FormPurpose = FormPurpose;
-                group.FilteringProperties += (object sender, FilteringPropertiesEventArgs e) =>
-                {
-                    //用组名过滤属性
-                    if (!e.Ignored)
-                    {
-                        var queryGroupname = from attrib in e.PropertyInfo.GetCustomAttributes(typeof(AutoGenControlAttribute), true).OfType<AutoGenControlAttribute>()
-                                             select attrib.GroupName;
-                        string gName = queryGroupname.FirstOrDefault() ?? "";
-                        e.Ignored = !string.Equals(g ?? "", gName, StringComparison.CurrentCultureIgnoreCase);
-                    }
-                };
-                group.EndInit();
-                group.Parent = this;
-                group.BringToFront();
-            }
-        }
-
-        //private
-        private bool FilterProperty(PropertyInfo property)
-        {
-            FilteringPropertiesEventArgs e = new FilteringPropertiesEventArgs(property);
-            OnFilteringProperties(new FilteringPropertiesEventArgs(property));
-            return !e.Ignored;
         }
 
         private void SubmitForm(object sender, EventArgs e) => ExecuteCommand(FormCommand.Submit);
@@ -176,28 +145,31 @@ namespace Snokye.VVM
         internal void CloseForm() { Close(); }
         internal void Submit()
         {
-            if (DataSource != null && DataSource.Submit())
+            if (ViewModel != null && ViewModel.Submit())
             {
-                DataSource.AfterSubmit();
+                ViewModel.AfterSubmit();
                 errorProvider1.Clear();
                 DialogResult = DialogResult.OK;
                 Close();
             }
         }
 
-        public void BeginInit()
+        public static T CreateInstance<T>(ViewModelBase vm, string title, EditFormPurpose formPurpose) where T : AutoEditForm
         {
-            throw new NotImplementedException();
+            T frm = (T)Activator.CreateInstance(typeof(T), vm, title, formPurpose);
+            frm.BeginInit();
+            frm.EndInit();
+            return frm;
         }
-
-        public void EndInit()
+        public static AutoEditForm CreateInstance(Type formType, ViewModelBase vm, string title, EditFormPurpose formPurpose)
         {
-            //过滤属性并创建控件
-            var query = from p in DataSource.GetRealType().GetProperties()
-                        where FilterProperty(p)
-                        select p;
-            CreateControls(query);
-            DataSource = model;
+            if (!formType.IsSubclassOf(typeof(AutoEditForm)))
+                throw new ArgumentException(formType.ToString() + "不是有效的AutoEditForm类型。", nameof(formType));
+
+            AutoEditForm frm = (AutoEditForm)Activator.CreateInstance(formType, vm, title, formPurpose);
+            frm.BeginInit();
+            frm.EndInit();
+            return frm;
         }
     }
 }

@@ -20,6 +20,8 @@ namespace Snokye.VVM
 
         public IList<ViewModelBase> DataSource { get => (IList<ViewModelBase>)gridViewer1.DataSource; set => gridViewer1.DataSource = value; }
 
+        public string Title { get => tabContainer.TabPages[0].Text; set => tabContainer.TabPages[0].Text = value; }
+
         public BillDetailList()
         {
             InitializeComponent();
@@ -28,7 +30,7 @@ namespace Snokye.VVM
             _bRemove = new ToolStripButton("删除明细(&A)", Properties.Resources.icons8_减去_40, OnRemove, "bRemove");
         }
 
-        public BillDetailList(Type viewModelType) : this()
+        public BillDetailList(Type viewModelType, string title) : this()
         {
             _viewModelType = viewModelType;
         }
@@ -56,7 +58,7 @@ namespace Snokye.VVM
         {
             ViewModelBase vm = (ViewModelBase)Activator.CreateInstance(_viewModelType);
             vm = ViewModelProxy.Proxy(vm);
-            BillDetailEditForm form = new BillDetailEditForm(vm);
+            BillDetailEditForm form = new BillDetailEditForm(vm, "新增 - " + Title, EditFormPurpose.Create);
 
             if (form.ShowDialog(ParentForm) == DialogResult.OK)
             {

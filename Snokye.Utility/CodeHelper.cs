@@ -157,5 +157,10 @@ namespace Snokye.Utility
                     return false;
             }
         }
+
+        public static T GetAttribute<T>(this Type source) => source.GetCustomAttributes(typeof(T), true).OfType<T>().FirstOrDefault();
+
+        //propertyInfo
+        public static T GetAttribute<T>(this PropertyInfo property) => property.GetCustomAttributes(typeof(T), true).OfType<T>().FirstOrDefault();
     }
 }

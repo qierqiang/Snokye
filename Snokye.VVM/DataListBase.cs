@@ -432,8 +432,8 @@ FROM {2}                    --setence_from
         {
             CheckViewModelAndFormType();
             var vm = CreateViewModel();
-            AutoEditForm form = (AutoEditForm)Activator.CreateInstance(EditFormType, vm, "新增 - " + Title);
-            form.FormPurpose = EditFormPurpose.Create;
+
+            AutoEditForm form = AutoEditForm.CreateInstance(EditFormType, vm, "新增 - " + Title, EditFormPurpose.Create);
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
@@ -448,8 +448,7 @@ FROM {2}                    --setence_from
             if (id > 0)
             {
                 var vm = CreateViewModel(id);
-                AutoEditForm form = (AutoEditForm)Activator.CreateInstance(EditFormType, vm, "修改 - " + Title);
-                form.FormPurpose = EditFormPurpose.Modify;
+                AutoEditForm form = AutoEditForm.CreateInstance(EditFormType, vm, "新增 - " + Title, EditFormPurpose.Modify);
 
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
@@ -465,9 +464,7 @@ FROM {2}                    --setence_from
             if (id > 0)
             {
                 var vm = CreateViewModel();
-                AutoEditForm form = (AutoEditForm)Activator.CreateInstance(EditFormType, vm, "查看 - " + Title);
-                form.FormPurpose = EditFormPurpose.View;
-                
+                AutoEditForm form = AutoEditForm.CreateInstance(EditFormType, vm, "新增 - " + Title, EditFormPurpose.View);
 
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
