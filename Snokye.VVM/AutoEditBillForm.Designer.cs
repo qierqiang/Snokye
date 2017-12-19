@@ -28,26 +28,41 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.billDetailList1 = new Snokye.VVM.BillDetailList();
+            this.tabDetail = new System.Windows.Forms.TabControl();
+            this.tabPageDefualt = new System.Windows.Forms.TabPage();
+            this.tabDetail.SuspendLayout();
             this.SuspendLayout();
             // 
-            // billDetailList1
+            // tabDetail
             // 
-            this.billDetailList1.DataSource = null;
-            this.billDetailList1.Location = new System.Drawing.Point(12, 145);
-            this.billDetailList1.Name = "billDetailList1";
-            this.billDetailList1.Size = new System.Drawing.Size(989, 327);
-            this.billDetailList1.TabIndex = 2;
+            this.tabDetail.Controls.Add(this.tabPageDefualt);
+            this.tabDetail.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tabDetail.Location = new System.Drawing.Point(0, 306);
+            this.tabDetail.Name = "tabDetail";
+            this.tabDetail.SelectedIndex = 0;
+            this.tabDetail.Size = new System.Drawing.Size(1013, 215);
+            this.tabDetail.TabIndex = 2;
+            // 
+            // tabPageDefualt
+            // 
+            this.tabPageDefualt.Location = new System.Drawing.Point(4, 22);
+            this.tabPageDefualt.Name = "tabPageDefualt";
+            this.tabPageDefualt.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageDefualt.Size = new System.Drawing.Size(1005, 189);
+            this.tabPageDefualt.TabIndex = 0;
+            this.tabPageDefualt.Text = "明细";
+            this.tabPageDefualt.UseVisualStyleBackColor = true;
             // 
             // AutoEditBillForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1013, 521);
-            this.Controls.Add(this.billDetailList1);
+            this.Controls.Add(this.tabDetail);
             this.Name = "AutoEditBillForm";
             this.Text = "AutoEditBillForm";
-            this.Controls.SetChildIndex(this.billDetailList1, 0);
+            this.Controls.SetChildIndex(this.tabDetail, 0);
+            this.tabDetail.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -55,6 +70,7 @@
 
         #endregion
 
-        private BillDetailList billDetailList1;
+        private System.Windows.Forms.TabControl tabDetail;
+        private System.Windows.Forms.TabPage tabPageDefualt;
     }
 }

@@ -28,37 +28,63 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pagingControl1 = new Snokye.Controls.PagingControl();
-            ((System.ComponentModel.ISupportInitialize)(this.pagingControl1)).BeginInit();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.gridViewer1 = new Snokye.Controls.GridViewer();
+            this.Column1 = new System.Windows.Forms.DataGridViewButtonColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewer1)).BeginInit();
             this.SuspendLayout();
             // 
-            // pagingControl1
+            // gridViewer1
             // 
-            this.pagingControl1.AutoSize = true;
-            this.pagingControl1.CurrentPage = 1;
-            this.pagingControl1.Location = new System.Drawing.Point(153, 173);
-            this.pagingControl1.MinimumSize = new System.Drawing.Size(600, 29);
-            this.pagingControl1.Name = "pagingControl1";
-            this.pagingControl1.Size = new System.Drawing.Size(600, 29);
-            this.pagingControl1.TabIndex = 0;
+            this.gridViewer1.AllowUserToAddRows = false;
+            this.gridViewer1.AllowUserToDeleteRows = false;
+            this.gridViewer1.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridViewer1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.gridViewer1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridViewer1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1});
+            this.gridViewer1.Location = new System.Drawing.Point(224, 176);
+            this.gridViewer1.MultiSelect = false;
+            this.gridViewer1.Name = "gridViewer1";
+            this.gridViewer1.ReadOnly = true;
+            this.gridViewer1.RowHeadersWidth = 22;
+            this.gridViewer1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.gridViewer1.RowTemplate.Height = 23;
+            this.gridViewer1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gridViewer1.Size = new System.Drawing.Size(240, 150);
+            this.gridViewer1.TabIndex = 0;
+            // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "But";
+            this.Column1.HeaderText = "朝右fjdlskfdl";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(969, 556);
-            this.Controls.Add(this.pagingControl1);
+            this.Controls.Add(this.gridViewer1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pagingControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewer1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private Snokye.Controls.PagingControl pagingControl1;
+        private Snokye.Controls.GridViewer gridViewer1;
+        private System.Windows.Forms.DataGridViewButtonColumn Column1;
     }
 }

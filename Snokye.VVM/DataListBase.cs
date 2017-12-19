@@ -73,7 +73,6 @@ namespace Snokye.VVM
         {
             ColumnDefinitions = new List<CD>
             {
-                //new CD(typeof(DataGridViewCheckBoxColumn), "选择", null, null, "STATICCOL_SELECT", 35, DataGridViewColumnSortMode.NotSortable),
                 new CD(typeof(DataGridViewTextBoxColumn), "ID",   null, "ID", "STATICCOL_ID", visible:false),
             };
             FilterDefinitions = new List<FilterDefinition>();
@@ -433,7 +432,7 @@ FROM {2}                    --setence_from
             CheckViewModelAndFormType();
             var vm = CreateViewModel();
 
-            AutoEditForm form = AutoEditForm.CreateInstance(EditFormType, vm, "新增 - " + Title, EditFormPurpose.Create);
+            AutoEditForm form =(AutoEditForm) Activator.CreateInstance(EditFormType, vm, "新增 - " + Title, EditFormPurpose.Create);
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
@@ -448,7 +447,7 @@ FROM {2}                    --setence_from
             if (id > 0)
             {
                 var vm = CreateViewModel(id);
-                AutoEditForm form = AutoEditForm.CreateInstance(EditFormType, vm, "新增 - " + Title, EditFormPurpose.Modify);
+                AutoEditForm form = (AutoEditForm)Activator.CreateInstance(EditFormType, vm, "修改 - " + Title, EditFormPurpose.Modify);
 
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
@@ -463,8 +462,8 @@ FROM {2}                    --setence_from
 
             if (id > 0)
             {
-                var vm = CreateViewModel();
-                AutoEditForm form = AutoEditForm.CreateInstance(EditFormType, vm, "新增 - " + Title, EditFormPurpose.View);
+                var vm = CreateViewModel(id);
+                AutoEditForm form = (AutoEditForm)Activator.CreateInstance(EditFormType, vm, "查看 - " + Title, EditFormPurpose.View);
 
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {

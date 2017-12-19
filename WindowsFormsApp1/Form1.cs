@@ -19,7 +19,10 @@ namespace WindowsFormsApp1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            DataTable dt = new DataTable();
+            dt.Columns.Add("But");
+            dt.Rows.Add("aa");
+            gridViewer1.DataSource = dt;
         }
     }
 }

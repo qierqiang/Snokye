@@ -11,63 +11,45 @@ using System.Windows.Forms;
 
 namespace Snokye.VVM
 {
-    public partial class AutoEditForm : Form, ISupportInitialize
+    public partial class AutoEditForm : Form
     {
-        /*实现步骤
-         * 1. ctor
-         * 2. beginInit
-         * 3. set property values
-         * 4. endInit
-         * 4.1   create editGroup
-         */
+        public event Func<PropertyInfo, bool> FilterProperty;
 
-        #region 1. ctor
-
-        public AutoEditForm()
-        {
-            InitializeComponent();
-            Text = tslTitle.Text;
-            FormPurpose = EditFormPurpose.Create;
-        }
-
-        public AutoEditForm(ViewModelBase model, string title, EditFormPurpose purpose) : this()
-        {
-            ViewModel = model;
-            Title = title;
-            FormPurpose = purpose;
-        }
-
-        public string Title
-        {
-            get => tslTitle.Text;
-            private set
-            {
-                tslTitle.Text = value;
-                Text = value;
-            }
-        }
-
+        // properties
+        [Browsable(false)]
         public ViewModelBase ViewModel { get; private set; }
 
         [Browsable(false)]
         public EditFormPurpose FormPurpose { get; private set; }
 
-        #endregion
+        // ctor
+        /// <summary>
+        /// 运行时不可调用无参构造！！！
+        /// </summary>
+        public AutoEditForm()
+        {
+            InitializeComponent();
+        }
 
-        #region 2. biginInit
+        public AutoEditForm(ViewModelBase model, string title, EditFormPurpose purpose)
+        {
+            InitializeComponent();
+            SuspendLayout();
+            ViewModel = model;
+            tslTitle.Text = title;
+            Text = title;
+            FormPurpose = purpose;
+            CreateAutoEditGrup();
+            ResumeLayout();
+        }
 
-        public void BeginInit() { }
-
-        #endregion
-
-        #region 4. endInit
-
-        public event Func<PropertyInfo, bool> FilterProperty;
-
+        // private
         private void CreateAutoEditGrup()
         {
             if (ViewModel == null)
                 return;
+
+            ViewModel.ValidateFailed += ValidateFialed;
 
             //查找组
             PropertyInfo[] properties = ViewModel.GetRealType().GetProperties().OfType<PropertyInfo>().Where(p => FilterProperty == null ? true : FilterProperty(p)).ToArray();
@@ -95,24 +77,16 @@ namespace Snokye.VVM
 
             foreach (var item in groupDictionary)
             {
-                //创建组控件！！！需要Init
-                AutoEditGroup group = new AutoEditGroup(ViewModel, item.Key, FormPurpose, item.Value);
-                group.BeginInit();
-                group.Dock = DockStyle.Top;
-                group.EndInit();
-                group.Parent = this;
+                AutoEditGroup group = new AutoEditGroup(ViewModel, item.Key, FormPurpose, item.Value)
+                {
+                    Dock = DockStyle.Top,
+                    Parent = this,
+                };
                 group.BringToFront();
             }
         }
 
-        public void EndInit()
-        {
-            CreateAutoEditGrup();
-        }
-
-        #endregion
-
-        protected virtual void ValidateFialed(string propertyName, string msg)
+        private void ValidateFialed(string propertyName, string msg)
         {
             var query = from p in ViewModel.GetRealType().GetProperties()
                         where p.Name == propertyName
@@ -128,7 +102,7 @@ namespace Snokye.VVM
             }
         }
 
-        protected virtual void ClosingForm(object sender, FormClosingEventArgs e)
+        private void ClosingForm(object sender, FormClosingEventArgs e)
         {
             if (ViewModel != null && ViewModel.GetIsModified() && !Msgbox.DontSaveConfirm())
                 e.Cancel = true;
@@ -142,6 +116,8 @@ namespace Snokye.VVM
         {
             GetType().GetMethod(operation.ToString(), BindingFlags.Instance | BindingFlags.NonPublic)?.Invoke(this, null);
         }
+
+        // commands
         internal void CloseForm() { Close(); }
         internal void Submit()
         {
@@ -152,24 +128,6 @@ namespace Snokye.VVM
                 DialogResult = DialogResult.OK;
                 Close();
             }
-        }
-
-        public static T CreateInstance<T>(ViewModelBase vm, string title, EditFormPurpose formPurpose) where T : AutoEditForm
-        {
-            T frm = (T)Activator.CreateInstance(typeof(T), vm, title, formPurpose);
-            frm.BeginInit();
-            frm.EndInit();
-            return frm;
-        }
-        public static AutoEditForm CreateInstance(Type formType, ViewModelBase vm, string title, EditFormPurpose formPurpose)
-        {
-            if (!formType.IsSubclassOf(typeof(AutoEditForm)))
-                throw new ArgumentException(formType.ToString() + "不是有效的AutoEditForm类型。", nameof(formType));
-
-            AutoEditForm frm = (AutoEditForm)Activator.CreateInstance(formType, vm, title, formPurpose);
-            frm.BeginInit();
-            frm.EndInit();
-            return frm;
         }
     }
 }

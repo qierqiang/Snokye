@@ -1,6 +1,6 @@
 ﻿namespace Snokye.VVM
 {
-    partial class BillDetailList
+    partial class BillDetailList1
     {
         /// <summary> 
         /// 必需的设计器变量。

@@ -12,64 +12,42 @@ using System.Windows.Forms;
 
 namespace Snokye.VVM
 {
-    public partial class AutoEditGroup : UserControl, ISupportInitialize
+    public partial class AutoEditGroup : UserControl
     {
-        /*实现步骤
-         * 1. ctor
-         * 2. beginInit
-         * 3. set property values
-         * 4. endInit
-         * 4.1   create editControl
-         * 4.2   dataBind
-         */
-
-        #region 1. ctor
+        //fields
+        private int _rowCount = 0;
+        private bool _expanded = true;
+        private List<PropertyInfo> _properties;
+        private ViewModelBase _viewModel;
+        private EditFormPurpose _formPurpose;
 
         //ctor
+        /// <summary>
+        /// 运行时不可调用无参构造！！！
+        /// </summary>
         public AutoEditGroup()
         {
             InitializeComponent();
         }
 
-        public AutoEditGroup(ViewModelBase viewModel, string title, EditFormPurpose formPurpose, List<PropertyInfo> properties) : this()
+        public AutoEditGroup(ViewModelBase viewModel, string title, EditFormPurpose formPurpose, List<PropertyInfo> properties)
         {
-            ViewModel = viewModel;
-            Title = title;
-            FormPurpose = formPurpose;
-            Properties = properties;
+            InitializeComponent();
+            SuspendLayout();
+            _viewModel = viewModel;
+            lTitle.Text = title;
+            _formPurpose = formPurpose;
+            _properties = properties;
+            CreateEditControl();
+            ResumeLayout();
         }
 
-        public ViewModelBase ViewModel { get; private set; }
-
-        public string Title
-        {
-            get { return lTitle.Text; }
-            private set { lTitle.Text = value; }
-        }
-
-        [Browsable(false)]
-        public EditFormPurpose FormPurpose { get; private set; }
-
-        internal List<PropertyInfo> Properties { get; private set; }
-
-        #endregion
-
-        #region 2. beginInit
-
-        public void BeginInit() { }
-
-        #endregion
-
-        #region 4. endInit
-
-        private int _rowCount = 0;
-        private bool _expanded = true;
-
+        //private
         private void CreateEditControl()
         {
             TableLayoutPanel layoutPanel = NewRow();
 
-            foreach (PropertyInfo p in Properties)
+            foreach (PropertyInfo p in _properties)
             {
                 AutoGenControlAttribute a = p.GetAttribute<AutoGenControlAttribute>();
 
@@ -109,7 +87,7 @@ namespace Snokye.VVM
                 var readOnlyProperty = (from pp in a.EditorType.GetProperties() where pp.Name == "ReadOnly" && pp.CanWrite select pp).FirstOrDefault();
                 if (readOnlyProperty != null)
                 {
-                    switch (FormPurpose)
+                    switch (_formPurpose)
                     {
                         case EditFormPurpose.Create:
                             readOnlyProperty.SetValue(editor, a.ReadOnlyWhenCreate, null);
@@ -130,7 +108,7 @@ namespace Snokye.VVM
                 //dataBind
                 DefaultPropertyAttribute @default = editor.GetType().GetAttribute<DefaultPropertyAttribute>();
                 if (@default != null)
-                    editor.DataBindings.Add(new Binding(@default.Name, ViewModel, p.Name, true, DataSourceUpdateMode.OnPropertyChanged));
+                    editor.DataBindings.Add(new Binding(@default.Name, _viewModel, p.Name, true, DataSourceUpdateMode.OnPropertyChanged));
 
                 // create Label
                 Label label = new Label
@@ -180,13 +158,6 @@ namespace Snokye.VVM
 
             return layoutPanel;
         }
-
-        public void EndInit()
-        {
-            CreateEditControl();
-        }
-
-        #endregion
 
         private void Label_Click(object sender, EventArgs e)
         {

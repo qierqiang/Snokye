@@ -10,29 +10,34 @@ using System.Windows.Forms;
 
 namespace Snokye.VVM
 {
-    public partial class BillDetailList : UserControl
+    public partial class BillDetailList1 : UserControl
     {
-        private Type _viewModelType;
-
         private ToolStripSeparator _separator;
         private ToolStripButton _bAddRow;
         private ToolStripButton _bRemove;
+        private EditFormPurpose _formPurpose;
 
-        public IList<ViewModelBase> DataSource { get => (IList<ViewModelBase>)gridViewer1.DataSource; set => gridViewer1.DataSource = value; }
+        [Browsable(false)]
+        public List<ViewModelBase> ViewModelList { get; private set; }
 
-        public string Title { get => tabContainer.TabPages[0].Text; set => tabContainer.TabPages[0].Text = value; }
+        /// <summary>
+        /// 运行时不可调用无参构造！！！
+        /// </summary>
+        public BillDetailList1()
+        {
+            InitializeComponent();
+        }
 
-        public BillDetailList()
+        public BillDetailList1(List<ViewModelBase> viewModelList, string title, EditFormPurpose formPurpose) : this()
         {
             InitializeComponent();
             _separator = new ToolStripSeparator();
             _bAddRow = new ToolStripButton("添加明细(&A)", Properties.Resources.icons8_加_40, OnAddRow, "bAddRow");
             _bRemove = new ToolStripButton("删除明细(&A)", Properties.Resources.icons8_减去_40, OnRemove, "bRemove");
-        }
-
-        public BillDetailList(Type viewModelType, string title) : this()
-        {
-            _viewModelType = viewModelType;
+            ViewModelList = viewModelList;
+            tabContainer.TabPages[0].Text = title;
+            _formPurpose = formPurpose;
+            //CreateColumns();
         }
 
         protected override void OnParentChanged(EventArgs e)
@@ -56,19 +61,21 @@ namespace Snokye.VVM
 
         public virtual void OnAddRow(object sender, EventArgs e)
         {
-            ViewModelBase vm = (ViewModelBase)Activator.CreateInstance(_viewModelType);
-            vm = ViewModelProxy.Proxy(vm);
-            BillDetailEditForm form = new BillDetailEditForm(vm, "新增 - " + Title, EditFormPurpose.Create);
+            //ViewModelBase vm = (ViewModelBase)Activator.CreateInstance(_viewModelType);
+            //vm = ViewModelProxy.Proxy(vm);
+            //BillDetailEditForm form = new BillDetailEditForm(vm, "新增 - " + Title, EditFormPurpose.Create);
 
-            if (form.ShowDialog(ParentForm) == DialogResult.OK)
-            {
-                DataSource.Add(form.Result);
-            }
+            //if (form.ShowDialog(ParentForm) == DialogResult.OK)
+            //{
+            //    DataSource.Add(form.Result);
+            //}
         }
 
         public virtual void OnRemove(object sender, EventArgs e)
         {
             gridViewer1.Rows.Remove(gridViewer1.CurrentCell.OwningRow);
         }
+
+        //Create
     }
 }

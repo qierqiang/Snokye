@@ -158,6 +158,8 @@ namespace Snokye.Utility
             }
         }
 
+        public static bool Is(this Type source, Type parentType) => source == parentType || source.IsSubclassOf(parentType) || (parentType.IsInterface && parentType.IsAssignableFrom(source));
+
         public static T GetAttribute<T>(this Type source) => source.GetCustomAttributes(typeof(T), true).OfType<T>().FirstOrDefault();
 
         //propertyInfo

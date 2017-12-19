@@ -31,15 +31,14 @@
   <Class Name="Snokye.VVM.AutoEditBillForm" Collapsed="true">
     <Position X="3" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAAAAAACgAAACAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <HashCode>AAAAAAAAACAAAAAAAACgAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>AutoEditBillForm.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Snokye.VVM.AutoEditForm" Collapsed="true">
     <Position X="3" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AoEAAAGAASAABkAAQMCgAQACECAAAABARAGAAQAQQQA=</HashCode>
+      <HashCode>AoAABAGAASAAAEAAQECgAAACEAAAAAAARBCAAQAQQQA=</HashCode>
       <FileName>AutoEditForm.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -47,7 +46,7 @@
   <Class Name="Snokye.VVM.AutoEditGroup" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="19.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAEAIEAAACAABkAAQMCKMAACACAEAgBAQAEAEUBAwQA=</HashCode>
+      <HashCode>AAAAAEAAACAAAEAAQACIMAACEAAEAgAAAAAAEUBCwAA=</HashCode>
       <FileName>AutoEditGroup.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -76,7 +75,7 @@
   <Class Name="Snokye.VVM.BillDetailList" Collapsed="true">
     <Position X="14" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAQAAAAACAAAgAAABGAgAADIAAAIAAAAAAAAIAAgBA=</HashCode>
+      <HashCode>AAAQAAAAACAAAkAAABGAgAADIAAAIAAAAAAAAIAAgBA=</HashCode>
       <FileName>BillDetailList.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -153,28 +152,28 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Snokye.VVM.FormState" Collapsed="true">
-    <Position X="19.25" Y="2.5" Width="1.5" />
+    <Position X="17.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAQAAAgAAAAAIAAAAAAAAAAAAAAAgAAAAABAA=</HashCode>
       <FileName>FormState.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Snokye.VVM.LocalUserProfile" Collapsed="true">
-    <Position X="12.25" Y="3.5" Width="1.5" />
+    <Position X="19.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAIQEAAAAAAAAAAAAAAACAAEAAQAAAAAAAAAAAAA=</HashCode>
       <FileName>LocalUserProfile.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Snokye.VVM.LoginForm" Collapsed="true">
-    <Position X="14" Y="3.5" Width="1.5" />
+    <Position X="12.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgEAAgAAACAAABAAAACAAAAGCAABAAAAhAAAEQAAABA=</HashCode>
       <FileName>LoginForm.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Snokye.VVM.ServerUserProfile" Collapsed="true">
-    <Position X="19.25" Y="3.5" Width="1.5" />
+    <Position X="17.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAIIAAAgAACAAAIAAAAAAAAAQAAAAAgABAAAA=</HashCode>
       <FileName>ServerUserProfile.cs</FileName>
@@ -195,7 +194,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Snokye.VVM.ValidateAttribute" Collapsed="true">
-    <Position X="15.75" Y="4.5" Width="1.5" />
+    <Position X="14" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAABEAAAAAEAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ValidateAttribute.cs</FileName>
@@ -210,7 +209,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Snokye.VVM.ViewModelProxy" Collapsed="true">
-    <Position X="17.5" Y="4.5" Width="1.5" />
+    <Position X="15.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAACAAIAAAAAAEAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModelProxy.cs</FileName>
@@ -259,20 +258,20 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Snokye.VVM.Model.SnokyeContainer" Collapsed="true">
-    <Position X="12.25" Y="4.5" Width="1.5" />
+    <Position X="19.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAQAgAAAAACAAAAAEgCEABAAAIIA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="Snokye.VVM.Model.UserInfo" Collapsed="true">
-    <Position X="14" Y="4.5" Width="1.5" />
+    <Position X="12.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAASEAAAAIAAAEABAAqEAAAQDAAABAACAUAAAAUUEEA=</HashCode>
       <FileName>Model\Snokye.Partial.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Snokye.VVM.Model.Profile" Collapsed="true">
-    <Position X="15.75" Y="3.5" Width="1.5" />
+    <Position X="14" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAACAIAAABQBAAAEAAAQBBBABAEAAAAwAABUiAA=</HashCode>
     </TypeIdentifier>
@@ -290,7 +289,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Snokye.VVM.Properties.Resources" Collapsed="true">
-    <Position X="17.5" Y="3.5" Width="1.5" />
+    <Position X="15.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAABABIBAAACCBABEAAABQAAEABAgAAAIhIAgIA=</HashCode>
     </TypeIdentifier>

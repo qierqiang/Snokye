@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Snokye.Utility;
 
 namespace Snokye.VVM
 {
@@ -25,7 +26,7 @@ namespace Snokye.VVM
         {
             GroupName = groupName;
             ColumnType = (columnType ?? throw new ArgumentNullException(nameof(columnType)))
-                .IsSubclassOf(typeof(DataGridViewColumn)) ? columnType :
+                .Is(typeof(DataGridViewColumn)) ? columnType :
                 throw new ArgumentException(columnType.ToString() + "不是有效的DataGridViewColumn!", nameof(columnType));
             Title = title;
             DataPropertyName = dataPropertyName;

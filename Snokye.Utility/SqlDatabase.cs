@@ -12,18 +12,12 @@ namespace Snokye.Utility
     {
         public SqlDatabase()
         {
-#if DEBUG
-            string cnn = "Data Source=.;Initial Catalog=SnokyeDev;Persist Security Info=True;User ID=sa;Password=123456";
-            ConnectionString = cnn;
-            Connection = new SqlConnection(cnn);
-#else
             string cnn = ConfigurationManager.ConnectionStrings[CodeHelper.GetApplicationTitle()].ConnectionString;
             if (cnn != null)
             {
                 ConnectionString = cnn ?? throw new Exception("未能找到数据库连接字符串");
                 Connection = new SqlConnection(cnn);
             }
-#endif
         }
 
         public SqlDatabase(FileInfo exeFile, string name)

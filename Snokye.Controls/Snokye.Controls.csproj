@@ -80,10 +80,22 @@
       <DependentUpon>CombinedGridView.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlHelper.cs" />
+    <Compile Include="DateBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DecimalBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="GridViewer.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="HorizontalLine.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IntegerBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LargeTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="LongTextBox.cs" />

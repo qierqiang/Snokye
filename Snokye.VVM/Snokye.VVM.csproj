@@ -74,7 +74,6 @@
     <Compile Include="AdvFilterForm.Designer.cs">
       <DependentUpon>AdvFilterForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AppConfig.cs" />
     <Compile Include="AutoEditBillForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +92,7 @@
     <Compile Include="AutoEditGroup.Designer.cs">
       <DependentUpon>AutoEditGroup.cs</DependentUpon>
     </Compile>
+    <Compile Include="AutoGenColumnAttribute.cs" />
     <Compile Include="AutoGenControlAttribute.cs" />
     <Compile Include="AboutBox.cs">
       <SubType>Form</SubType>
@@ -106,11 +106,14 @@
     <Compile Include="BillDetailEditForm.Designer.cs">
       <DependentUpon>BillDetailEditForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="BillDetailList.cs">
+    <Compile Include="BillDetailEditor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BillDetailList1.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="BillDetailList.Designer.cs">
-      <DependentUpon>BillDetailList.cs</DependentUpon>
+    <Compile Include="BillDetailList1.Designer.cs">
+      <DependentUpon>BillDetailList1.cs</DependentUpon>
     </Compile>
     <Compile Include="CalculateForm.cs">
       <SubType>Form</SubType>
@@ -138,15 +141,21 @@
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
     <Compile Include="EditFormPurpose.cs" />
+    <Compile Include="ExampleBillEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExampleBillEditForm.Designer.cs">
+      <DependentUpon>ExampleBillEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormCommand.cs" />
     <Compile Include="FormState.cs" />
+    <Compile Include="IBillViewModel.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\EntityBasedViewModel.cs" />
     <Compile Include="Model\MappedViewModelBase.cs" />
     <Compile Include="Model\Snokye.Designer.cs">
       <DependentUpon>Snokye.edmx</DependentUpon>
@@ -163,6 +172,7 @@
     <Compile Include="VMChangePwd.cs" />
     <Compile Include="VMDataList.cs" />
     <Compile Include="VMEditUser.cs" />
+    <Compile Include="VMExampleBill.cs" />
     <Compile Include="VMLoginForm.cs" />
     <Compile Include="ColumnDefinition.cs" />
     <Compile Include="DataListBase.cs">
@@ -233,8 +243,8 @@
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BillDetailList.resx">
-      <DependentUpon>BillDetailList.cs</DependentUpon>
+    <EmbeddedResource Include="BillDetailList1.resx">
+      <DependentUpon>BillDetailList1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CalculateForm.resx">
       <DependentUpon>CalculateForm.cs</DependentUpon>
@@ -289,11 +299,6 @@
       <Project>{0a84db02-41d1-4141-96a5-6e5871c9c5b4}</Project>
       <Name>Snokye.Utility</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="AppConfig.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

@@ -20,7 +20,7 @@ namespace Snokye.VVM
             }
             ClientInfo.ClientForm = this;
             InitializeComponent();
-            Text = AppConfig.Instance.AppName;
+            Text = CodeHelper.GetApplicationTitle();
             LoadIcon();
 #if DEBUG
             WindowState = FormWindowState.Normal;
@@ -168,7 +168,6 @@ namespace Snokye.VVM
             {
                 frm.ShowInTaskbar = true;
                 frm.MdiParent = this;
-                //frm.Icon == Icon.de
                 frm.Show();
                 return frm;
             }
@@ -201,6 +200,15 @@ namespace Snokye.VVM
             }
 
             return DialogResult.None;
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            VMExampleBill b = new VMExampleBill();
+            b.LoadByID(1);
+            b = ViewModelProxy.Proxy(b);
+            ExampleBillEditForm f = new ExampleBillEditForm(b, EditFormPurpose.Create);
+            f.ShowDialog(this);
         }
     }
 }

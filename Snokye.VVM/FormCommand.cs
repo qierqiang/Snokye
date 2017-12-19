@@ -21,5 +21,7 @@ namespace Snokye.VVM
         Print,
         Check,
         UnCheck,
+        AddDetail,
+        RemoveDetail,
     }
 }

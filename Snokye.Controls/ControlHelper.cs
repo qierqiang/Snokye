@@ -38,6 +38,21 @@ namespace Snokye.Controls
             }
         }
 
+        public static Form GetParentForm(this Control source) => GetSpecificParent(source, p => p is Form) as Form;
+
+        public static T GetSpecificTypeParent<T>(this Control source) where T : Control => GetSpecificParent(source, p => p is T) as T;
+
+        public static Control GetSpecificParent(this Control source, Func<Control, bool> matcher)
+        {
+            if (source.Parent == null)
+                return null;
+
+            if (matcher(source.Parent))
+                return source.Parent;
+
+            return source.Parent.GetSpecificParent(matcher);
+        }
+
         //errorProvider
         public static void ShowError(this ErrorProvider provider, Control ctrl, string error)
         {
@@ -166,9 +181,6 @@ namespace Snokye.Controls
 
         public static DataGridViewColumn CreateColumn(this DataGridView gridView, Type columnType, string title, string dataPropertyName = null, string name = null, int width = 100, DataGridViewColumnSortMode sortMode = DataGridViewColumnSortMode.Programmatic, SortOrder sortOrder = SortOrder.None, bool visible = true, int colIndex = -1, bool frozen = false)
         {
-            //if (!columnType.IsSubclassOf(typeof(DataGridViewColumn)))
-            //    throw new ArgumentException(columnType.ToString() + "不是DataGridViewColumn类型", nameof(columnType));
-
             DataGridViewColumn col = (DataGridViewColumn)Activator.CreateInstance(columnType, true);
             col.HeaderText = title ?? throw new ArgumentNullException(nameof(title));
             col.DataPropertyName = dataPropertyName;

@@ -20,7 +20,7 @@ namespace Snokye.VVM
         {
             if (filterControlType == null)
                 throw new ArgumentNullException(nameof(filterControlType));
-            if (!filterControlType.IsSubclassOf(typeof(FilterControlBase)))
+            if (!filterControlType.Is(typeof(FilterControlBase)))
                 throw new Exception(filterControlType.ToString() + "不是有效的FilterControlBase");
             if (CodeHelper.IsNullOrWhiteSpace(dataPropertyName))
                 throw new ArgumentException("message", nameof(dataPropertyName));

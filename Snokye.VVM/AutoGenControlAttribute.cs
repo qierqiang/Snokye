@@ -2,7 +2,6 @@
 
 namespace Snokye.VVM
 {
-
     [AttributeUsage(AttributeTargets.Property, Inherited = true, AllowMultiple = false)]
     public class AutoGenControlAttribute : Attribute
     {
