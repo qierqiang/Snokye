@@ -22,6 +22,8 @@ namespace Snokye.VVM
         [Browsable(false)]
         public EditFormPurpose FormPurpose { get; private set; }
 
+        public bool ShowGroupHeader { get; set; }
+
         // ctor
         /// <summary>
         /// 运行时不可调用无参构造！！！
@@ -82,6 +84,7 @@ namespace Snokye.VVM
                     Dock = DockStyle.Top,
                     Parent = this,
                 };
+                group.SetHeaderVisible(ShowGroupHeader);
                 group.BringToFront();
             }
         }

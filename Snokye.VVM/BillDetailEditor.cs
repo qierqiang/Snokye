@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Snokye.Utility;
+using System.Reflection;
+using System.Drawing;
 
 namespace Snokye.VVM
 {
@@ -15,29 +17,47 @@ namespace Snokye.VVM
 
         public IList ViewModelList { get; private set; }
 
+        public ViewModelBase BillViewModel { get; private set; }
+
         /// <summary>
         /// 运行时不可调用无参构造！！！
         /// </summary>
         public BillDetailEditor() { }
 
-        public BillDetailEditor(IList viewModelList, EditFormPurpose formPurpose)
+        public BillDetailEditor(ViewModelBase billViewModel, EditFormPurpose formPurpose)
         {
+            if (!billViewModel.GetType().Is(typeof(IBillViewModel))) throw new Exception(billViewModel.GetType().FullName + "不是有效的IBillViewModel！");
+            ViewModelList = (IList)((IBillViewModel)billViewModel).GetDetails();
+            _formPurpose = formPurpose;
+            
             RowHeadersWidth = 40;
             ReadOnly = false;
-            ViewModelList = viewModelList;
-            _formPurpose = formPurpose;
+            BillViewModel = billViewModel;
+            AutoGenerateColumns = false;
             DataError += BillDetailEditor_DataError;
             CellEndEdit += BillDetailEditor_CellEndEdit;
+            CellContentClick += BillDetailEditor_CellContentClick;
 
             CreateColumns();
-            DataSource = viewModelList;
+            DataSource = ViewModelList;
+        }
+
+        private void BillDetailEditor_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (Columns[e.ColumnIndex] is DataGridViewButtonColumn col &&
+                col.Tag is Type type &&
+                type.Is(typeof(DataListBase)))
+            {
+                Form f = (Form)Activator.CreateInstance(type);
+                f.ShowDialog(this.GetParentForm());
+            }
         }
 
         private void CreateColumns()
         {
             SuspendLayout();
 
-            var query = from p in ViewModelList[0].GetType().GetProperties()
+            var query = from p in ((IBillViewModel)BillViewModel).GetDetailModelType().GetProperties()
                         let a = p.GetAttribute<AutoGenColumnAttribute>()
                         where a != null
                         select new { Attribute = a, PropertyInfo = p };

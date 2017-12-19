@@ -135,33 +135,6 @@ namespace Snokye.VVM
             //所有表格
             AllGridView = this.FindChildControl(c => c is DataGridView).OfType<DataGridView>().ToList();
 
-
-            //==============================================
-            //              设置为数据选择窗口
-            //==============================================
-            if (!DesignMode && Modal)
-            {
-                int i = 1;
-                panelSelect.Visible = true;
-                foreach (DataGridView dgv in AllGridView)
-                {
-                    DataGridViewCheckBoxColumn c = new DataGridViewCheckBoxColumn
-                    {
-                        Name = "AutoCheckBoxColumn" + i++,
-                        HeaderText = "选择",
-                        ValueType = typeof(bool),
-                        AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader,
-                        SortMode = DataGridViewColumnSortMode.NotSortable,
-                        DisplayIndex = 0,
-                        ReadOnly = false,
-                        Frozen = true,
-                    };
-                    dgv.Columns.Insert(0, c);
-                    dgv.CellValueChanged += Dgv_CellValueChanged;
-                }
-            }
-
-
             //==============================================
             //               生成Select语句
             //==============================================
@@ -401,7 +374,7 @@ FROM {2}                    --setence_from
             }
 
             object idValue = (from c in obj.DataGridView.Columns.OfType<DataGridViewColumn>()
-                              where string.Equals(c.Name, "ID", StringComparison.CurrentCultureIgnoreCase)
+                              where string.Equals(c.Name, "STATICCOL_ID", StringComparison.CurrentCultureIgnoreCase)
                               select obj.DataGridView[c.Index, obj.RowIndex].Value).FirstOrDefault();
 
             if (idValue.IsNullOrDbNull() || !long.TryParse(idValue.ToString(), out long id))
@@ -432,7 +405,7 @@ FROM {2}                    --setence_from
             CheckViewModelAndFormType();
             var vm = CreateViewModel();
 
-            AutoEditForm form =(AutoEditForm) Activator.CreateInstance(EditFormType, vm, "新增 - " + Title, EditFormPurpose.Create);
+            AutoEditForm form = (AutoEditForm)Activator.CreateInstance(EditFormType, vm, "新增 - " + Title, EditFormPurpose.Create);
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
@@ -551,6 +524,38 @@ FROM {2}                    --setence_from
         private void RefreshData_Click(object sender, EventArgs e) => ExecuteCommand(FormCommand.RefreshData);
         private void DataList_Load(object sender, EventArgs e)
         {
+            //==============================================
+            //              设置为数据选择窗口
+            //==============================================
+            if (!DesignMode && Modal)
+            {
+                int i = 1;
+                panelSelect.Visible = true;
+                foreach (DataGridView dgv in AllGridView)
+                {
+                    dgv.ReadOnly = false;
+
+                    foreach (DataGridViewColumn col in dgv.Columns)
+                        col.ReadOnly = true;
+
+                    DataGridViewCheckBoxColumn c = new DataGridViewCheckBoxColumn
+                    {
+                        Name = "AutoCheckBoxColumn" + i++,
+                        HeaderText = "选择",
+                        ValueType = typeof(bool),
+                        AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader,
+                        SortMode = DataGridViewColumnSortMode.NotSortable,
+                        DisplayIndex = 0,
+                        ReadOnly = false,
+                        Frozen = true,
+                    };
+                    dgv.Columns.Insert(0, c);
+                    dgv.CellValueChanged += Dgv_CellValueChanged;
+                }
+            }
+            //==============================================
+            //      从数据库加载列的ValueType等属性
+            //==============================================
             if (!DesignMode)
             {
                 PageIndex = 1;

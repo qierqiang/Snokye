@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Snokye.VVM
 {
-    public interface IBillViewModel<T>
+    public interface IBillViewModel
     {
-
+        Type GetDetailModelType();
 
         IList GetDetails();
     }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Text;
 
 namespace Snokye.VVM
 {
@@ -64,7 +65,20 @@ namespace Snokye.VVM
                 {
                     UserInfo __admin = new UserInfo { DisplayName = "系统管理员", Password = "123456".GetMD5(), UserName = "admin", UserGuid = Guid.NewGuid() };
                     container.AddToUserInfoSet(__admin);
-                    container.SaveChanges();
+
+                    for (int i = 0; i < 100; i++)
+                    {
+                        //0xB0A1 - 0xF7FE
+                        UserInfo u = new UserInfo
+                        {
+                            UserName = "User" + i,
+                            DisplayName = "User" + i,
+                            Password = "123456".GetMD5()
+                        };
+                        container.AddToUserInfoSet(u);
+
+                        container.SaveChanges();
+                    }
                 }
 #endif
                 var user = container.UserInfoSet.FirstOrDefault(u => u.UserName == UserName && u.Password == hashValue);

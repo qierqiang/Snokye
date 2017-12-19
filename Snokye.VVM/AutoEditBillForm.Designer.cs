@@ -28,30 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabDetail = new System.Windows.Forms.TabControl();
             this.tabPageDefualt = new System.Windows.Forms.TabPage();
+            this.tabDetail = new System.Windows.Forms.TabControl();
             this.tabDetail.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // tabDetail
-            // 
-            this.tabDetail.Controls.Add(this.tabPageDefualt);
-            this.tabDetail.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tabDetail.Location = new System.Drawing.Point(0, 306);
-            this.tabDetail.Name = "tabDetail";
-            this.tabDetail.SelectedIndex = 0;
-            this.tabDetail.Size = new System.Drawing.Size(1013, 215);
-            this.tabDetail.TabIndex = 2;
             // 
             // tabPageDefualt
             // 
             this.tabPageDefualt.Location = new System.Drawing.Point(4, 22);
             this.tabPageDefualt.Name = "tabPageDefualt";
             this.tabPageDefualt.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageDefualt.Size = new System.Drawing.Size(1005, 189);
+            this.tabPageDefualt.Size = new System.Drawing.Size(1005, 436);
             this.tabPageDefualt.TabIndex = 0;
             this.tabPageDefualt.Text = "明细";
             this.tabPageDefualt.UseVisualStyleBackColor = true;
+            // 
+            // tabDetail
+            // 
+            this.tabDetail.Controls.Add(this.tabPageDefualt);
+            this.tabDetail.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabDetail.Location = new System.Drawing.Point(0, 59);
+            this.tabDetail.MinimumSize = new System.Drawing.Size(0, 400);
+            this.tabDetail.Name = "tabDetail";
+            this.tabDetail.SelectedIndex = 0;
+            this.tabDetail.Size = new System.Drawing.Size(1013, 462);
+            this.tabDetail.TabIndex = 2;
             // 
             // AutoEditBillForm
             // 
@@ -70,7 +71,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabDetail;
         private System.Windows.Forms.TabPage tabPageDefualt;
+        private System.Windows.Forms.TabControl tabDetail;
     }
 }

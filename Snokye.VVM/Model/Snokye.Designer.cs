@@ -12,7 +12,7 @@
 [assembly: global::System.Data.Objects.DataClasses.EdmRelationshipAttribute("Snokye.VVM.Model", "UserInfoBillBase", "UserInfo", global::System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Snokye.VVM.Model.UserInfo), "BillBase", global::System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Snokye.VVM.Model.BillBase))]
 
 // 原始文件名:
-// 生成日期: 2017/12/17 18:47:38
+// 生成日期: 2017/12/19 19:44:28
 namespace Snokye.VVM.Model
 {
     

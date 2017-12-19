@@ -129,6 +129,11 @@ namespace Snokye.VVM
             }
         }
 
+        internal void SetHeaderVisible(bool showGroupHeader)
+        {
+            panel1.Visible = showGroupHeader;
+        }
+
         private TableLayoutPanel NewRow()
         {
             Panel panel = new Panel

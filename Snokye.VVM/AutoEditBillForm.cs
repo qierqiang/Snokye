@@ -38,6 +38,7 @@ namespace Snokye.VVM
             toolStrip1.Items.Insert(1, _bRemove);
             toolStrip1.Items.Insert(1, _bAddRow);
             toolStrip1.Items.Insert(1, _separator);
+            ShowGroupHeader = false;
 
             InitializeComponent();
 
@@ -48,13 +49,18 @@ namespace Snokye.VVM
         {
             SuspendLayout();
 
-            IBillViewModel bvm = (IBillViewModel)ViewModel;
-            BillDetailEditor billDetailEditor = new BillDetailEditor(bvm.GetDetails(), FormPurpose)
+            int minHeigh = toolStrip1.Height;
+            Controls.OfType<AutoEditGroup>().ToList().ForEach(g => minHeigh += g.Height);
+            //MinimumSize = new Size(0, minHeigh + 200);
+            AutoScrollMinSize = new Size(0, minHeigh + 200);
+
+            BillDetailEditor billDetailEditor = new BillDetailEditor(ViewModel, FormPurpose)
             {
                 Dock = DockStyle.Fill,
                 Parent = tabPageDefualt,
             };
             _detailEditor = billDetailEditor;
+
             ResumeLayout();
         }
 

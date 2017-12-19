@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/17/2017 18:47:28
+-- Date Created: 12/19/2017 19:44:07
 -- Generated from EDMX file: D:\Projects\Snokye\Snokye.VVM\Model\Snokye.edmx
 -- --------------------------------------------------
 
@@ -20,6 +20,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_UserInfoBillBase]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[BillBaseSet] DROP CONSTRAINT [FK_UserInfoBillBase];
 GO
+IF OBJECT_ID(N'[dbo].[FK_ExampleBill_inherits_BillBase]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[BillBaseSet_ExampleBill] DROP CONSTRAINT [FK_ExampleBill_inherits_BillBase];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -33,6 +36,9 @@ IF OBJECT_ID(N'[dbo].[ProfileSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[BillBaseSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[BillBaseSet];
+GO
+IF OBJECT_ID(N'[dbo].[BillBaseSet_ExampleBill]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[BillBaseSet_ExampleBill];
 GO
 
 -- --------------------------------------------------

@@ -312,6 +312,7 @@
       <DependentUpon>Snokye.edmx</DependentUpon>
     </None>
     <None Include="Properties\DataSources\AdvFilterBar.datasource" />
+    <None Include="README.md" />
     <None Include="Resources\icons8-保存-40.png" />
   </ItemGroup>
   <ItemGroup>
