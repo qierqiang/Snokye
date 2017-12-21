@@ -17,7 +17,7 @@ namespace Snokye.VVM.Model
 
         public MappedViewModelBase()
         {
-            PropertyNames = new HashSet<string>(this.GetType().GetProperties().Select(p => p.Name));
+            PropertyNames = new HashSet<string>(GetType().GetProperties().Select(p => p.Name));
             PropertyMappedEntity = new Dictionary<string, EntityObject>();
             PropertyMappedProperty = new Dictionary<string, string>();
         }

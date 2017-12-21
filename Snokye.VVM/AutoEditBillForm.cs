@@ -16,7 +16,8 @@ namespace Snokye.VVM
         private ToolStripSeparator _separator;
         private ToolStripButton _bAddRow;
         private ToolStripButton _bRemove;
-        private BillDetailEditor _detailEditor;
+        protected BillDetailEditor _detailEditor;
+        protected IBillViewModel _billModel;
 
         //ctor
         /// <summary>
@@ -30,7 +31,8 @@ namespace Snokye.VVM
         public AutoEditBillForm(ViewModelBase vm, string title, EditFormPurpose formPurpose)
             : base(vm, title, formPurpose)
         {
-            if (!vm.GetType().Is(typeof(IBillViewModel))) throw new Exception(vm.GetType().FullName + "不是有效的IBillViewModel！");
+            //if (!vm.GetType().Is(typeof(IBillViewModel))) throw new Exception(vm.GetType().FullName + "不是有效的IBillViewModel！");
+            _billModel = (IBillViewModel)vm;
 
             _separator = new ToolStripSeparator();
             _bAddRow = new ToolStripButton("添加明细(&A)", Properties.Resources.icons8_加_40, OnAddRow, "bAddRow") { TextImageRelation = TextImageRelation.ImageAboveText };
@@ -51,8 +53,7 @@ namespace Snokye.VVM
 
             int minHeigh = toolStrip1.Height;
             Controls.OfType<AutoEditGroup>().ToList().ForEach(g => minHeigh += g.Height);
-            //MinimumSize = new Size(0, minHeigh + 200);
-            AutoScrollMinSize = new Size(0, minHeigh + 200);
+            AutoScrollMinSize = new Size(0, Math.Min(Screen.GetWorkingArea(this).Height, minHeigh + 200));
 
             BillDetailEditor billDetailEditor = new BillDetailEditor(ViewModel, FormPurpose)
             {
@@ -64,8 +65,14 @@ namespace Snokye.VVM
             ResumeLayout();
         }
 
-        private void OnAddRow(object sender, EventArgs e) { }
-        private void OnRemove(object sender, EventArgs e) { }
+        private void OnAddRow(object sender, EventArgs e) => _billModel.NewDetail();
+        private void OnRemove(object sender, EventArgs e)
+        {
+            if (_detailEditor.CurrentCell != null)
+            {
+                _billModel.GetDetails().RemoveAt(_detailEditor.CurrentCell.RowIndex);
+            }
+        }
 
         public override void ExecuteCommand(FormCommand operation)
         {

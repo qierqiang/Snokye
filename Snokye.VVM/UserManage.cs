@@ -7,13 +7,9 @@ namespace Snokye.VVM
 {
     public partial class UserManage : DataListBase
     {
-        public UserManage()
+        public UserManage() : base(typeof(VMEditUser), typeof(AutoEditForm), typeof(AutoEditForm), "用户")
         {
             InitializeComponent();
-            Title = "用户";
-            ViewModelType = typeof(VMEditUser);
-            EditFormType = typeof(AutoEditForm);
-            ViewFormType = typeof(AutoEditForm);
         }
 
         public override void BeginInit()

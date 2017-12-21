@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -12,7 +13,7 @@ namespace Snokye.VVM
 {
     public class VMExampleBill : MappedViewModelBase, IBillViewModel
     {
-        public List<VMExampleBillDetail> _details = new List<VMExampleBillDetail>();// { new VMExampleBillDetail(), };
+        public BindingList<VMExampleBillDetail> _details = new BindingList<VMExampleBillDetail>();// { new VMExampleBillDetail(), };
 
         [AutoGenControl(EditorType = typeof(TextBox), DisplayName = "编号", ReadOnlyWhenCreate = true, ReadOnlyWhenModify = true)]
         public string Number { get; set; }
@@ -46,6 +47,7 @@ namespace Snokye.VVM
                             UserID = u.Id,
                             UserName = u.UserName,
                         };
+                        d = ViewModelProxy.Proxy(d);
                         _details.Add(d);
                     }
                 }
@@ -53,7 +55,16 @@ namespace Snokye.VVM
         }
 
         public Type GetDetailModelType() => typeof(VMExampleBillDetail);
-        public IList GetDetails() => _details;
+
+        public IBindingList GetDetails() => _details;
+
+        public ViewModelBase NewDetail()
+        {
+            VMExampleBillDetail d = new VMExampleBillDetail();
+            d = ViewModelProxy.Proxy(d);
+            _details.Add(d);
+            return d;
+        }
     }
 
     public class VMExampleBillDetail : MappedViewModelBase

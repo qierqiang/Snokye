@@ -140,6 +140,9 @@
     <Compile Include="Dashboard.Designer.cs">
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="EditFormPurpose.cs" />
     <Compile Include="ExampleBillEditForm.cs">
       <SubType>Form</SubType>

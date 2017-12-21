@@ -38,8 +38,8 @@
             this.ClientSize = new System.Drawing.Size(862, 461);
             this.Name = "UserManage";
             this.Sentence_Select = "[ID] AS \'ID\'";
-            this.Text = "UserManage";
-            this.Title = "用户管理";
+            //this.Text = "UserManage";
+            //this.Text = "用户管理";
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

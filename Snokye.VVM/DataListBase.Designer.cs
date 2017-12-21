@@ -309,6 +309,7 @@
             this.Controls.Add(this.pagingControl1);
             this.Controls.Add(this.panelSelect);
             this.Name = "DataListBase";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Load += new System.EventHandler(this.DataList_Load);
             this.panelSelect.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);

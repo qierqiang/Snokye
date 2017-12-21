@@ -12,7 +12,7 @@ namespace Snokye.VVM
         public Type ColumnType { get; set; }
 
         public Type SelectFormType { get; set; }
-
+       
         public string DisplayName { get; set; }
 
         public int DefaultWidth { get; set; }

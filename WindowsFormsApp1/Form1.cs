@@ -23,6 +23,7 @@ namespace WindowsFormsApp1
             dt.Columns.Add("But");
             dt.Rows.Add("aa");
             gridViewer1.DataSource = dt;
+           
         }
     }
 }

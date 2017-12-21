@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Snokye.Controls;
+using Snokye.Utility;
+using Snokye.VVM.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
-using Snokye.Controls;
-using Snokye.Utility;
-using System.Data.SqlClient;
 using CD = Snokye.VVM.ColumnDefinition;
-using Snokye.VVM.Model;
-using System.Reflection;
 
 namespace Snokye.VVM
 {
@@ -39,27 +39,15 @@ namespace Snokye.VVM
         /// </summary>
         [Browsable(false)]
         public List<FilterDefinition> FilterDefinitions { get; set; }
-
-        /// <summary>
-        /// 页面标题
-        /// </summary>
-        public string Title
-        {
-            get => tslTitle.Text;
-            set
-            {
-                tslTitle.Text = value;
-                Text = value;
-            }
-        }
-
+        
         //ctor & inti
-        public DataListBase() : this(null, null, null) { }
+        public DataListBase() : this(null, null, null, "列表") { }
 
-        public DataListBase(Type viewModelType, Type editFormType, Type viewFormType)
+        public DataListBase(Type viewModelType, Type editFormType, Type viewFormType, string title)
         {
             InitializeComponent();
-            Text = Title;
+            Text = title;
+            tslTitle.Text = title;
             ViewModelType = viewModelType;
             EditFormType = editFormType;
             ViewFormType = viewFormType;
@@ -99,7 +87,7 @@ namespace Snokye.VVM
             //==============================================
 
             //空白组默认设置为页面标题
-            ColumnDefinitions.ForEach(c => { if (c.GroupName.IsNullOrWhiteSpace()) c.GroupName = Title; });
+            ColumnDefinitions.ForEach(c => { if (c.GroupName.IsNullOrWhiteSpace()) c.GroupName = Text; });
 
             //创建Tab页
             tabContainer.TabPages.Clear();
@@ -177,6 +165,57 @@ namespace Snokye.VVM
                 d.ColumnHeaderMouseClick += ColumnHeaderMouseClick;
                 d.SelectionChanged += SelectionChanged;
             });
+        }
+
+        private void DataList_Load(object sender, EventArgs e)
+        {
+            //==============================================
+            //              设置窗口按钮
+            //==============================================
+            //if 
+            //==============================================
+            //              设置为数据选择窗口
+            //==============================================
+            if (!DesignMode && Modal)
+            {
+                int i = 1;
+                panelSelect.Visible = true;
+                foreach (var item in toolStrip1.Items.OfType<ToolStripItem>())
+                {
+                    if (item != tslTitle)
+                        item.Visible = false;
+                }
+                //foreach (DataGridView dgv in AllGridView)
+                //{
+                //    dgv.ReadOnly = false;
+
+                //    foreach (DataGridViewColumn col in dgv.Columns)
+                //        col.ReadOnly = true;
+
+                //    DataGridViewCheckBoxColumn c = new DataGridViewCheckBoxColumn
+                //    {
+                //        Name = "AutoCheckBoxColumn" + i++,
+                //        HeaderText = "选择",
+                //        ValueType = typeof(bool),
+                //        AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader,
+                //        SortMode = DataGridViewColumnSortMode.NotSortable,
+                //        DisplayIndex = 0,
+                //        ReadOnly = false,
+                //        Frozen = true,
+                //    };
+                //    dgv.Columns.Insert(0, c);
+                //    dgv.CellValueChanged += Dgv_CellValueChanged;
+                //}
+            }
+            //==============================================
+            //      从数据库加载列的ValueType等属性
+            //==============================================
+            if (!DesignMode)
+            {
+                PageIndex = 1;
+                Sentence_Where = new KeyValuePair<string, SqlParameter[]>("1>1", null);
+                Query();
+            }
         }
 
         #endregion
@@ -292,36 +331,36 @@ FROM {2}                    --setence_from
 
         #region 表格事件
 
-        private void Dgv_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            //仅选中时才发生
-            if (AllGridView.Count > 1 && sender is DataGridView dgv && dgv.Columns[e.ColumnIndex] is DataGridViewCheckBoxColumn col && col.Name.StartsWith("AutoCheckBoxColumn") && (bool)dgv[e.ColumnIndex, e.RowIndex].Value)
-            {
-                //其它行设置为不选择
-                var query = from d in AllGridView
-                            from c in d.Columns.OfType<DataGridViewCheckBoxColumn>()
-                            where c.Name.StartsWith("AutoCheckBoxColumn")
-                            from r in d.Rows.OfType<DataGridViewRow>()
-                            where r.Index != e.RowIndex
-                            select d[c.Index, r.Index];
+        //private void Dgv_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    //仅选中时才发生
+        //    if (AllGridView.Count > 0 && sender is DataGridView dgv && dgv.Columns[e.ColumnIndex] is DataGridViewCheckBoxColumn col && col.Name.StartsWith("AutoCheckBoxColumn") && (bool)dgv[e.ColumnIndex, e.RowIndex].Value)
+        //    {
+        //        //其它行设置为不选择
+        //        var query = from d in AllGridView
+        //                    from c in d.Columns.OfType<DataGridViewCheckBoxColumn>()
+        //                    where c.Name.StartsWith("AutoCheckBoxColumn")
+        //                    from r in d.Rows.OfType<DataGridViewRow>()
+        //                    where r.Index != e.RowIndex
+        //                    select d[c.Index, r.Index];
 
-                foreach (var item in query)
-                    item.Value = false;
+        //        foreach (var item in query)
+        //            item.Value = false;
 
-                //选中其它表格行
-                query = from d in AllGridView
-                        where d != dgv
-                        from c in d.Columns.OfType<DataGridViewCheckBoxColumn>()
-                        where c.Name.StartsWith("AutoCheckBoxColumn")
-                        from r in d.Rows.OfType<DataGridViewRow>()
-                        where r.Index == e.RowIndex
-                        select d[c.Index, r.Index];
+        //        //选中其它表格行
+        //        query = from d in AllGridView
+        //                where d != dgv
+        //                from c in d.Columns.OfType<DataGridViewCheckBoxColumn>()
+        //                where c.Name.StartsWith("AutoCheckBoxColumn")
+        //                from r in d.Rows.OfType<DataGridViewRow>()
+        //                where r.Index == e.RowIndex
+        //                select d[c.Index, r.Index];
 
-                foreach (var item in query)
-                    if (!true.Equals(item.Value))
-                        item.Value = true;
-            }
-        }
+        //        foreach (var item in query)
+        //            if (!true.Equals(item.Value))
+        //                item.Value = true;
+        //    }
+        //}
 
         private void ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -354,33 +393,43 @@ FROM {2}                    --setence_from
 
         #region 返回值相关
 
+        //[Browsable(false)]
+        //public long SelectedID { get; protected set; }
+
         [Browsable(false)]
-        public long SelectedID { get; protected set; }
+        public MappedViewModelBase SelectedModel { get; protected set; }
 
         private void bSelect_Click(object sender, EventArgs e)
         {
+            //var query = from d in AllGridView
+            //            from c in d.Columns.OfType<DataGridViewCheckBoxColumn>()
+            //            where c.Name.StartsWith("AutoCheckBoxColumn")
+            //            from r in d.Rows.OfType<DataGridViewRow>()
+            //            where Equals(d[c.Index, r.Index].Value, true)
+            //            select new { DataGridView = d, RowIndex = r.Index };
+
             var query = from d in AllGridView
-                        from c in d.Columns.OfType<DataGridViewCheckBoxColumn>()
-                        where c.Name.StartsWith("AutoCheckBoxColumn")
-                        from r in d.Rows.OfType<DataGridViewRow>()
-                        where Equals(d[c.Index, r.Index].Value, true)
-                        select new { DataGridView = d, RowIndex = r.Index };
+                        where d.CurrentCell != null
+                        from c in d.Columns.OfType<DataGridViewColumn>()
+                        where string.Equals(c.Name, "STATICCOL_ID", StringComparison.CurrentCultureIgnoreCase)
+                        select d[c.Index, d.CurrentCell.RowIndex].Value;
             var obj = query.FirstOrDefault();
 
-            if (obj == null)
+            if (obj.IsNullOrDbNull() || !long.TryParse(obj.ToString(), out long id))
             {
                 Msgbox.Warning("请先选择数据。");
                 return;
             }
 
-            object idValue = (from c in obj.DataGridView.Columns.OfType<DataGridViewColumn>()
-                              where string.Equals(c.Name, "STATICCOL_ID", StringComparison.CurrentCultureIgnoreCase)
-                              select obj.DataGridView[c.Index, obj.RowIndex].Value).FirstOrDefault();
+            //object idValue = (from c in obj.DataGridView.Columns.OfType<DataGridViewColumn>()
+            //                  where string.Equals(c.Name, "STATICCOL_ID", StringComparison.CurrentCultureIgnoreCase)
+            //                  select obj.DataGridView[c.Index, obj.RowIndex].Value).FirstOrDefault();
 
-            if (idValue.IsNullOrDbNull() || !long.TryParse(idValue.ToString(), out long id))
-                throw new Exception("没有找到选择行的ID值。");
+            //if (idValue.IsNullOrDbNull() || !long.TryParse(idValue.ToString(), out long id))
+            //    throw new Exception("没有找到选择行的ID值。");
 
-            SelectedID = id;
+            //SelectedID = id;
+            SelectedModel = CreateViewModel(id);
             DialogResult = DialogResult.OK;
             Close();
         }
@@ -405,7 +454,7 @@ FROM {2}                    --setence_from
             CheckViewModelAndFormType();
             var vm = CreateViewModel();
 
-            AutoEditForm form = (AutoEditForm)Activator.CreateInstance(EditFormType, vm, "新增 - " + Title, EditFormPurpose.Create);
+            AutoEditForm form = (AutoEditForm)Activator.CreateInstance(EditFormType, vm, "新增 - " + Text, EditFormPurpose.Create);
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
@@ -420,7 +469,7 @@ FROM {2}                    --setence_from
             if (id > 0)
             {
                 var vm = CreateViewModel(id);
-                AutoEditForm form = (AutoEditForm)Activator.CreateInstance(EditFormType, vm, "修改 - " + Title, EditFormPurpose.Modify);
+                AutoEditForm form = (AutoEditForm)Activator.CreateInstance(EditFormType, vm, "修改 - " + Text, EditFormPurpose.Modify);
 
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
@@ -436,7 +485,7 @@ FROM {2}                    --setence_from
             if (id > 0)
             {
                 var vm = CreateViewModel(id);
-                AutoEditForm form = (AutoEditForm)Activator.CreateInstance(EditFormType, vm, "查看 - " + Title, EditFormPurpose.View);
+                AutoEditForm form = (AutoEditForm)Activator.CreateInstance(EditFormType, vm, "查看 - " + Text, EditFormPurpose.View);
 
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
@@ -522,46 +571,5 @@ FROM {2}                    --setence_from
         private void Filter_Click(object sender, EventArgs e) => ExecuteCommand(FormCommand.Filter);
         private void AdvFilter_Click(object sender, EventArgs e) => ExecuteCommand(FormCommand.AdvFilter);
         private void RefreshData_Click(object sender, EventArgs e) => ExecuteCommand(FormCommand.RefreshData);
-        private void DataList_Load(object sender, EventArgs e)
-        {
-            //==============================================
-            //              设置为数据选择窗口
-            //==============================================
-            if (!DesignMode && Modal)
-            {
-                int i = 1;
-                panelSelect.Visible = true;
-                foreach (DataGridView dgv in AllGridView)
-                {
-                    dgv.ReadOnly = false;
-
-                    foreach (DataGridViewColumn col in dgv.Columns)
-                        col.ReadOnly = true;
-
-                    DataGridViewCheckBoxColumn c = new DataGridViewCheckBoxColumn
-                    {
-                        Name = "AutoCheckBoxColumn" + i++,
-                        HeaderText = "选择",
-                        ValueType = typeof(bool),
-                        AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader,
-                        SortMode = DataGridViewColumnSortMode.NotSortable,
-                        DisplayIndex = 0,
-                        ReadOnly = false,
-                        Frozen = true,
-                    };
-                    dgv.Columns.Insert(0, c);
-                    dgv.CellValueChanged += Dgv_CellValueChanged;
-                }
-            }
-            //==============================================
-            //      从数据库加载列的ValueType等属性
-            //==============================================
-            if (!DesignMode)
-            {
-                PageIndex = 1;
-                Sentence_Where = new KeyValuePair<string, SqlParameter[]>("1>1", null);
-                Query();
-            }
-        }
     }
 }

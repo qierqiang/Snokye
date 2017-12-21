@@ -8,15 +8,20 @@ using System.Windows.Forms;
 using Snokye.Utility;
 using System.Reflection;
 using System.Drawing;
+using Snokye.VVM.Model;
+using System.ComponentModel;
 
 namespace Snokye.VVM
 {
-    public class BillDetailEditor : GridViewer //where T : ViewModelBase
+    public class BillDetailEditor : GridViewer
     {
+        public event Action<int, int, MappedViewModelBase> ModelSelected;
+
         private EditFormPurpose _formPurpose;
 
-        public IList ViewModelList { get; private set; }
+        public IBindingList ViewModelList { get; private set; }
 
+        [Browsable(false)]
         public ViewModelBase BillViewModel { get; private set; }
 
         /// <summary>
@@ -26,10 +31,10 @@ namespace Snokye.VVM
 
         public BillDetailEditor(ViewModelBase billViewModel, EditFormPurpose formPurpose)
         {
-            if (!billViewModel.GetType().Is(typeof(IBillViewModel))) throw new Exception(billViewModel.GetType().FullName + "不是有效的IBillViewModel！");
-            ViewModelList = (IList)((IBillViewModel)billViewModel).GetDetails();
+            //if (!billViewModel.GetType().Is(typeof(IBillViewModel))) throw new Exception(billViewModel.GetType().FullName + "不是有效的IBillViewModel！");
+            ViewModelList = (IBindingList)((IBillViewModel)billViewModel).GetDetails();
             _formPurpose = formPurpose;
-            
+
             RowHeadersWidth = 40;
             ReadOnly = false;
             BillViewModel = billViewModel;
@@ -48,8 +53,13 @@ namespace Snokye.VVM
                 col.Tag is Type type &&
                 type.Is(typeof(DataListBase)))
             {
-                Form f = (Form)Activator.CreateInstance(type);
-                f.ShowDialog(this.GetParentForm());
+                DataListBase f = (DataListBase)Activator.CreateInstance(type);
+                if (f.ShowDialog(this.GetParentForm()) == DialogResult.OK)
+                {
+                    MappedViewModelBase model = f.SelectedModel;
+                    //赋值
+                    ModelSelected?.Invoke(e.RowIndex, e.ColumnIndex, model);
+                }
             }
         }
 

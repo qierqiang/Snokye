@@ -207,7 +207,7 @@ namespace Snokye.VVM
             VMExampleBill b = new VMExampleBill();
             b.LoadByID(1);
             b = ViewModelProxy.Proxy(b);
-            ExampleBillEditForm f = new ExampleBillEditForm(b, EditFormPurpose.Create);
+            ExampleBillEditForm f = new ExampleBillEditForm(b,"演示表单", EditFormPurpose.Create);
             f.ShowDialog(this);
         }
     }
