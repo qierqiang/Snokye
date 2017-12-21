@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Remoting.Proxies;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -135,6 +136,10 @@ namespace Snokye.Utility
         public static object JsonDeserialize(this string source) => JsonConvert.DeserializeObject(source);
 
         public static bool In(this object source, params object[] collection) => collection.Contains(source);
+
+        public static Type GetRealType(this object source) => source is RealProxy rp ? rp.GetProxiedType() : source.GetType();
+
+        public static object GetPropertyValue(this object source, string propertyName) => source.GetRealType().GetProperty(propertyName).GetValue(source, null);
 
         //type
         public static bool IsNumericType(this Type source)

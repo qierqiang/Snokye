@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Objects.DataClasses;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -16,10 +17,10 @@ namespace Snokye.VVM
             : base(bill, title, formPurpose)
         {
             InitializeComponent();
-            _detailEditor.ModelSelected += _detailEditor_ModelSelected;
+            _detailEditor.EntitySelected += _detailEditor_ModelSelected;
         }
 
-        private void _detailEditor_ModelSelected(int rowIndex, int colIndex, MappedViewModelBase modelBase)
+        private void _detailEditor_ModelSelected(int rowIndex, int colIndex, EntityObject entity)
         {
 
         }

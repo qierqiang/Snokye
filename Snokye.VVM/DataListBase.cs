@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Objects;
+using System.Data.Objects.DataClasses;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
@@ -17,6 +19,8 @@ namespace Snokye.VVM
 {
     public partial class DataListBase : Form, ISupportInitialize
     {
+        public const string ID_ColumnName = "STATICCOL_ID";
+
         #region 布局相关
 
         /// <summary>
@@ -39,7 +43,7 @@ namespace Snokye.VVM
         /// </summary>
         [Browsable(false)]
         public List<FilterDefinition> FilterDefinitions { get; set; }
-        
+
         //ctor & inti
         public DataListBase() : this(null, null, null, "列表") { }
 
@@ -61,7 +65,7 @@ namespace Snokye.VVM
         {
             ColumnDefinitions = new List<CD>
             {
-                new CD(typeof(DataGridViewTextBoxColumn), "ID",   null, "ID", "STATICCOL_ID", visible:false),
+                new CD(typeof(DataGridViewTextBoxColumn), "ID",   null, "ID", ID_ColumnName, visible:false),
             };
             FilterDefinitions = new List<FilterDefinition>();
         }
@@ -164,15 +168,12 @@ namespace Snokye.VVM
             {
                 d.ColumnHeaderMouseClick += ColumnHeaderMouseClick;
                 d.SelectionChanged += SelectionChanged;
+                d.CellDoubleClick += CellDoubleClick;
             });
         }
 
         private void DataList_Load(object sender, EventArgs e)
         {
-            //==============================================
-            //              设置窗口按钮
-            //==============================================
-            //if 
             //==============================================
             //              设置为数据选择窗口
             //==============================================
@@ -206,6 +207,32 @@ namespace Snokye.VVM
                 //    dgv.Columns.Insert(0, c);
                 //    dgv.CellValueChanged += Dgv_CellValueChanged;
                 //}
+            }
+            else
+            {
+                //==============================================
+                //              设置窗口按钮
+                //==============================================
+                if (ViewModelType == null)
+                {
+                    foreach (var item in toolStrip1.Items.OfType<ToolStripItem>())
+                    {
+                        if (item != tslTitle)
+                            item.Visible = false;
+                    }
+                }
+                else
+                {
+                    if (EditFormType == null)
+                    {
+                        bNew.Visible = false;
+                        bEdit.Visible = false;
+                    }
+                    if (ViewFormType == null)
+                    {
+                        bView.Visible = false;
+                    }
+                }
             }
             //==============================================
             //      从数据库加载列的ValueType等属性
@@ -389,6 +416,14 @@ FROM {2}                    --setence_from
             //throw new NotImplementedException();
         }
 
+        private void CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex > -1 && e.RowIndex > -1 && ((DataGridView)sender).CurrentCell != null)
+            {
+                bSelect_Click(bSelect, EventArgs.Empty);
+            }
+        }
+
         #endregion
 
         #region 返回值相关
@@ -397,7 +432,15 @@ FROM {2}                    --setence_from
         //public long SelectedID { get; protected set; }
 
         [Browsable(false)]
-        public MappedViewModelBase SelectedModel { get; protected set; }
+        public EntityObject SelectedEntity { get; protected set; }
+
+        [Browsable(false)]
+        public string EntityType { get; private set; }
+
+        public DataListBase(string entityType, string title) : this(null, null, null, title)
+        {
+            EntityType = entityType;
+        }
 
         private void bSelect_Click(object sender, EventArgs e)
         {
@@ -411,7 +454,7 @@ FROM {2}                    --setence_from
             var query = from d in AllGridView
                         where d.CurrentCell != null
                         from c in d.Columns.OfType<DataGridViewColumn>()
-                        where string.Equals(c.Name, "STATICCOL_ID", StringComparison.CurrentCultureIgnoreCase)
+                        where string.Equals(c.Name, ID_ColumnName, StringComparison.CurrentCultureIgnoreCase)
                         select d[c.Index, d.CurrentCell.RowIndex].Value;
             var obj = query.FirstOrDefault();
 
@@ -422,15 +465,22 @@ FROM {2}                    --setence_from
             }
 
             //object idValue = (from c in obj.DataGridView.Columns.OfType<DataGridViewColumn>()
-            //                  where string.Equals(c.Name, "STATICCOL_ID", StringComparison.CurrentCultureIgnoreCase)
+            //                  where string.Equals(c.Name, ID_ColumnName, StringComparison.CurrentCultureIgnoreCase)
             //                  select obj.DataGridView[c.Index, obj.RowIndex].Value).FirstOrDefault();
 
             //if (idValue.IsNullOrDbNull() || !long.TryParse(idValue.ToString(), out long id))
             //    throw new Exception("没有找到选择行的ID值。");
 
             //SelectedID = id;
-            SelectedModel = CreateViewModel(id);
-            DialogResult = DialogResult.OK;
+            using (SnokyeContainer c = new SnokyeContainer())
+            {
+                //ObjectQuery set = (ObjectQuery)c.GetPropertyValue(EntityType);
+                //var queryEntity = from e in set
+                //                  where e
+                EntityKey key = new EntityKey(c.DefaultContainerName + "." + EntityType + "Set", "Id", id);
+                SelectedEntity = c.GetObjectByKey(key) as EntityObject;
+                DialogResult = DialogResult.OK;
+            }
             Close();
         }
 
@@ -553,8 +603,8 @@ FROM {2}                    --setence_from
         private long GetSelectedID()
         {
             var queryId = from dgv in AllGridView
-                          where dgv.CurrentCell != null && dgv.Columns.Contains("STATICCOL_ID")
-                          select Convert.ToInt64(dgv["STATICCOL_ID", dgv.CurrentCell.RowIndex].Value);
+                          where dgv.CurrentCell != null && dgv.Columns.Contains(ID_ColumnName)
+                          select Convert.ToInt64(dgv[ID_ColumnName, dgv.CurrentCell.RowIndex].Value);
 
             return queryId.FirstOrDefault();
         }

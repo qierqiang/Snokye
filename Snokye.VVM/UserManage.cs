@@ -12,6 +12,8 @@ namespace Snokye.VVM
             InitializeComponent();
         }
 
+        public UserManage(string entityType) : base(entityType, "用户选择") { InitializeComponent(); }
+
         public override void BeginInit()
         {
             base.BeginInit();

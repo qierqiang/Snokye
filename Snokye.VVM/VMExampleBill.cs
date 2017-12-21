@@ -69,6 +69,16 @@ namespace Snokye.VVM
 
     public class VMExampleBillDetail : MappedViewModelBase
     {
+        public VMExampleBillDetail()
+        {
+            UserInfo userInfo = new UserInfo();
+            Map(nameof(ID), userInfo, () => userInfo.Id);
+            Map(nameof(UserID), userInfo, () => userInfo.Id);
+            Map(nameof(UserName), userInfo, () => userInfo.UserName);
+            Map(nameof(DisplayName), userInfo, () => userInfo.DisplayName);
+            ReadMappedPropertyValues();
+        }
+
         public long ID { get; set; }
 
         public long UserID { get; set; }
@@ -76,8 +86,8 @@ namespace Snokye.VVM
         [AutoGenColumn(DisplayName = "用户", ColumnType = typeof(DataGridViewButtonColumn), SelectFormType = typeof(UserManage))]
         public string UserName { get; set; }
 
-        [AutoGenColumn(DisplayName = "列名")]
-        public int Value { get; set; }
+        [AutoGenColumn(DisplayName = "姓名", ReadOnlyWhenCreate = true, ReadOnlyWhenModify = true)]
+        public string DisplayName { get; set; }
 
         public override void LoadByID(long id)
         {

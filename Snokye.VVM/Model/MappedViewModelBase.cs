@@ -12,8 +12,8 @@ namespace Snokye.VVM.Model
     {
         protected HashSet<string> PropertyNames;
 
-        protected Dictionary<string, EntityObject> PropertyMappedEntity;
-        protected Dictionary<string, string> PropertyMappedProperty;
+        protected internal Dictionary<string, EntityObject> PropertyMappedEntity { get; private set; }
+        protected internal Dictionary<string, string> PropertyMappedProperty { get; private set; }
 
         public MappedViewModelBase()
         {
@@ -23,7 +23,7 @@ namespace Snokye.VVM.Model
         }
 
         public abstract void LoadByID(long id);
-        
+
         public void Map<T>(string thisProperty, EntityObject entity, Expression<Func<T>> entityPropertySelector)
         {
             string entityProperty = ((MemberExpression)entityPropertySelector.Body).Member.Name;
@@ -39,6 +39,36 @@ namespace Snokye.VVM.Model
 
             PropertyMappedEntity.Add(thisProperty, entity);
             PropertyMappedProperty.Add(thisProperty, eneityProperty);
+        }
+
+        public void ChangeMappedEntity(string thisProperty, EntityObject newEntity)
+        {
+            EntityObject entity = PropertyMappedEntity[thisProperty];
+
+            var query = from item in PropertyMappedEntity
+                        where item.Value == entity
+                        select item.Key;
+
+            foreach (string p in query.ToArray())
+                PropertyMappedEntity[p] = newEntity;
+        }
+
+        public void UpdateEntityMappedValue(EntityObject entity)
+        {
+            var query = from keyValueEntity in PropertyMappedEntity
+                        where keyValueEntity.Value == entity
+                        from keyValueProper in PropertyMappedProperty
+                        where keyValueProper.Key == keyValueEntity.Key
+                        select new
+                        {
+                            TargetProperty = GetType().GetProperty(keyValueProper.Key),
+                            SourceProperty = entity.GetType().GetProperty(keyValueProper.Value)
+                        };
+
+            foreach (var item in query.Distinct())
+            {
+                item.TargetProperty.SetValue(this, item.SourceProperty.GetValue(entity, null), null);
+            }
         }
 
         public void ReadMappedPropertyValues()

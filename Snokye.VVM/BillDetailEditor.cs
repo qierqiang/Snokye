@@ -10,12 +10,13 @@ using System.Reflection;
 using System.Drawing;
 using Snokye.VVM.Model;
 using System.ComponentModel;
+using System.Data.Objects.DataClasses;
 
 namespace Snokye.VVM
 {
     public class BillDetailEditor : GridViewer
     {
-        public event Action<int, int, MappedViewModelBase> ModelSelected;
+        public event Action<int, int, EntityObject> EntitySelected;
 
         private EditFormPurpose _formPurpose;
 
@@ -50,16 +51,34 @@ namespace Snokye.VVM
         private void BillDetailEditor_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (Columns[e.ColumnIndex] is DataGridViewButtonColumn col &&
+                Rows[e.RowIndex].DataBoundItem is MappedViewModelBase mvm &&
                 col.Tag is Type type &&
                 type.Is(typeof(DataListBase)))
             {
-                DataListBase f = (DataListBase)Activator.CreateInstance(type);
-                if (f.ShowDialog(this.GetParentForm()) == DialogResult.OK)
+                PropertyInfo p = mvm.GetRealType().GetProperty(Columns[e.ColumnIndex].DataPropertyName);
+
+                if (p != null && mvm.PropertyMappedEntity.ContainsKey(p.Name))
                 {
-                    MappedViewModelBase model = f.SelectedModel;
-                    //赋值
-                    ModelSelected?.Invoke(e.RowIndex, e.ColumnIndex, model);
+                    EntityObject entity = mvm.PropertyMappedEntity[p.Name];
+
+                    if (entity != null)
+                    {
+                        string entityType = entity.GetType().Name;
+                        DataListBase f = (DataListBase)Activator.CreateInstance(type, entityType);
+                        if (f.ShowDialog(this.GetParentForm()) == DialogResult.OK)
+                        {
+                            EntityObject eo = f.SelectedEntity;
+                            mvm.ChangeMappedEntity(Columns[e.ColumnIndex].DataPropertyName, eo);
+                            mvm.UpdateEntityMappedValue(eo);
+
+                            //事件
+                            EntitySelected?.Invoke(e.RowIndex, e.ColumnIndex, eo);
+                            InvalidateRow(e.RowIndex);
+                        }
+
+                    }
                 }
+
             }
         }
 
