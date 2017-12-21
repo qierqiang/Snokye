@@ -13,7 +13,7 @@ namespace Snokye.VVM
 {
     public class VMExampleBill : MappedViewModelBase, IBillViewModel
     {
-        public BindingList<VMExampleBillDetail> _details = new BindingList<VMExampleBillDetail>();// { new VMExampleBillDetail(), };
+        BindingList<VMExampleBillDetail> _details = new BindingList<VMExampleBillDetail>();// { new VMExampleBillDetail(), };
 
         [AutoGenControl(EditorType = typeof(TextBox), DisplayName = "编号", ReadOnlyWhenCreate = true, ReadOnlyWhenModify = true)]
         public string Number { get; set; }

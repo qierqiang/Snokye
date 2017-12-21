@@ -115,6 +115,7 @@
     <Compile Include="BillDetailList1.Designer.cs">
       <DependentUpon>BillDetailList1.cs</DependentUpon>
     </Compile>
+    <Compile Include="BillStatus.cs" />
     <Compile Include="CalculateForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -173,7 +174,8 @@
       <DependentUpon>UserManage.cs</DependentUpon>
     </Compile>
     <Compile Include="VMChangePwd.cs" />
-    <Compile Include="VMDataList.cs" />
+    <Compile Include="VMCommonBill.cs" />
+    <Compile Include="VMCommonBillDetail.cs" />
     <Compile Include="VMEditUser.cs" />
     <Compile Include="VMExampleBill.cs" />
     <Compile Include="VMLoginForm.cs" />

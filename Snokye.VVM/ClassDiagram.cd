@@ -24,7 +24,7 @@
   <Class Name="Snokye.VVM.AutoEditBillForm" Collapsed="true">
     <Position X="3" Y="6" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EIAQAAAAACAAAAAAgAGEAAADIAAAAAAAAAAAAIAABAA=</HashCode>
+      <HashCode>EIAQAAEAACAAAAAAgAGEAAADIAAAAAAAAAAAAIAABAA=</HashCode>
       <FileName>AutoEditBillForm.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -66,7 +66,7 @@
   <Class Name="Snokye.VVM.BillDetailEditor" Collapsed="true">
     <Position X="16.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAIAAAAAKAAAAAAAAAAAAAAAAAAABEABAASAAAAAA=</HashCode>
+      <HashCode>AAAAIAAAAAKAACAAAAAAAAAAAAAAAABEABAAQAAAAAA=</HashCode>
       <FileName>BillDetailEditor.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -115,7 +115,7 @@
   <Class Name="Snokye.VVM.DataListBase" Collapsed="true">
     <Position X="8.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>hIYAzH2AE2iCACIIJFKhFJgCBBEBKA2CEkBkRUAUUWQ=</HashCode>
+      <HashCode>hIYAzH2AE2iCACJIJFKhFJgCRBkBKA2CEkBkRUAUUWQ=</HashCode>
       <FileName>DataListBase.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -137,7 +137,7 @@
   <Class Name="Snokye.VVM.ExampleBillEditForm" Collapsed="true">
     <Position X="3" Y="7.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAIAACAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ExampleBillEditForm.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -244,7 +244,7 @@
   <Class Name="Snokye.VVM.VMExampleBill" Collapsed="true">
     <Position X="3.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAAAAAAAAAEAAAAQAAAAAgAGBAAABAAAAAAA=</HashCode>
+      <HashCode>AQBAAAAAAAAAAAAAAEAAAAQAAAAAgAGBAAABAAAAAAA=</HashCode>
       <FileName>VMExampleBill.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -252,7 +252,7 @@
   <Class Name="Snokye.VVM.VMExampleBillDetail" Collapsed="true">
     <Position X="5.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAAAAgAAAAAAAAAgAAAAAAAAAAQAgAAAAAAA=</HashCode>
+      <HashCode>AQAAEAAAAAAAgAAAAAAAAAgAAAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>VMExampleBill.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -266,7 +266,7 @@
   <Class Name="Snokye.VVM.Model.MappedViewModelBase" Collapsed="true">
     <Position X="3.25" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAgBAAACAEAAAAgCAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQAAAAgAgBAAACAEAAAAgCAAAAAAAAAAAAAAAAAAQAA=</HashCode>
       <FileName>Model\MappedViewModelBase.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -324,7 +324,7 @@
   <Interface Name="Snokye.VVM.IBillViewModel" Collapsed="true">
     <Position X="14.75" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAEAAAAAAAAAAAA=</HashCode>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAgAEAAAAAAAAAAAA=</HashCode>
       <FileName>IBillViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
