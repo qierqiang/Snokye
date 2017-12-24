@@ -25,8 +25,7 @@ namespace Snokye.VVM
         {
             Length = length;
             Required = required;
-            double d;
-            if (double.TryParse(max, out d)) Max = d;
+            if (double.TryParse(max, out double d)) Max = d;
             if (double.TryParse(min, out d)) Min = d;
             RegexPattern = regexPattern;
         }

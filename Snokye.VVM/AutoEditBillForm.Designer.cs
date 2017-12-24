@@ -48,7 +48,6 @@
             this.tabDetail.Controls.Add(this.tabPageDefualt);
             this.tabDetail.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabDetail.Location = new System.Drawing.Point(0, 59);
-            this.tabDetail.MinimumSize = new System.Drawing.Size(0, 400);
             this.tabDetail.Name = "tabDetail";
             this.tabDetail.SelectedIndex = 0;
             this.tabDetail.Size = new System.Drawing.Size(1013, 462);
